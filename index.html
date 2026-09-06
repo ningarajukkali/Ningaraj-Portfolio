@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ningaraj Ukkali - Developer Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" onclick="scrollToTop()" title="Back to top">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <button class="logo" onclick="scrollToTop()">
+                &lt;Ningaraj /&gt;
+            </button>
+
+            <div class="nav-menu" id="navMenu">
+                <button class="nav-link" onclick="scrollToSection('hero')">Home</button>
+                <button class="nav-link" onclick="scrollToSection('about')">About</button>
+                <button class="nav-link" onclick="scrollToSection('skills')">Skills</button>
+                <button class="nav-link" onclick="scrollToSection('projects')">Projects</button>
+                <button class="nav-link" onclick="scrollToSection('education')">Education</button>
+                <button class="nav-link" onclick="scrollToSection('resume')">Resume</button>
+                <button class="nav-link" onclick="scrollToSection('contact')">Contact</button>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+                <i data-lucide="menu" class="menu-icon"></i>
+                <i data-lucide="x" class="close-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+
+    <!-- Starfield Background -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="floating-particles" id="heroParticles"></div>
+
+        <div class="hero-container">
+            <!-- Text Content - Left -->
+            <div class="hero-content animate-slide-in-left">
+                <p class="hero-tag">&lt; DEVELOPER /&gt;</p>
+                <h1 class="hero-title">
+                    Hi, I'm <span class="gradient-text">Ningaraj Ukkali</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Building the future with code, creativity, and innovation
+                </p>
+
+                <!-- Stats -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">21</div>
+                        <div class="stat-label">Age</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">BCA</div>
+                        <div class="stat-label">Graduate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Full Stack</div>
+                        <div class="stat-label">Developer</div>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('projects')">
+                        View Projects
+                        <i data-lucide="arrow-right"></i>
+                    </button>
+                    <button class="btn btn-outline" onclick="scrollToSection('contact')">
+                        Contact Me
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3D Profile Card - Right -->
+            <div class="hero-image animate-slide-in-right">
+                <div class="profile-card floating">
+                    <div class="hologram-frame">
+                        <div class="ring ring-outer rotating"></div>
+                        <div class="ring ring-inner rotating-reverse"></div>
+                        <div class="profile-img-container">
+                            <img src="img/raj_ru.jpeg" alt="Ningaraj Ukkali" class="profile-img">
+                        </div>
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <span>SCROLL</span>
+                <i data-lucide="chevron-down" class="bounce"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">About <span class="text-cyan">Me</span></h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="glass-card fade-in-up">
+                <div class="corner-decoration corner-tl-deco"></div>
+                <div class="corner-decoration corner-br-deco"></div>
+
+                <div class="about-content">
+                    <div class="about-image">
+                        <div class="about-img-wrapper">
+                            <img src="img/photo.jpg" alt="Ningaraj Ukkali">
+                        </div>
+                    </div>
+
+                    <div class="about-text">
+                        <h3>Ningaraj Ukkali</h3>
+                        <div class="about-description">
+                            <p>
+                                I'm a <span class="text-cyan">21-year-old </span> and a recent
+                                <span class="text-violet">BCA graduate</span>.
+                            </p>
+                            <p>
+                                Passionate about building modern web applications and exploring the fascinating world of
+                                <span class="text-cyan">Artificial Intelligence</span>. I love turning ideas into
+                                reality through clean, efficient code.
+                            </p>
+                            <p>
+                                My journey in tech is driven by curiosity and a desire to create solutions that make a
+                                difference.
+                                Always learning, always building, always growing.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <i data-lucide="code-2"></i>
+                        <h4>Full Stack Developer</h4>
+                        <p>Building responsive and modern web applications</p>
+                    </div>
+                    <div class="feature-card">
+                        <i data-lucide="brain"></i>
+                        <h4>AI Enthusiast</h4>
+                        <p>Exploring machine learning and AI technologies</p>
+                    </div>
+                    <div class="feature-card">
+                        <i data-lucide="rocket"></i>
+                        <h4>Quick Learner</h4>
+                        <p>Always adapting to new technologies and trends</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section section-alt" id="skills">
+        <div class="grid-background"></div>
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Technical <span class="text-cyan">Skills</span></h2>
+                <div class="title-underline"></div>
+                <p class="section-subtitle">Technologies and tools I use to bring ideas to life</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card" data-color="yellow-blue">
+                    <div class="skill-icon">
+                        <i data-lucide="code"></i>
+                    </div>
+                    <h3>Python</h3>
+                    <div class="skill-progress">
+                        <div class="progress-label">
+                            <span>Proficiency</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-color="orange-red">
+                    <div class="skill-icon">
+                        <i data-lucide="file-code"></i>
+                    </div>
+                    <h3>HTML</h3>
+                    <div class="skill-progress">
+                        <div class="progress-label">
+                            <span>Proficiency</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-color="blue-cyan">
+                    <div class="skill-icon">
+                        <i data-lucide="palette"></i>
+                    </div>
+                    <h3>CSS</h3>
+                    <div class="skill-progress">
+                        <div class="progress-label">
+                            <span>Proficiency</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-color="yellow-yellow">
+                    <div class="skill-icon">
+                        <i data-lucide="globe"></i>
+                    </div>
+                    <h3>JavaScript</h3>
+                    <div class="skill-progress">
+                        <div class="progress-label">
+                            <span>Proficiency</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-color="cyan-blue">
+                    <div class="skill-icon">
+                        <i data-lucide="database"></i>
+                    </div>
+                    <h3>MySQL</h3>
+                    <div class="skill-progress">
+                        <div class="progress-label">
+                            <span>Proficiency</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-color="purple-pink">
+                    <div class="skill-icon">
+                        <i data-lucide="brain"></i>
+                    </div>
+                    <h3>AI Basics</h3>
+                    <div class="skill-progress">
+                        <div class="progress-label">
+                            <span>Proficiency</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-color="cyan-blue">
+                    <div class="skill-icon">
+                        <i data-lucide="atom"></i>
+                    </div>
+                    <h3>React.js</h3>
+                    <div class="skill-progress">
+                        <div class="progress-label">
+                            <span>Proficiency</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-color="emerald-teal">
+                    <div class="skill-icon">
+                        <i data-lucide="server"></i>
+                    </div>
+                    <h3>Node.js</h3>
+                    <div class="skill-progress">
+                        <div class="progress-label">
+                            <span>Proficiency</span>
+                            <span>45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-color="orange-amber">
+                    <div class="skill-icon">
+                        <i data-lucide="coffee"></i>
+                    </div>
+                    <h3>Java</h3>
+                    <div class="skill-progress">
+                        <div class="progress-label">
+                            <span>Proficiency</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="additional-skills fade-in-up">
+                <div class="skills-badge-container">
+                    <h4>Also familiar with</h4>
+                                        <div class="skills-badges">
+                        <span class="skill-badge">MongoDB</span>
+                        <span class="skill-badge">Express.js</span>
+                        <span class="skill-badge">Tailwind CSS</span>
+                        <span class="skill-badge">PHP</span>
+                        <span class="skill-badge">Flask</span>
+                        <span class="skill-badge">Git & GitHub</span>
+                        <span class="skill-badge">REST APIs</span>
+                        <span class="skill-badge">Firebase</span>
+                        <span class="skill-badge">Responsive Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Featured <span class="text-cyan">Projects</span></h2>
+                <div class="title-underline"></div>
+                <p class="section-subtitle">A showcase of my recent work and creative experiments</p>
+            </div>
+
+            
+            <h3 class="project-category-title" style="text-align: center; margin-bottom: 2rem; color: var(--cyan-400); font-size: 2rem;">My Projects</h3>
+            <div class="projects-grid"><div class="project-card" data-gradient="cyan-blue" data-title='CraftCycle' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>CraftCycle is a full-stack marketplace platform built to connect creators with buyers in a seamless and secure environment. Leveraging a robust Python (Flask) backend and Supabase for database management.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Secure user authentication and role management</li><li>Dynamic product listings with categorized searches</li><li>Integrated Google Generative AI for optimizing product descriptions</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Python 3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Flask</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Supabase (PostgreSQL)</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>HTML5</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>CSS3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>JavaScript (ES6+)</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Google Generative AI</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/CraftCycle' data-demo='https://craftcycle.pages.dev'>
+                    <div class="project-number">01</div>
+                    <div class="corner-accent corner-tr-accent"></div>
+                    <h3>CraftCycle</h3>
+                    <p>A full-stack marketplace platform connecting creators and buyers.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python (Flask)</span>
+                        <span class="tech-tag">Supabase</span>
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">AI Integration</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-project-view" onclick="openProjectModal(this)">
+                            <i data-lucide="external-link"></i>
+                            <span>View</span>
+                        </button>
+                        <button class="btn-project-github">
+                            <i data-lucide="github"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="project-card" data-gradient="violet-purple" data-title='E-agri-Digitaly' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>A comprehensive digital agriculture management system designed to solve modern farming challenges on a single platform. Built with core web technologies for rural accessibility.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Tools to track crop cycles and harvest timelines</li><li>Resource management for water and fertilizers</li><li>Direct connection with agricultural markets for better pricing</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>HTML5</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>CSS3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>JavaScript (ES6+)</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Bootstrap 5</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>PHP 8</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>MySQL</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/E-agri-Digitaly' data-demo='#'>
+                    <div class="project-number">02</div>
+                    <div class="corner-accent corner-tr-accent"></div>
+                    <h3>E-agri-Digitaly</h3>
+                    <p>Agriculture management system to solve farmers' problems on a single platform.</p>
+                    <div class="tech-stack" style="flex-wrap: wrap;">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript (ES6+)</span>
+                        <span class="tech-tag">Bootstrap 5</span>
+                        <span class="tech-tag">PHP 8</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Git/GitHub</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-project-view" onclick="openProjectModal(this)">
+                            <i data-lucide="external-link"></i>
+                            <span>View</span>
+                        </button>
+                        <button class="btn-project-github">
+                            <i data-lucide="github"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="project-card" data-gradient="pink-rose" data-title='PulseSimulator' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>PulseSimulator is a specialized medical training tool developed in Python. It acts as an interactive simulator for medical students and doctors to practice diagnosing and managing various medical scenarios.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Simulates real-world patient vitals and health responses</li><li>Provides a risk-free environment for critical decision-making</li><li>Customizable scenarios based on medical specializations</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Python 3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Tkinter</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Matplotlib</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>NumPy</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Pandas</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/PulseSimulator' data-demo='#'>
+                    <div class="project-number">03</div>
+                    <div class="corner-accent corner-tr-accent"></div>
+                    <h3>PulseSimulator</h3>
+                    <p>It's a simulator for training doctors for practicing their work.</p>
+                    <div class="tech-stack" style="flex-wrap: wrap;">
+                        <span class="tech-tag">Python 3</span>
+                        <span class="tech-tag">Tkinter</span>
+                        <span class="tech-tag">Matplotlib</span>
+                        <span class="tech-tag">NumPy</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Git/GitHub</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-project-view" onclick="openProjectModal(this)">
+                            <i data-lucide="external-link"></i>
+                            <span>View</span>
+                        </button>
+                        <button class="btn-project-github">
+                            <i data-lucide="github"></i>
+                        </button>
+                    </div>
+                </div>
+                  <div class="project-card extra-project" style="display: none;" data-gradient="indigo-blue" data-title='BrahmX AI' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>An advanced AI platform designed for intelligent processing and workflow automation. Built with React and Vite for blazing-fast front-end performance, BrahmX AI integrates complex machine learning models.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Automates repetitive business tasks efficiently</li><li>Analyzes large datasets to generate actionable insights</li><li>Real-time dashboard for performance monitoring</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>React.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Vite</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Tailwind CSS</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Node.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Express</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>MongoDB</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>OpenAI API</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/BrahmX-AI' data-demo='#'>
+                    <div class="project-number">04</div>
+                    <div class="corner-accent corner-tr-accent"></div>
+                    <h3>BrahmX AI</h3>
+                    <p>An advanced AI platform designed for intelligent processing and workflow automation.</p>
+                    <div class="tech-stack" style="flex-wrap: wrap;">
+                        <span class="tech-tag">React.js</span>
+                        <span class="tech-tag">Vite</span>
+                        <span class="tech-tag">Tailwind CSS</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Express</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">OpenAI API</span>
+                        <span class="tech-tag">Git/GitHub</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-project-view" onclick="openProjectModal(this)">
+                            <i data-lucide="external-link"></i>
+                            <span>View</span>
+                        </button>
+                        <button class="btn-project-github">
+                            <i data-lucide="github"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="project-card extra-project" style="display: none;" data-gradient="violet-purple" data-title='CareerForge AI' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>A powerful startup project offering an AI-driven career pathing platform. Built on the MERN stack, CareerForge AI analyzes a user&#39;s skills and interests to recommend personalized trajectories.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>AI-based skill gap analysis and recommendations</li><li>Curated learning resources and course suggestions</li><li>Robust user data protection and API integration</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>MongoDB</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Express.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>React.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Node.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>JWT Auth</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>AI APIs</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Postman</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/CareerForge-AI' data-demo='#'>
+                    <div class="project-number">05</div>
+                    <div class="corner-accent corner-tr-accent"></div>
+                    <h3>CareerForge AI</h3>
+                    <p>A powerful startup project offering an AI-driven career pathing platform.</p>
+                    <div class="tech-stack" style="flex-wrap: wrap;">
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Express.js</span>
+                        <span class="tech-tag">React.js</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">JWT Auth</span>
+                        <span class="tech-tag">AI APIs</span>
+                        <span class="tech-tag">Postman</span>
+                        <span class="tech-tag">Git/GitHub</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-project-view" onclick="openProjectModal(this)">
+                            <i data-lucide="external-link"></i>
+                            <span>View</span>
+                        </button>
+                        <button class="btn-project-github">
+                            <i data-lucide="github"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="project-card extra-project" style="display: none;" data-gradient="pink-rose" data-title='Nexus Assistant' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>A comprehensive personal AI assistant built in Python. Nexus Assistant features advanced voice recognition, persistent memory via SQLite, and high-level security capabilities.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Deploys seamlessly via Docker containers</li><li>Integrates with external APIs to control smart devices</li><li>Manages schedules and provides instant query answers</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Python 3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>SQLite</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>SpeechRecognition</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>pyttsx3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Docker</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>REST APIs</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/Nexus-Assistant' data-demo='#'>
+                    <div class="project-number">06</div>
+                    <div class="corner-accent corner-tr-accent"></div>
+                    <h3>Nexus Assistant</h3>
+                    <p>A comprehensive personal AI assistant built with voice recognition and smart integrations.</p>
+                    <div class="tech-stack" style="flex-wrap: wrap;">
+                        <span class="tech-tag">Python 3</span>
+                        <span class="tech-tag">SQLite</span>
+                        <span class="tech-tag">SpeechRecognition</span>
+                        <span class="tech-tag">pyttsx3</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">REST APIs</span>
+                        <span class="tech-tag">Git/GitHub</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-project-view" onclick="openProjectModal(this)">
+                            <i data-lucide="external-link"></i>
+                            <span>View</span>
+                        </button>
+                        <button class="btn-project-github">
+                            <i data-lucide="github"></i>
+                        </button>
+                    </div>
+                </div>
+</div>
+            
+            </div>
+
+                
+            <div class="text-center" style="margin-top: 4rem;">
+                <button id="viewAllBtn" class="btn btn-outline" onclick="toggleProjects()">View All Projects</button>
+            
+                <h3 class="project-category-title" style="text-align: center; margin: 4rem 0 2rem; color: var(--violet-500); font-size: 2rem;">Client Projects</h3>
+            <div class="projects-grid">
+<div class="project-card" data-gradient="emerald-teal" data-title='RestroCafe' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>Developed as a custom client project, RestroCafe is a comprehensive cafe and restaurant management application built using PHP, HTML, and CSS.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Streamlined order processing and receipt generation</li><li>Intuitive menu and inventory management</li><li>Table reservation system tailored for restaurant staff</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>PHP 8</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>MySQL</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>HTML5</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>CSS3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>JavaScript</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>jQuery</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Bootstrap</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>XAMPP</span></div>' data-github='https://github.com/ningarajukkali/RestroCafe' data-demo='https://restrocafe.onrender.com'>
+                    <div class="project-number">01</div>
+                    <div class="corner-accent corner-tr-accent"></div>
+                    <h3>RestroCafe</h3>
+                    <p>A modern cafe and restaurant management application developed as a client project.</p>
+                    <div class="tech-stack" style="flex-wrap: wrap;">
+                        <span class="tech-tag">PHP 8</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">jQuery</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">XAMPP</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-project-view" onclick="openProjectModal(this)">
+                            <i data-lucide="external-link"></i>
+                            <span>View</span>
+                        </button>
+                        <button class="btn-project-github">
+                            <i data-lucide="github"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="project-card" data-gradient="orange-amber" data-title='Community-Help' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>A platform built as a client project that aims to bridge the gap between people in need and those willing to provide community assistance. Developed using JavaScript for broad accessibility.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Peer-to-peer help request broadcasting</li><li>Local event organization and volunteer tracking</li><li>Mobile-first design ensuring access from any device</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>React.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Vite</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Tailwind CSS</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Node.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Express.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>MongoDB</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>REST APIs</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/Community-Help' data-demo='https://community-help-alpha.vercel.app/'>
+                    <div class="project-number">02</div>
+                    <div class="corner-accent corner-tr-accent"></div>
+                    <h3>Community-Help</h3>
+                    <p>A platform designed to connect people and provide community assistance, built as a client project.</p>
+                    <div class="tech-stack" style="flex-wrap: wrap;">
+                        <span class="tech-tag">React.js</span>
+                        <span class="tech-tag">Vite</span>
+                        <span class="tech-tag">Tailwind CSS</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Express.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">REST APIs</span>
+                        <span class="tech-tag">Git/GitHub</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-project-view" onclick="openProjectModal(this)">
+                            <i data-lucide="external-link"></i>
+                            <span>View</span>
+                        </button>
+                        <button class="btn-project-github">
+                            <i data-lucide="github"></i>
+                        </button>
+                    </div>
+                </div>
+
+                            </div>
+
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section section-alt" id="education">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Education & <span class="text-cyan">Journey</span></h2>
+                <div class="title-underline"></div>
+                <p class="section-subtitle">My academic path and continuous learning adventures</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content timeline-left">
+                        <div class="timeline-card">
+                            <span class="year-badge year-cyan">2023 - 2026</span>
+                            <h3>Bachelor of Computer Applications</h3>
+                            <p class="institution">BCA Graduate</p>
+                            <p class="description">Graduated with a BCA, focusing on programming, databases, web
+                                development, and AI fundamentals.</p>
+                            <div class="achievements">
+                                <span class="achievement-tag">Web Development</span>
+                                <span class="achievement-tag">Database Management</span>
+                                <span class="achievement-tag">Python Programming</span>
+                                <span class="achievement-tag">AI Basics</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-icon">
+                        <i data-lucide="graduation-cap"></i>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content timeline-right">
+                        <div class="timeline-card">
+                            <span class="year-badge year-violet">2024</span>
+                            <h3>Advanced Web Development</h3>
+                            <p class="institution">Self-Learning & Projects</p>
+                            <p class="description">Mastered modern web technologies including HTML5, CSS3, JavaScript,
+                                and responsive design principles.</p>
+                            <div class="achievements">
+                                <span class="achievement-tag">Responsive Design</span>
+                                <span class="achievement-tag">Modern CSS</span>
+                                <span class="achievement-tag">JavaScript ES6+</span>
+                                <span class="achievement-tag">Git & GitHub</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-icon">
+                        <i data-lucide="book-open"></i>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content timeline-left">
+                        <div class="timeline-card">
+                            <span class="year-badge year-pink">2025</span>
+                            <h3>Python & Database Specialization</h3>
+                            <p class="institution">Academic & Personal Projects</p>
+                            <p class="description">Deep dive into Python programming and database management with MySQL,
+                                building real-world applications.</p>
+                            <div class="achievements">
+                                <span class="achievement-tag">Python Projects</span>
+                                <span class="achievement-tag">MySQL Mastery</span>
+                                <span class="achievement-tag">API Integration</span>
+                                <span class="achievement-tag">Problem Solving</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-icon">
+                        <i data-lucide="award"></i>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content timeline-right">
+                        <div class="timeline-card">
+                            <span class="year-badge year-emerald">2026 - Present</span>
+                            <h3>AI & Machine Learning Journey</h3>
+                            <p class="institution">Continuous Learning</p>
+                            <p class="description">Exploring artificial intelligence, machine learning concepts, and
+                                their practical applications in software development.</p>
+                            <div class="achievements">
+                                <span class="achievement-tag">AI Fundamentals</span>
+                                <span class="achievement-tag">ML Basics</span>
+                                <span class="achievement-tag">Data Analysis</span>
+                                <span class="achievement-tag">Future Technologies</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-icon">
+                        <i data-lucide="sparkles"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid fade-in-up">
+                <div class="stat-card stat-cyan">
+                    <div class="stat-card-value">3+</div>
+                    <div class="stat-card-label">Years of Study</div>
+                </div>
+                <div class="stat-card stat-violet">
+                    <div class="stat-card-value">15+</div>
+                    <div class="stat-card-label">Projects Built</div>
+                </div>
+                <div class="stat-card stat-pink">
+                    <div class="stat-card-value">20+</div>
+                    
+                    <div class="stat-card-label">Skills Acquired</div>
+                </div>
+                <div class="stat-card stat-emerald">
+                    <div class="stat-card-value">5+</div>
+                    <div class="stat-card-label">Certifications</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section class="section section-alt" id="resume">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">My <span class="text-cyan">Resume</span></h2>
+                <div class="title-underline"></div>
+                <p class="section-subtitle">Explore my official resume, technical stack, freelance experience, and AI projects.</p>
+            </div>
+
+            <div class="resume-card-container fade-in-up">
+                <!-- Resume Hero Banner -->
+                <div class="resume-hero-banner">
+                    <div class="resume-hero-left">
+                        <div class="resume-badge">
+                            <i data-lucide="sparkles"></i> Open for Full-Stack &amp; AI Roles
+                        </div>
+                        <h3 class="resume-name">NINGARAJ R. UKKALI</h3>
+                        <p class="resume-role">Full-Stack Developer | Python, React.js, FastAPI, Flask, AI/LLM</p>
+                    </div>
+                    <div class="resume-hero-actions">
+                        <a href="assets/resume.pdf" download="Ningaraj_R_Ukkali_Resume.pdf" class="btn btn-primary resume-btn">
+                            <i data-lucide="download"></i> Download Resume PDF
+                        </a>
+                        <button class="btn btn-outline resume-btn" onclick="toggleResumePreview()">
+                            <i data-lucide="eye"></i> <span id="resumePreviewText">Interactive View</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="resume-content-grid">
+                    <!-- Column 1: Summary & Competencies -->
+                    <div class="resume-col">
+                        <div class="resume-block">
+                            <div class="resume-block-header">
+                                <i data-lucide="user" class="text-cyan"></i>
+                                <h4>Professional Summary</h4>
+                            </div>
+                            <p class="resume-text">
+                                Passionate Full-Stack Developer with hands-on experience architecting, building, and deploying scalable web applications using modern backend and frontend technologies. Proficient in Python (FastAPI/Flask), PHP, React.js, secure REST APIs, real-time WebSockets, and modern database architectures. Seeking an opportunity to contribute, learn from experienced professionals, and build a successful engineering career.
+                            </p>
+                        </div>
+
+                        <div class="resume-block">
+                            <div class="resume-block-header">
+                                <i data-lucide="cpu" class="text-violet"></i>
+                                <h4>Technical Skills</h4>
+                            </div>
+                            <div class="resume-skills-list">
+                                <div class="resume-skill-tag tag-cyan"><strong>Languages:</strong> Python, Java, JavaScript, PHP, HTML5, CSS3</div>
+                                <div class="resume-skill-tag tag-violet"><strong>Frontend:</strong> React.js, Tailwind CSS, Responsive UI Design</div>
+                                <div class="resume-skill-tag tag-pink"><strong>Backend &amp; APIs:</strong> PHP, REST APIs, FastAPI, Flask, WebSockets</div>
+                                <div class="resume-skill-tag tag-emerald"><strong>Databases:</strong> MySQL, PostgreSQL, MongoDB, Redis, Supabase</div>
+                                <div class="resume-skill-tag tag-cyan"><strong>AI &amp; LLM:</strong> Google Gemini, OpenAI GPT-4o, Gemini Vision API, LangGraph</div>
+                                <div class="resume-skill-tag tag-violet"><strong>Tools &amp; Platforms:</strong> Git, GitHub, Docker, AWS, VS Code, Linux</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Experience, Projects & Education -->
+                    <div class="resume-col">
+                        <div class="resume-block">
+                            <div class="resume-block-header">
+                                <i data-lucide="briefcase" class="text-pink"></i>
+                                <h4>Work Experience</h4>
+                            </div>
+                            <div class="resume-timeline">
+                                <div class="resume-item">
+                                    <span class="resume-date">2025 – 2026</span>
+                                    <h5 class="resume-item-title">Freelance Full-Stack Web Developer (Self-Employed)</h5>
+                                    <p class="resume-item-desc">
+                                        • Developed &amp; delivered production-ready full-stack applications within strict deadlines.<br>
+                                        • Managed complete SDLC from requirement analysis &amp; architecture design to deployment.<br>
+                                        • Engineered RESTful APIs integrated with PostgreSQL &amp; MongoDB databases.<br>
+                                        • Built responsive interfaces in React.js &amp; Tailwind CSS with robust state management.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="resume-block">
+                            <div class="resume-block-header">
+                                <i data-lucide="code-2" class="text-cyan"></i>
+                                <h4>Key Projects</h4>
+                            </div>
+                            <div class="resume-timeline">
+                                <div class="resume-item">
+                                    <h5 class="resume-item-title">CraftCycle – AI-Powered Circular Economy Marketplace</h5>
+                                    <p class="resume-item-desc">
+                                        Python (Flask), React.js, PostgreSQL, Supabase, Gemini Vision AI. Integrated Gemini Vision AI to analyze scrap materials &amp; suggest upcycling ideas with JWT auth &amp; loyalty system.
+                                    </p>
+                                </div>
+                                <div class="resume-item">
+                                    <h5 class="resume-item-title">PulseSim – AI Medical Patient Simulator</h5>
+                                    <p class="resume-item-desc">
+                                        FastAPI, LangGraph, OpenAI GPT-4o, Neo4j, Redis, PostgreSQL, WebSockets, Docker. Real-time patient vitals streaming &amp; clinical interaction simulator.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="resume-block">
+                            <div class="resume-block-header">
+                                <i data-lucide="graduation-cap" class="text-emerald"></i>
+                                <h4>Education &amp; Certificates</h4>
+                            </div>
+                            <p class="resume-text">
+                                <strong>Bachelor of Computer Applications (BCA)</strong> (2023 – 2026)<br>
+                                Mangalore University | <strong>CGPA: 8.1</strong><br><br>
+                                📜 <strong>Generative AI Certification</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Preview Panel -->
+                <div class="resume-preview-panel hidden" id="resumePreviewPanel">
+                    <div class="resume-preview-header">
+                        <span><i data-lucide="file-text"></i> Interactive Document View</span>
+                        <button class="resume-close-btn" onclick="toggleResumePreview()"><i data-lucide="x"></i></button>
+                    </div>
+                    <div class="resume-preview-body">
+                        <div class="resume-paper">
+                            <div class="paper-header">
+                                <h1>NINGARAJ R. UKKALI</h1>
+                                <p class="paper-subtitle">FULL-STACK DEVELOPER</p>
+                                <p class="paper-contact">+91 7019373549 | ningarajukkali@gmail.com | github.com/developerraj19-sudo | linkedin.com/in/ningaraj-ukkali</p>
+                            </div>
+                            <hr class="paper-divider" />
+                            
+                            <div class="paper-section">
+                                <h3>PROFESSIONAL SUMMARY</h3>
+                                <p>Passionate Full-Stack Developer with hands-on experience architecting, building, and deploying scalable web applications using modern backend and frontend technologies. Quick to adapt, eager to tackle complex technical challenges, and committed to continuous professional growth. Proficient in Python (FastAPI/Flask), PHP, React.js, secure REST APIs, real-time WebSockets, and modern database architectures. Seeking an opportunity to contribute, learn from experienced professionals, and build a successful engineering career.</p>
+                            </div>
+                            
+                            <div class="paper-section">
+                                <h3>TECHNICAL SKILLS</h3>
+                                <ul>
+                                    <li><strong>Programming Languages:</strong> Python, Java, JavaScript, PHP, HTML5, CSS3</li>
+                                    <li><strong>Frontend:</strong> React.js, Tailwind CSS, Responsive UI Design</li>
+                                    <li><strong>Backend &amp; APIs:</strong> PHP, REST APIs, FastAPI, Flask, WebSockets</li>
+                                    <li><strong>Databases:</strong> MySQL, PostgreSQL, MongoDB, Redis, Supabase</li>
+                                    <li><strong>AI &amp; LLM Technologies:</strong> Google Gemini, OpenAI GPT-4o, Gemini Vision API, LangGraph</li>
+                                    <li><strong>Tools &amp; Platforms:</strong> Git, GitHub, Docker, AWS, VS Code, Linux</li>
+                                </ul>
+                            </div>
+
+                            <div class="paper-section">
+                                <h3>WORK EXPERIENCE</h3>
+                                <p><strong>Freelance Full-Stack Web Developer</strong> (2025 – 2026) | Self-Employed</p>
+                                <ul>
+                                    <li>Developed and delivered production-ready full-stack web applications for multiple clients within strict deadlines.</li>
+                                    <li>Managed the complete software development lifecycle (SDLC), from initial requirement analysis and architectural design to final deployment.</li>
+                                    <li>Engineered scalable RESTful API endpoints and integrated backend services with PostgreSQL and MongoDB databases.</li>
+                                    <li>Built responsive, accessible frontend interfaces in React.js and Tailwind CSS with robust client-side state management.</li>
+                                </ul>
+                            </div>
+
+                            <div class="paper-section">
+                                <h3>PROJECTS</h3>
+                                <p><strong>CraftCycle – AI-Powered Circular Economy Marketplace</strong></p>
+                                <ul>
+                                    <li>Built an end-to-end marketplace for scrap materials and upcycled products using Python (Flask), PostgreSQL, and React.</li>
+                                    <li>Integrated Google Gemini Vision AI to analyze uploaded scrap material images and suggest high-value upcycling ideas.</li>
+                                    <li>Implemented secure JWT authentication, a custom reward/loyalty system, and high-performance REST APIs.</li>
+                                    <li><em>Tech Stack: Python (Flask), React.js, PostgreSQL, Supabase, Gemini AI, Gemini Vision, HTML, CSS, JavaScript.</em></li>
+                                </ul>
+                                <br>
+                                <p><strong>PulseSim – AI Medical Patient Simulator</strong></p>
+                                <ul>
+                                    <li>Developed an AI-powered medical training simulator using FastAPI and LangGraph to emulate real-world clinical interactions.</li>
+                                    <li>Engineered real-time patient vitals streaming with WebSockets, Redis messaging, and Neo4j graph relationships.</li>
+                                    <li>Persisted comprehensive simulation logs and session analytics in PostgreSQL for automated trainee assessment.</li>
+                                    <li><em>Tech Stack: FastAPI, LangGraph, OpenAI GPT-4o, Neo4j, Redis, PostgreSQL, WebSockets, Docker.</em></li>
+                                </ul>
+                            </div>
+
+                            <div class="paper-section">
+                                <h3>CERTIFICATES</h3>
+                                <ul>
+                                    <li>Generative AI Certification</li>
+                                </ul>
+                            </div>
+
+                            <div class="paper-section">
+                                <h3>EDUCATION</h3>
+                                <p><strong>Bachelor of Computer Applications (BCA)</strong> (2023 – 2026)</p>
+                                <p>Mangalore University | <strong>CGPA: 8.1</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Get In <span class="text-cyan">Touch</span></h2>
+                <div class="title-underline"></div>
+                <p class="section-subtitle">Have a project in mind or just want to say hello? Feel free to reach out!
+                </p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <div class="contact-card contact-cyan">
+                        <div class="contact-icon">
+                            <i data-lucide="mail"></i>
+                        </div>
+                        <div>
+                            <p class="contact-label">Email</p>
+                            <p class="contact-value">ningarajukkali@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card contact-violet">
+                        <div class="contact-icon">
+                            <i data-lucide="phone"></i>
+                        </div>
+                        <div>
+                            <p class="contact-label">Phone</p>
+                            <p class="contact-value">+91 7019373549</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card contact-pink">
+                        <div class="contact-icon">
+                            <i data-lucide="map-pin"></i>
+                        </div>
+                        <div>
+                            <p class="contact-label">Location</p>
+                            <p class="contact-value">Mangalore karnataka ,India</p>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="social-container">
+                        <h3>Connect With Me</h3>
+                        <div class="social-grid">
+                            <a href="https://github.com/ningarajukkali" class="social-link social-github">
+                                <i data-lucide="github"></i>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/ningaraj-ukkali" class="social-link social-linkedin">
+                                <i data-lucide="linkedin"></i>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="#" class="social-link social-twitter">
+                                <i data-lucide="twitter"></i>
+                                <span>Twitter</span>
+                            </a>
+                            <a href="#" class="social-link social-instagram">
+                                <i data-lucide="instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terminal-style Contact Form -->
+                <div class="contact-form-wrapper">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="terminal-btn terminal-red"></span>
+                            <span class="terminal-btn terminal-yellow"></span>
+                            <span class="terminal-btn terminal-green"></span>
+                        </div>
+                        <span class="terminal-title">contact@ningaraj-ukkali</span>
+                    </div>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label class="terminal-label"><span class="prompt">&gt;</span> name:</label>
+                            <input type="text" class="terminal-input" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="terminal-label"><span class="prompt">&gt;</span> email:</label>
+                            <input type="email" class="terminal-input" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="terminal-label"><span class="prompt">&gt;</span> message:</label>
+                            <textarea class="terminal-input terminal-textarea" rows="5"
+                                placeholder="Type your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Send Message
+                            <i data-lucide="send"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-particles" id="footerParticles"></div>
+        <div class="footer-container">
+            <div class="footer-logo">&lt;Ningaraj /&gt;</div>
+            <p class="footer-copyright">
+                © 2025 Ningaraj Ukkali. Built with <i data-lucide="heart" class="heart-icon"></i> and code
+            </p>
+            <!-- <div class="footer-tech">
+                <span class="tech-badge">React</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Tailwind CSS</span>
+                <span class="tech-badge">Motion</span>
+            </div> -->
+            <p class="footer-tagline">Designed and developed with passion for creating amazing digital experiences</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProjectModal()">
+                <i data-lucide="x"></i>
+            </button>
+            <h3 id="modalTitle" class="gradient-text" style="font-size: 2rem; margin-bottom: 1rem;">Project Title</h3>
+            <div class="modal-body">
+                <p id="modalDescription" style="color: var(--text-secondary); line-height: 1.6; font-size: 1.1rem;">Project detailed description goes here.</p>
+                <div class="modal-actions" style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a id="modalGithubBtn" href="#" target="_blank" class="btn btn-outline" style="flex: 1; display: flex; justify-content: center; align-items: center; gap: 0.5rem; text-decoration: none;">
+                        <i data-lucide="github"></i> GitHub
+                    </a>
+                    <a id="modalDemoBtn" href="#" target="_blank" class="btn btn-primary" style="flex: 1; display: flex; justify-content: center; align-items: center; gap: 0.5rem; text-decoration: none;">
+                        <i data-lucide="external-link"></i> Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
