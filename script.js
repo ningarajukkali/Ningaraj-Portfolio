@@ -791,3 +791,13 @@ function toggleResumePreview() {
         animate();
     }
 })();
+
+// Expose functions to global window object for inline onclick handlers in index.html
+// Since script.js is now a type="module", top-level functions are no longer automatically global.
+window.scrollToTop = scrollToTop;
+window.scrollToSection = scrollToSection;
+window.toggleMobileMenu = toggleMobileMenu;
+window.openProjectModal = openProjectModal;
+window.closeProjectModal = closeProjectModal;
+window.toggleProjects = toggleProjects;
+window.toggleResumePreview = toggleResumePreview;
