@@ -1730,112 +1730,6 @@ body {
     text-align: center;
 }
 
-@media (max-width: 1200px) {
-    .hero-title {
-        font-size: 3rem;
-    }
-
-    .hologram-frame {
-        width: 20rem;
-        height: 20rem;
-    }
-}
-
-@media (max-width: 1024px) {
-    .hero-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .hero-content {
-        text-align: center;
-    }
-
-    .hero-stats {
-        justify-content: center;
-    }
-
-    .hero-buttons {
-        justify-content: center;
-    }
-
-    .about-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .timeline-line {
-        display: none;
-    }
-
-    .timeline-item {
-        flex-direction: column;
-    }
-
-    .timeline-content {
-        width: 100%;
-        text-align: left;
-    }
-
-    .timeline-icon {
-        position: relative;
-        left: auto;
-        transform: none;
-        margin: 1rem 0;
-    }
-
-    .achievements {
-        justify-content: flex-start !important;
-    }
-
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .section-title {
-        font-size: 2.5rem;
-    }
-
-    .hero-title {
-        font-size: 2.5rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.25rem;
-    }
-
-    .skills-grid,
-    .projects-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-stats {
-        gap: 1rem;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .hologram-frame {
-        width: 16rem;
-        height: 16rem;
-    }
-}
 /* Project Modal System */
 .modal {
     position: fixed;
@@ -1980,15 +1874,6 @@ body {
     gap: 2rem;
 }
 
-@media (max-width: 868px) {
-    .resume-content-grid {
-        grid-template-columns: 1fr;
-    }
-    .resume-hero-banner {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
 
 .resume-block {
     background: rgba(255, 255, 255, 0.03);
@@ -2204,3 +2089,130 @@ body {
 }
 
 
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN: 3-TIER ARCHITECTURE
+   Tier 1: Laptop/PC (Default, > 1024px)
+   Tier 2: Tablets (max-width: 1024px)
+   Tier 3: Mobile (max-width: 768px)
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Tier 2: Tablets (max-width: 1024px) ── */
+@media (max-width: 1024px) {
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 6rem;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-stats {
+        justify-content: center;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .timeline-line {
+        display: none;
+    }
+
+    .timeline-item {
+        flex-direction: column;
+    }
+
+    .timeline-content {
+        width: 100%;
+        text-align: left;
+    }
+
+    .timeline-icon {
+        position: relative;
+        left: auto;
+        transform: none;
+        margin: 1rem 0;
+    }
+
+    .achievements {
+        justify-content: flex-start !important;
+    }
+
+    /* Grids to 2 columns */
+    .projects-grid,
+    .skills-grid,
+    .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .resume-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-hero-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ── Tier 3: Mobile (max-width: 768px) ── */
+@media (max-width: 768px) {
+    section {
+        padding: 4rem 1rem;
+    }
+
+    .section-title {
+        font-size: 2.25rem;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+
+    /* All Grids to 1 column */
+    .skills-grid,
+    .projects-grid,
+    .stats-grid,
+    .contact-grid,
+    .resume-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-stats {
+        gap: 1rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hologram-frame {
+        width: 16rem;
+        height: 16rem;
+        margin: 0 auto;
+    }
+    
+    .resume-card-container {
+        padding: 1.5rem;
+    }
+}
