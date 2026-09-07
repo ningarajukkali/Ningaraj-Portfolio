@@ -1487,9 +1487,12 @@ body {
     color: #fff;
 }
 
-.social-link i {
+.social-link i,
+.social-link svg {
     width: 1.5rem;
     height: 1.5rem;
+    stroke: currentColor;
+    transition: all 0.3s ease;
 }
 
 /* Terminal Form */
@@ -2168,7 +2171,7 @@ body {
     .contact-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .resume-content-grid {
         grid-template-columns: 1fr;
     }
@@ -2227,7 +2230,7 @@ body {
         height: 16rem;
         margin: 0 auto;
     }
-    
+
     .resume-card-container {
         padding: 1.5rem;
     }
