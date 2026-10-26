@@ -1083,6 +1083,13 @@ body {
     border-color: rgba(255, 255, 255, 0.3);
 }
 
+.btn-project-github i,
+.btn-project-github svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: currentColor;
+}
+
 /* Timeline */
 .timeline {
     position: relative;
@@ -1399,10 +1406,12 @@ body {
     background: linear-gradient(135deg, var(--pink-500), var(--pink-400));
 }
 
-.contact-icon i {
+.contact-icon i,
+.contact-icon svg {
     width: 1.75rem;
     height: 1.75rem;
     color: white;
+    stroke: white;
 }
 
 .contact-label {

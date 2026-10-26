@@ -576,6 +576,9 @@ function toggleResumePreview() {
         panel.classList.add('hidden');
         if (btnText) btnText.textContent = 'Interactive View';
     }
+    if (window.renderBrandIcons) {
+        window.renderBrandIcons();
+    }
     if (window.lucide) {
         lucide.createIcons();
     }
@@ -801,3 +804,6 @@ window.openProjectModal = openProjectModal;
 window.closeProjectModal = closeProjectModal;
 window.toggleProjects = toggleProjects;
 window.toggleResumePreview = toggleResumePreview;
+if (typeof renderBrandIcons === 'function') {
+    window.renderBrandIcons = renderBrandIcons;
+}
