@@ -2114,6 +2114,51 @@ body {
 
 .paper-section li {
     margin-bottom: 0.3rem;
+    line-height: 1.5;
+}
+
+.paper-item {
+    margin-bottom: 1rem;
+}
+
+.paper-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.paper-date {
+    color: var(--cyan-400);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.paper-tech {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-bottom: 0.4rem;
+}
+
+.paper-links a {
+    color: var(--cyan-400);
+    text-decoration: none;
+}
+
+.paper-links a:hover {
+    text-decoration: underline;
+}
+
+.paper-contact a {
+    color: #94a3b8;
+    text-decoration: none;
+}
+
+.paper-contact a:hover {
+    color: var(--cyan-400);
 }
 
 
