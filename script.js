@@ -998,16 +998,15 @@ window.switchAboutPhoto = function(src, btn) {
    17. CONTACT FORM, TOAST & UTILITIES
    ========================================================================== */
 let selectedBudget = '';
-document.querySelectorAll('.budget-chip').forEach((chip) => {
+document.querySelectorAll('.budget-chip-ka, .budget-chip').forEach((chip) => {
   chip.addEventListener('click', () => {
-    document.querySelectorAll('.budget-chip').forEach((c) => {
+    document.querySelectorAll('.budget-chip-ka, .budget-chip').forEach((c) => {
+      c.classList.remove('active');
       c.style.background = '';
       c.style.color = '';
       c.style.borderColor = '';
     });
-    chip.style.background = 'linear-gradient(135deg, #D4AF37, #8A6F1F)';
-    chip.style.color = '#060607';
-    chip.style.borderColor = 'transparent';
+    chip.classList.add('active');
     selectedBudget = chip.dataset.v;
   });
 });
@@ -1040,7 +1039,8 @@ if (contactForm) {
       if (sendLabel) sendLabel.textContent = 'Send Message';
       this.reset();
       selectedBudget = '';
-      document.querySelectorAll('.budget-chip').forEach((c) => {
+      document.querySelectorAll('.budget-chip-ka, .budget-chip').forEach((c) => {
+        c.classList.remove('active');
         c.style.background = '';
         c.style.color = '';
         c.style.borderColor = '';

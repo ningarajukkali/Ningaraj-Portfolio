@@ -527,13 +527,14 @@ body {
   100% { opacity: 0; transform: scale(3.2); }
 }
 
-/* Portrait Image in Frame Styling */
+/* Portrait Image in Frame Styling - Perfect aspect ratio fit without cropping */
 .portrait-hero-img {
   width: 100%;
-  height: 380px;
-  object-fit: cover;
-  object-position: center top;
-  border-radius: 10px;
+  height: auto;
+  aspect-ratio: 546 / 434;
+  object-fit: contain;
+  background: #060607;
+  border-radius: 12px;
   display: block;
   transition: transform 0.6s ease;
 }
@@ -726,6 +727,156 @@ body {
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
+}
+
+/* ---------- Karnataka Yellow & Red Contact Styling ---------- */
+.contact-section-glow {
+  position: relative;
+}
+.contact-section-glow::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  right: 5%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(234, 179, 8, 0.16) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+.contact-section-glow::after {
+  content: '';
+  position: absolute;
+  bottom: 8%;
+  left: 5%;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.22) 0%, transparent 70%);
+  filter: blur(110px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact-card-yellow {
+  background: linear-gradient(135deg, rgba(28, 22, 10, 0.8) 0%, rgba(18, 14, 10, 0.85) 100%);
+  border: 1.5px solid rgba(234, 179, 8, 0.35);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.contact-card-yellow:hover {
+  border-color: rgba(234, 179, 8, 0.85);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 45px rgba(0,0,0,0.6), 0 0 35px rgba(234, 179, 8, 0.25);
+}
+
+.contact-card-red {
+  background: linear-gradient(135deg, rgba(32, 12, 12, 0.8) 0%, rgba(18, 8, 8, 0.85) 100%);
+  border: 1.5px solid rgba(220, 38, 38, 0.35);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.contact-card-red:hover {
+  border-color: rgba(220, 38, 38, 0.85);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 45px rgba(0,0,0,0.6), 0 0 35px rgba(220, 38, 38, 0.28);
+}
+
+.contact-form-ka {
+  background: linear-gradient(135deg, rgba(26, 14, 14, 0.88) 0%, rgba(14, 10, 10, 0.94) 100%);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1.5px solid rgba(234, 179, 8, 0.4);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 45px rgba(220, 38, 38, 0.2), inset 0 1px 0 rgba(255, 248, 225, 0.25);
+  position: relative;
+}
+.contact-form-ka::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 2.5px;
+  background: linear-gradient(90deg, transparent, #FACC15 35%, #DC2626 70%, transparent);
+}
+
+.field-ka {
+  background: rgba(18, 10, 10, 0.85);
+  border: 1.5px solid rgba(234, 179, 8, 0.42);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #FFF;
+  border-radius: 14px;
+}
+.field-ka:hover {
+  border-color: rgba(234, 179, 8, 0.85);
+  background: rgba(26, 14, 14, 0.95);
+  box-shadow: 0 0 15px rgba(234, 179, 8, 0.25);
+}
+.field-ka:focus {
+  outline: none;
+  border-color: #FACC15 !important;
+  background: rgba(30, 12, 12, 0.98) !important;
+  box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.35), 0 0 30px rgba(220, 38, 38, 0.5) !important;
+}
+.field-ka::placeholder {
+  color: rgba(254, 240, 138, 0.5);
+  font-weight: 500;
+}
+
+.budget-chip-ka {
+  background: rgba(234, 179, 8, 0.1);
+  border: 1.5px solid rgba(234, 179, 8, 0.45);
+  color: #FEF08A;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.budget-chip-ka:hover {
+  border-color: #EF4444;
+  color: #FFF;
+  background: rgba(220, 38, 38, 0.28);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+}
+.budget-chip-ka.active {
+  background: linear-gradient(135deg, #FDE047 0%, #EAB308 45%, #DC2626 100%) !important;
+  color: #060607 !important;
+  font-weight: 900 !important;
+  border-color: transparent !important;
+  box-shadow: 0 8px 25px rgba(234, 179, 8, 0.5), 0 0 15px rgba(220, 38, 38, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+.btn-karnataka-submit {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FDE047 0%, #EAB308 30%, #DC2626 75%, #991B1B 100%);
+  color: #060607;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  box-shadow: 0 10px 35px rgba(234, 179, 8, 0.45), 0 6px 25px rgba(220, 38, 38, 0.5);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.btn-karnataka-submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.65s;
+}
+.btn-karnataka-submit:hover::before {
+  left: 130%;
+}
+.btn-karnataka-submit:hover {
+  transform: translateY(-2.5px);
+  box-shadow: 0 16px 50px rgba(234, 179, 8, 0.6), 0 6px 30px rgba(220, 38, 38, 0.6);
 }
 
 /* ---------- Inputs & Terminal Forms ---------- */

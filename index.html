@@ -271,21 +271,18 @@
 
       <!-- Hero Right: 3D Artwork Stage with Uploaded Portrait -->
       <div class="lg:col-span-5 flex justify-center lg:justify-end" id="heroArt">
-        <div class="artwork-stage w-full max-w-[420px]" id="artworkStage">
+        <div class="artwork-stage w-full max-w-[460px] md:max-w-[490px]" id="artworkStage">
           <div class="art-glow"></div>
           
-          <!-- Floating Interactive Badges -->
-          <div class="absolute -left-7 top-10 z-20 glass rounded-2xl px-4 py-3 float-slow hidden sm:block border-gold-500/30" data-depth="0.09" style="animation-delay:-2s;">
-            <div class="text-[10px] tracking-[0.25em] text-gold-400 uppercase font-bold">Python • FastAPI • React</div>
-            <div class="font-bold text-sm mt-0.5 text-white">Full Stack & Systems</div>
+          <!-- Floating Interactive Badges (Placed safely outside frame to never overlap the portrait) -->
+          <div class="absolute -top-6 -left-4 lg:-left-8 z-20 glass rounded-2xl px-4 py-2.5 float-slow hidden md:block border-yellow-500/40 shadow-xl" data-depth="0.08" style="animation-delay:-2s;">
+            <div class="text-[10px] tracking-[0.2em] text-yellow-300 uppercase font-bold flex items-center gap-1.5"><i class="fas fa-code text-xs text-yellow-400"></i> Python • FastAPI • React</div>
+            <div class="font-bold text-xs mt-0.5 text-white">Full Stack & Systems</div>
           </div>
-          <div class="absolute -right-6 top-1/3 z-20 glass rounded-2xl px-4 py-3 float-slow hidden sm:block border-gold-500/30" data-depth="0.11">
-            <div class="font-kannada text-gold-300 text-lg leading-none font-bold">ಕನ್ನಡಿಗ</div>
-            <div class="text-[10px] tracking-[0.25em] text-white/55 uppercase mt-1">Proud Identity</div>
-          </div>
-          <div class="absolute -left-6 bottom-20 z-20 glass rounded-full px-4 py-2 flex items-center gap-2.5 float-slow hidden sm:flex border-gold-500/30" data-depth="0.08" style="animation-delay:-4s;">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
-            <span class="text-xs font-semibold text-white">Open to SDE Roles</span>
+
+          <div class="absolute -bottom-5 -right-4 lg:-right-8 z-20 glass rounded-full px-4 py-2.5 flex items-center gap-2.5 float-slow hidden md:flex border-emerald-400/50 shadow-xl" data-depth="0.08" style="animation-delay:-4s;">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#34d399]"></span>
+            <span class="text-xs font-bold text-white tracking-wide">Open to SDE Roles</span>
           </div>
 
           <!-- Main 3D Framed Artwork Showcase Plane -->
@@ -297,41 +294,30 @@
               <div class="frame-corner fc-br"></div>
               
               <div class="art-inner">
-                <!-- Frame Header -->
-                <div class="px-5 pt-4 pb-2 flex items-center justify-between">
-                  <span class="font-kannada text-[11px] text-gold-300 tracking-widest font-semibold">|| ಕನ್ನಡಾಂಬೆ ||</span>
-                  <div class="flex-1 mx-3 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent"></div>
-                  <span class="font-kannada text-[11px] text-gold-300 tracking-widest font-semibold">ಕರ್ನಾಟಕ</span>
+                <!-- Frame Inscription Header -->
+                <div class="px-5 pt-3.5 pb-2 flex items-center justify-between">
+                  <span class="font-kannada text-xs text-yellow-300 tracking-widest font-bold">|| ಕನ್ನಡಾಂಬೆ ||</span>
+                  <div class="flex-1 mx-3 h-px bg-gradient-to-r from-transparent via-yellow-400/60 to-transparent"></div>
+                  <span class="font-kannada text-xs text-yellow-300 tracking-widest font-bold">ಕರ್ನಾಟಕ</span>
                 </div>
 
-                <!-- Showcase Picture Container -->
-                <div class="relative px-3 pt-1 pb-2">
-                  <div class="relative rounded-xl overflow-hidden border border-gold-500/25 shadow-2xl">
+                <!-- Showcase Picture Container (Clean, zero overlap, full aspect ratio, comfortable padding) -->
+                <div class="px-3 pt-1 pb-1">
+                  <div class="relative rounded-xl overflow-hidden border border-yellow-500/35 shadow-2xl bg-[#060607] p-1.5">
                     <img src="img/portrait.jpg" alt="Ningaraj R Ukkali — ಕನ್ನಡಿಗ Portrait" class="portrait-hero-img"/>
-                    
-                    <!-- Overlay Vignette & Calligraphy Accent -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#060607]/90 via-transparent to-black/20 pointer-events-none"></div>
-                    
-                    <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between pointer-events-none">
-                      <div>
-                        <div class="text-white font-bold text-base drop-shadow-md">Ningaraj R Ukkali</div>
-                        <div class="font-kannada text-gold-300 text-xs drop-shadow">ಕನ್ನಡಿಗ • ಡೆವಲಪರ್</div>
-                      </div>
-                      <div class="glass rounded-full px-2.5 py-1 text-[10px] tracking-widest uppercase flex items-center gap-1.5 border-emerald-400/40 text-emerald-300 font-semibold">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Mangalore
-                      </div>
-                    </div>
                   </div>
                 </div>
 
-                <!-- Caption Footer -->
-                <div class="px-5 pb-2 text-center">
-                  <h3 class="font-bold tracking-[0.3em] text-[14px] text-white">NINGARAJ R UKKALI</h3>
-                  <p class="font-kannada text-gold-400 text-[12px] mt-0.5 tracking-wider font-semibold">ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ • ಸಿರಿಗನ್ನಡಂ ಬಾಳ್ಗೆ</p>
+                <!-- Caption Plate -->
+                <div class="px-5 pt-3 pb-2 text-center">
+                  <h3 class="font-bold tracking-[0.22em] text-[15px] text-white font-playfair">NINGARAJ R UKKALI</h3>
+                  <p class="font-kannada text-yellow-400 text-xs mt-0.5 tracking-wider font-semibold">ಕನ್ನಡಿಗ • ಸಾಫ್ಟ್‌ವೇರ್ ಡೆವಲಪರ್ • ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ</p>
                 </div>
-                <div class="temple-border mx-4 mb-2"></div>
-                <div class="px-5 pb-3 flex items-center justify-between text-[10px] tracking-[0.2em] text-white/45 uppercase font-medium">
-                  <span>BCA GRADUATE</span><span class="text-gold-500">✦ ✦ ✦</span><span>2026</span>
+                <div class="temple-border mx-5 mb-2.5"></div>
+                <div class="px-5 pb-3 flex items-center justify-between text-[11px] tracking-[0.2em] text-white/50 uppercase font-mono">
+                  <span class="text-yellow-300 font-semibold">MANGALORE UNIV</span>
+                  <span class="text-yellow-500">✦ ✦ ✦</span>
+                  <span class="text-yellow-300 font-semibold">BCA 2026</span>
                 </div>
               </div>
             </div>
@@ -938,139 +924,183 @@
     </div>
   </section>
 
-  <!-- ================= CONTACT SECTION ================= -->
-  <section id="contact" class="relative z-20 py-16 md:py-24 border-t border-gold-500/10 bg-black/40 backdrop-blur-sm overflow-hidden">
-    <div class="absolute left-0 bottom-0 font-kannada text-[12rem] leading-none text-gold-500/[0.03] select-none pointer-events-none">ಸಂಪರ್ಕ</div>
+  <!-- ================= CONTACT SECTION (KARNATAKA YELLOW & RED THEME) ================= -->
+  <section id="contact" class="contact-section-glow relative z-20 py-16 md:py-24 border-t border-yellow-500/25 bg-[#070505] overflow-hidden">
+    <div class="absolute left-0 bottom-0 font-kannada text-[12rem] leading-none text-yellow-500/[0.04] select-none pointer-events-none">ಸಂಪರ್ಕ</div>
 
-    <div class="max-w-7xl mx-auto px-5 md:px-8 relative">
-      <div class="reveal text-center mb-12">
-        <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ಸಂಪರ್ಕ • Get In Touch</p>
-        <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2 text-white">
-          Let's Build Something <span class="gold-gradient-text italic font-cormorant">Impactful</span>
+    <div class="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="reveal text-center mb-14">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-yellow-500/15 via-red-600/15 to-yellow-500/15 border border-yellow-500/35 mb-3 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
+          <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+          <span class="label-kannada text-xs font-bold text-yellow-300 uppercase tracking-widest">|| ಸಂಪರ್ಕ • GET IN TOUCH ||</span>
+        </div>
+        <h2 class="font-playfair text-4xl md:text-5xl font-extrabold mt-1 text-white">
+          Let's Build Something <span class="bg-gradient-to-r from-yellow-300 via-gold-400 to-red-500 bg-clip-text text-transparent italic font-cormorant font-bold drop-shadow-[0_4px_15px_rgba(234,179,8,0.3)]">Extraordinary</span>
         </h2>
         <div class="ornament-divider mt-4">
-          <div class="ornament-line"></div>
-          <div class="ornament-diamond"></div>
-          <span class="font-kannada text-gold-500/70 text-sm">ಬನ್ನಿ</span>
-          <div class="ornament-diamond"></div>
-          <div class="ornament-line r"></div>
+          <div class="h-px w-24 bg-gradient-to-r from-transparent to-yellow-400"></div>
+          <div class="w-2.5 h-2.5 bg-yellow-400 rotate-45 shadow-[0_0_10px_#facc15]"></div>
+          <span class="font-kannada text-yellow-300 font-bold text-sm px-2">ಬನ್ನಿ</span>
+          <div class="w-2.5 h-2.5 bg-red-600 rotate-45 shadow-[0_0_10px_#dc2626]"></div>
+          <div class="h-px w-24 bg-gradient-to-l from-transparent to-red-500"></div>
         </div>
-        <p class="text-white/55 mt-4 max-w-xl mx-auto text-sm md:text-base">
+        <p class="text-white/60 mt-4 max-w-xl mx-auto text-sm md:text-base">
           Have an engineering opportunity, freelance collaboration, or exciting project?
-          <span class="font-kannada text-gold-300 font-medium">ಬನ್ನಿ, ಮಾತನಾಡೋಣ!</span> I respond within 24 hours.
+          <span class="font-kannada text-yellow-300 font-semibold">ಬನ್ನಿ, ಮಾತನಾಡೋಣ!</span> I respond within 12 hours.
         </p>
       </div>
 
       <div class="grid lg:grid-cols-12 gap-8">
         
-        <!-- Contact Information Cards -->
+        <!-- Contact Information Cards (Karnataka Yellow & Red Theme) -->
         <div class="reveal lg:col-span-5 flex flex-col gap-4">
           <!-- Email Card -->
-          <a href="mailto:ningarajukkali@gmail.com" class="glass glass-hover rounded-2xl p-6 flex items-center gap-4 group">
-            <span class="w-13 h-13 min-w-[52px] min-h-[52px] rounded-2xl bg-gradient-to-br from-gold-500/20 to-deepred-700/20 border border-gold-500/20 flex items-center justify-center text-gold-300 text-xl">
+          <a href="mailto:ningarajukkali@gmail.com" class="contact-card-yellow rounded-2xl p-6 flex items-center gap-4 group">
+            <span class="w-13 h-13 min-w-[54px] min-h-[54px] rounded-2xl bg-gradient-to-br from-yellow-500/25 to-gold-600/35 border border-yellow-400/50 flex items-center justify-center text-yellow-300 text-xl shadow-[0_0_20px_rgba(234,179,8,0.25)] group-hover:scale-105 transition-transform">
               <i class="fas fa-envelope"></i>
             </span>
             <div class="flex-1">
-              <div class="text-[11px] tracking-[0.25em] uppercase text-white/45 font-medium">Email Address</div>
-              <div class="font-semibold text-white group-hover:text-gold-300 transition text-sm md:text-base">ningarajukkali@gmail.com</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-yellow-400/80 font-bold">Email Address</div>
+              <div class="font-bold text-white group-hover:text-yellow-300 transition text-sm md:text-base">ningarajukkali@gmail.com</div>
             </div>
-            <i class="fas fa-arrow-up-right-from-square text-white/20 group-hover:text-gold-400 transition"></i>
+            <i class="fas fa-arrow-up-right-from-square text-yellow-400/40 group-hover:text-yellow-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
           </a>
 
           <!-- Phone Card -->
-          <a href="tel:+917019373549" class="glass glass-hover rounded-2xl p-6 flex items-center gap-4 group">
-            <span class="min-w-[52px] min-h-[52px] rounded-2xl bg-gradient-to-br from-gold-500/20 to-deepred-700/20 border border-gold-500/20 flex items-center justify-center text-gold-300 text-xl">
+          <a href="tel:+917019373549" class="contact-card-red rounded-2xl p-6 flex items-center gap-4 group">
+            <span class="w-13 h-13 min-w-[54px] min-h-[54px] rounded-2xl bg-gradient-to-br from-red-600/30 to-deepred-900/60 border border-red-500/50 flex items-center justify-center text-red-400 text-xl shadow-[0_0_20px_rgba(220,38,38,0.3)] group-hover:scale-105 transition-transform">
               <i class="fas fa-phone"></i>
             </span>
             <div class="flex-1">
-              <div class="text-[11px] tracking-[0.25em] uppercase text-white/45 font-medium">Direct Phone</div>
-              <div class="font-semibold text-white group-hover:text-gold-300 transition text-sm md:text-base">+91 7019373549</div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-red-400/80 font-bold">Direct Phone</div>
+              <div class="font-bold text-white group-hover:text-red-300 transition text-sm md:text-base">+91 7019373549</div>
             </div>
-            <i class="fas fa-arrow-up-right-from-square text-white/20 group-hover:text-gold-400 transition"></i>
+            <i class="fas fa-arrow-up-right-from-square text-red-400/40 group-hover:text-red-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
           </a>
 
-          <!-- Location Card -->
-          <div class="glass rounded-2xl p-6 flex items-center gap-4">
-            <span class="min-w-[52px] min-h-[52px] rounded-2xl bg-gradient-to-br from-gold-500/20 to-deepred-700/20 border border-gold-500/20 flex items-center justify-center text-gold-300 text-xl">
+          <!-- Location Card with Karnataka Flag Emblem -->
+          <div class="contact-card-yellow rounded-2xl p-6 flex items-center gap-4">
+            <span class="w-13 h-13 min-w-[54px] min-h-[54px] rounded-2xl bg-gradient-to-b from-yellow-500/30 via-yellow-500/20 to-red-600/40 border border-yellow-400/40 flex items-center justify-center text-yellow-300 text-xl shadow-[0_0_20px_rgba(234,179,8,0.2)]">
               <i class="fas fa-location-dot"></i>
             </span>
             <div>
-              <div class="text-[11px] tracking-[0.25em] uppercase text-white/45 font-medium">Location</div>
-              <div class="font-semibold text-white">Mangalore & Bengaluru, Karnataka <span class="font-kannada text-gold-300 text-sm">• ಭಾರತ</span></div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-yellow-400/80 font-bold">Location & Base</div>
+              <div class="font-bold text-white">Mangalore & Bengaluru, Karnataka <span class="font-kannada text-red-400 text-sm font-bold">• ಕರ್ನಾಟಕ</span></div>
             </div>
           </div>
 
           <!-- Socials Grid & Karnataka Geographic Coordinates -->
-          <div class="glass rounded-2xl p-6">
-            <div class="text-[11px] tracking-[0.25em] uppercase text-white/45 mb-4 font-medium">Connect on Networks</div>
+          <div class="glass rounded-2xl p-6 border-yellow-500/30">
+            <div class="text-[11px] tracking-[0.25em] uppercase text-yellow-400/80 mb-4 font-bold flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Connect on Professional Networks
+            </div>
             <div class="flex gap-3">
-              <a href="https://github.com/ningarajukkali" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-white/[0.04] border border-white/10 py-3 flex items-center justify-center hover:border-gold-500/40 hover:text-gold-300 transition text-white/70">
+              <a href="https://github.com/ningarajukkali" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-yellow-500/5 border border-yellow-500/25 py-3 flex items-center justify-center hover:border-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/15 transition text-white/70 shadow-sm" title="GitHub">
                 <i class="fab fa-github text-lg"></i>
               </a>
-              <a href="https://linkedin.com/in/ningaraj-ukkali" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-white/[0.04] border border-white/10 py-3 flex items-center justify-center hover:border-gold-500/40 hover:text-gold-300 transition text-white/70">
+              <a href="https://linkedin.com/in/ningaraj-ukkali" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-yellow-500/5 border border-yellow-500/25 py-3 flex items-center justify-center hover:border-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/15 transition text-white/70 shadow-sm" title="LinkedIn">
                 <i class="fab fa-linkedin-in text-lg"></i>
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-white/[0.04] border border-white/10 py-3 flex items-center justify-center hover:border-gold-500/40 hover:text-gold-300 transition text-white/70">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-red-500/5 border border-red-500/25 py-3 flex items-center justify-center hover:border-red-400 hover:text-red-300 hover:bg-red-500/15 transition text-white/70 shadow-sm" title="Twitter / X">
                 <i class="fab fa-x-twitter text-lg"></i>
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-white/[0.04] border border-white/10 py-3 flex items-center justify-center hover:border-gold-500/40 hover:text-gold-300 transition text-white/70">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-red-500/5 border border-red-500/25 py-3 flex items-center justify-center hover:border-red-400 hover:text-red-300 hover:bg-red-500/15 transition text-white/70 shadow-sm" title="Instagram">
                 <i class="fab fa-instagram text-lg"></i>
               </a>
             </div>
 
-            <!-- Geographic Badge -->
-            <div class="mt-5 rounded-xl overflow-hidden border border-gold-500/20 relative h-[120px] bg-gradient-to-br from-deepred-950 via-charcoal-900 to-charcoal-800 flex items-center justify-center">
-              <div class="text-center relative">
-                <div class="font-kannada text-gold-300 text-xl font-bold">ನಮ್ಮ ಕರ್ನಾಟಕ</div>
-                <div class="text-[11px] tracking-[0.3em] uppercase text-white/45 mt-1 font-mono">12.91° N • 74.85° E</div>
+            <!-- Geographic Karnataka Emblem -->
+            <div class="mt-5 rounded-xl overflow-hidden border border-yellow-500/35 relative h-[125px] bg-gradient-to-br from-yellow-950/40 via-[#140808] to-red-950/50 flex items-center justify-center shadow-lg">
+              <div class="text-center relative z-10">
+                <div class="font-kannada text-yellow-300 text-2xl font-black drop-shadow-[0_2px_12px_rgba(234,179,8,0.5)]">ನಮ್ಮ ಕರ್ನಾಟಕ</div>
+                <div class="text-[11px] tracking-[0.3em] uppercase text-white/60 mt-1 font-mono">12.91° N • 74.85° E</div>
               </div>
-              <div class="absolute top-3 right-3 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#34d399]"></div>
+              <div class="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 border border-yellow-500/30">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                <span class="w-2 h-2 rounded-full bg-yellow-400 absolute"></span>
+                <span class="text-[10px] text-yellow-300 font-mono font-bold ml-2">KA • INDIA</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Contact Form -->
+        <!-- Contact Form (Vibrant Karnataka Yellow & Red Theme) -->
         <div class="reveal lg:col-span-7">
-          <form id="contactForm" class="glass glass-gold-top rounded-3xl p-7 md:p-9 h-full border-gold-500/20" novalidate>
-            <div class="grid sm:grid-cols-2 gap-4">
+          <form id="contactForm" class="contact-form-ka rounded-3xl p-7 md:p-9 h-full shadow-2xl" novalidate>
+            
+            <!-- Terminal Header -->
+            <div class="flex items-center justify-between pb-5 mb-6 border-b border-yellow-500/25">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-red-500 shadow-[0_0_10px_#ef4444]"></span>
+                <span class="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-[0_0_10px_#facc15]"></span>
+                <span class="w-3.5 h-3.5 rounded-full bg-gold-500 shadow-[0_0_10px_#eab308]"></span>
+              </div>
+              <span class="text-xs font-mono text-yellow-300 font-semibold tracking-wide">
+                <span class="text-red-400 font-black">connect</span>@ningaraj-ukkali ~ %
+              </span>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-5">
               <div>
-                <label class="text-[12px] tracking-widest uppercase text-white/50 font-medium">Your Name *</label>
-                <input required name="name" type="text" placeholder="e.g. Ramesh Gowda" class="field mt-2 w-full rounded-xl px-4 py-3.5 text-sm"/>
+                <label class="text-xs tracking-wider uppercase font-bold text-yellow-300 flex items-center mb-2">
+                  <i class="fas fa-user text-[11px] text-yellow-400 mr-2"></i> Your Name <span class="text-red-500 font-black ml-1 text-base">*</span>
+                </label>
+                <input required name="name" type="text" placeholder="e.g. Ramesh Gowda" class="field-ka w-full px-4 py-3.5 text-sm"/>
               </div>
               <div>
-                <label class="text-[12px] tracking-widest uppercase text-white/50 font-medium">Email Address *</label>
-                <input required name="email" type="email" placeholder="e.g. your@company.com" class="field mt-2 w-full rounded-xl px-4 py-3.5 text-sm"/>
+                <label class="text-xs tracking-wider uppercase font-bold text-yellow-300 flex items-center mb-2">
+                  <i class="fas fa-envelope text-[11px] text-yellow-400 mr-2"></i> Email Address <span class="text-red-500 font-black ml-1 text-base">*</span>
+                </label>
+                <input required name="email" type="email" placeholder="e.g. your@company.com" class="field-ka w-full px-4 py-3.5 text-sm"/>
               </div>
             </div>
             
-            <div class="mt-4">
-              <label class="text-[12px] tracking-widest uppercase text-white/50 font-medium">Subject / Opportunity</label>
-              <input name="subject" type="text" placeholder="Full-time SDE role / Freelance project" class="field mt-2 w-full rounded-xl px-4 py-3.5 text-sm"/>
+            <div class="mt-5">
+              <label class="text-xs tracking-wider uppercase font-bold text-yellow-300 flex items-center mb-2">
+                <i class="fas fa-tag text-[11px] text-yellow-400 mr-2"></i> Subject / Opportunity
+              </label>
+              <input name="subject" type="text" placeholder="Full-time SDE role / Freelance project" class="field-ka w-full px-4 py-3.5 text-sm"/>
             </div>
 
-            <div class="mt-4">
-              <label class="text-[12px] tracking-widest uppercase text-white/50 font-medium">Project Scope / Budget</label>
-              <div class="flex flex-wrap gap-2 mt-2" id="budgetChips">
-                <button type="button" class="budget-chip chip px-4 py-2 rounded-full text-[13px] hover:border-gold-500/50 transition" data-v="Full-time Role">Full-time SDE</button>
-                <button type="button" class="budget-chip chip px-4 py-2 rounded-full text-[13px] hover:border-gold-500/50 transition" data-v="Contract / Freelance">Contract Work</button>
-                <button type="button" class="budget-chip chip px-4 py-2 rounded-full text-[13px] hover:border-gold-500/50 transition" data-v="₹25k-75k">₹25k–75k</button>
-                <button type="button" class="budget-chip chip px-4 py-2 rounded-full text-[13px] hover:border-gold-500/50 transition" data-v="Let's Discuss">Let's Discuss</button>
+            <div class="mt-5">
+              <label class="text-xs tracking-wider uppercase font-bold text-yellow-300 flex items-center mb-2.5">
+                <i class="fas fa-layer-group text-[11px] text-yellow-400 mr-2"></i> Project Scope / Role Type
+              </label>
+              <div class="flex flex-wrap gap-2.5" id="budgetChips">
+                <button type="button" class="budget-chip-ka px-4 py-2.5 rounded-full text-xs md:text-sm font-bold flex items-center gap-2" data-v="Full-time Role">
+                  <span class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_6px_#facc15]"></span> Full-time SDE
+                </button>
+                <button type="button" class="budget-chip-ka px-4 py-2.5 rounded-full text-xs md:text-sm font-bold flex items-center gap-2" data-v="Contract / Freelance">
+                  <span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_6px_#ef4444]"></span> Contract Work
+                </button>
+                <button type="button" class="budget-chip-ka px-4 py-2.5 rounded-full text-xs md:text-sm font-bold flex items-center gap-2" data-v="₹25k-75k">
+                  <span class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_6px_#facc15]"></span> ₹25k–75k
+                </button>
+                <button type="button" class="budget-chip-ka px-4 py-2.5 rounded-full text-xs md:text-sm font-bold flex items-center gap-2" data-v="Let's Discuss">
+                  <span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_6px_#ef4444]"></span> Let's Discuss
+                </button>
               </div>
             </div>
 
-            <div class="mt-4">
-              <label class="text-[12px] tracking-widest uppercase text-white/50 font-medium">Message *</label>
-              <textarea required name="message" rows="5" placeholder="Share project details or job description... (ನಿಮ್ಮ ಯೋಜನೆಯ ಬಗ್ಗೆ ತಿಳಿಸಿ)" class="field mt-2 w-full rounded-xl px-4 py-3.5 text-sm resize-none"></textarea>
+            <div class="mt-5">
+              <label class="text-xs tracking-wider uppercase font-bold text-yellow-300 flex items-center mb-2">
+                <i class="fas fa-comment-dots text-[11px] text-yellow-400 mr-2"></i> Message <span class="text-red-500 font-black ml-1 text-base">*</span>
+              </label>
+              <textarea required name="message" rows="5" placeholder="Share project details or job description... (ನಿಮ್ಮ ಯೋಜನೆಯ ಬಗ್ಗೆ ತಿಳಿಸಿ)" class="field-ka w-full px-4 py-3.5 text-sm resize-none"></textarea>
             </div>
 
-            <div class="mt-6 flex flex-col sm:flex-row items-center gap-4">
-              <button type="submit" id="sendBtn" class="btn-gold magnetic w-full sm:w-auto px-10 py-4 rounded-full font-bold text-sm tracking-wide flex items-center justify-center gap-3">
+            <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <button type="submit" id="sendBtn" class="btn-karnataka-submit w-full sm:w-auto px-10 py-4 rounded-full text-sm font-black tracking-wide flex items-center justify-center gap-3">
                 <span id="sendLabel">Send Message</span>
                 <i class="fas fa-paper-plane text-xs text-charcoal-950"></i>
               </button>
-              <p class="text-white/40 text-[13px]">
-                Typical response time: <span class="text-emerald-400 font-semibold">&lt; 12 hours</span>. Direct inbox delivery.
-              </p>
+              
+              <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-gradient-to-r from-red-950/70 via-black to-yellow-950/60 border border-yellow-500/40 text-xs shadow-md">
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-pulse shadow-[0_0_8px_#facc15]"></span>
+                <span class="text-white/80">Avg. response: <strong class="text-yellow-300 font-bold">&lt; 12 hours</strong></span>
+              </div>
             </div>
           </form>
         </div>
