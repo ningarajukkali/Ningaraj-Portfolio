@@ -1,809 +1,1084 @@
-// Scroll Progress Bar
-function updateScrollProgress() {
-    const scrollProgress = document.getElementById('scrollProgress');
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = (window.scrollY / scrollHeight) * 100;
-    scrollProgress.style.width = scrolled + '%';
-}
+/* ==========================================================================
+   NINGARAJ R UKKALI — CINEMATIC INTERACTIVE ENGINE
+   Combines Three.js Particle Universe, GSAP 3D Motion, Real Projects & Resume
+   ========================================================================== */
 
-// window.addEventListener('scroll', updateScrollProgress); // Removed - handled by debounce below
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (prefersReduced) document.documentElement.classList.add('no-motion');
 
-// Navbar Scroll Effect + Scroll-to-Top Button
-function updateNavbar() {
-    const navbar = document.getElementById('navbar');
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
+/* ==========================================================================
+   1. REAL PROJECTS DATABASE (8 REAL PROJECTS)
+   ========================================================================== */
+const projects = [
+  {
+    id: 1,
+    key: 'craftcycle',
+    cat: 'fullstack',
+    title: 'CraftCycle — AI Circular Economy Marketplace',
+    kannada: 'ಕ್ರಾಫ್ಟ್‌ಸೈಕಲ್',
+    badge: 'Featured AI & MERN',
+    img: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=900&auto=format&fit=crop',
+    tags: ['Python', 'Flask', 'Supabase', 'Gemini Vision AI', 'JavaScript'],
+    desc: 'Full-stack marketplace connecting creators, recyclers, and buyers with Google Gemini Vision AI for waste classification and description generation.',
+    long: 'CraftCycle is an end-to-end circular economy platform that bridges scrap suppliers, artisanal upcyclers, and eco-conscious consumers. Built with a Python (Flask) backend and Supabase PostgreSQL database, it features Google Gemini Vision integration to scan uploaded scrap photos, suggest upcycling ideas, and craft optimized product descriptions automatically.',
+    features: [
+      'Role-based authentication (Recyclers, Creators, Buyers) via secure JWT',
+      'Integrated Google Gemini Vision API for automatic waste image analysis',
+      'Dynamic product catalog with multi-facet category and price filtering',
+      'Real-time order processing, seller analytics dashboard, and chat communication'
+    ],
+    demo: 'https://craftcycle.pages.dev',
+    code: 'https://github.com/ningarajukkali/CraftCycle',
+    stats: { users: 'Live MVP', perf: '98/100', stack: 'Flask + AI' }
+  },
+  {
+    id: 2,
+    key: 'pulsesim',
+    cat: 'backend',
+    title: 'PulseSim — Real-Time Medical Simulation Platform',
+    kannada: 'ಮೆಡಿಕಲ್ ಸಿಮ್ಯುಲೇಟರ್',
+    badge: 'Real-Time Backend',
+    img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=900&auto=format&fit=crop',
+    tags: ['FastAPI', 'WebSockets', 'Redis Pub/Sub', 'Docker', 'PostgreSQL'],
+    desc: 'Backend-driven medical simulation platform with bidirectional real-time patient telemetry and clinical intervention workflows.',
+    long: 'PulseSim is an event-driven medical simulation platform engineered for high-throughput, low-latency telemetry streaming. Using FastAPI, WebSockets, and Redis Pub/Sub, it broadcasts dynamic patient physiological responses to simulated clinical drug administrations and shocks with sub-50ms latency.',
+    features: [
+      'Bidirectional WebSockets streaming with Redis Pub/Sub broadcast architecture',
+      'Dynamic physiological state evaluation engine adapting patient vitals in real time',
+      'Chronological session event recording in PostgreSQL for medical debriefing and analytics',
+      'Fully containerized microservices deployment with Docker on Linux'
+    ],
+    demo: '#',
+    code: 'https://github.com/ningarajukkali/PulseSimulator',
+    stats: { users: '<50ms latency', perf: '99%', stack: 'FastAPI' }
+  },
+  {
+    id: 3,
+    key: 'restrocafe',
+    cat: 'client',
+    title: 'RestroCafe — Restaurant & Cafe Management Suite',
+    kannada: 'ರೆಸ್ಟ್ರೋಕೆಫೆ',
+    badge: 'Client Project',
+    img: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=900&auto=format&fit=crop',
+    tags: ['PHP 8', 'MySQL', 'Bootstrap 5', 'jQuery', 'XAMPP'],
+    desc: 'Commercial cafe and restaurant operations software managing table reservations, live kitchen order tickets (KOT), billing, and inventory.',
+    long: 'Developed as a custom turnkey client engagement, RestroCafe eliminates restaurant floor bottlenecks. It features waiter tablet ordering, automatic kitchen display routing, split-bill invoicing with GST computation, and real-time inventory deductions on every dish served.',
+    features: [
+      'Touch-friendly Point of Sale (POS) interface with instant thermal printing support',
+      'Live Kitchen Order Ticket (KOT) workflow with order status color indicators',
+      'Dynamic ingredient-level inventory tracking with low-stock alerts',
+      'Role-based staff permissions (Cashier, Waiter, Kitchen Manager, Administrator)'
+    ],
+    demo: 'https://restrocafe.onrender.com',
+    code: 'https://github.com/ningarajukkali/RestroCafe',
+    stats: { users: 'Production', perf: '96%', stack: 'PHP & MySQL' }
+  },
+  {
+    id: 4,
+    key: 'community-help',
+    cat: 'client',
+    title: 'Community-Help — Assistance & Volunteer Dispatch',
+    kannada: 'ಸಮುದಾಯ ಸೇವೆ',
+    badge: 'Client Project',
+    img: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=900&auto=format&fit=crop',
+    tags: ['React.js', 'Vite', 'Tailwind CSS', 'Node.js', 'MongoDB'],
+    desc: 'Peer-to-peer assistance network connecting citizens in urgent need with local volunteers and relief resources in real time.',
+    long: 'Built as a community welfare client platform, Community-Help coordinates emergency relief, elderly citizen errands, blood donor requests, and volunteer tasks. Built on the MERN stack with Vite, it features a mobile-first responsive layout ensuring accessibility even in low-bandwidth scenarios.',
+    features: [
+      'Real-time help request broadcasting with geolocation pin matching',
+      'Automated volunteer notifications based on skill profile and proximity',
+      'Interactive community feed with verified identity badges and resolution tracking',
+      'Admin moderation panel for vetting emergency requests and safety compliance'
+    ],
+    demo: 'https://community-help-alpha.vercel.app/',
+    code: 'https://github.com/ningarajukkali/Community-Help',
+    stats: { users: '200+ Volunteers', perf: '97%', stack: 'MERN Stack' }
+  },
+  {
+    id: 5,
+    key: 'brahmx-ai',
+    cat: 'ai',
+    title: 'BrahmX AI — Intelligent Automation & Workflow Platform',
+    kannada: 'ಬ್ರಹ್ಮಕ್ಸ್ ಎಐ',
+    badge: 'AI & Automation',
+    img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=900&auto=format&fit=crop',
+    tags: ['React.js', 'Vite', 'Node.js', 'Express', 'OpenAI API'],
+    desc: 'Next-generation AI workflow platform orchestrating prompt chains and machine learning models for corporate data intelligence.',
+    long: 'BrahmX AI empowers businesses to automate complex repetitive office workflows, analyze dense document corpuses, and execute semantic queries over private company knowledge bases with blazing fast responses.',
+    features: [
+      'Interactive canvas for visual prompt chain building and reasoning trees',
+      'High-throughput document ingestion with semantic search and summarization',
+      'Live telemetry dashboard monitoring token usage, latency, and cost per query',
+      'Instant export of structured data to CSV, JSON, and Google Sheets'
+    ],
+    demo: '#',
+    code: 'https://github.com/ningarajukkali/BrahmX-AI',
+    stats: { users: '3x Faster', perf: '98%', stack: 'React + AI' }
+  },
+  {
+    id: 6,
+    key: 'careerforge-ai',
+    cat: 'ai',
+    title: 'CareerForge AI — Adaptive Career Pathing System',
+    kannada: 'ಕೆರಿಯರ್ ಫೋರ್ಜ್',
+    badge: 'Startup AI Project',
+    img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=900&auto=format&fit=crop',
+    tags: ['MongoDB', 'Express', 'React.js', 'Node.js', 'AI APIs'],
+    desc: 'AI-driven career accelerator offering personalized skill-gap analysis, learning milestone roadmaps, and resume recommendations.',
+    long: 'CareerForge AI is a full-stack career guidance engine. Users supply their current skills, portfolio, and target dream roles; the AI evaluates thousands of live job descriptions to prescribe a personalized step-by-step roadmap with curated course recommendations.',
+    features: [
+      'AI-powered skill gap analyzer providing match percentage scores for target roles',
+      'Curated learning track generation with weekly milestone checklists',
+      'Resume critique engine with actionable bullet point rewrites and keyword suggestions',
+      'Secure user accounts with JWT authentication and persistent progress history'
+    ],
+    demo: '#',
+    code: 'https://github.com/ningarajukkali/CareerForge-AI',
+    stats: { users: '94% Match Acc', perf: '96%', stack: 'MERN + AI' }
+  },
+  {
+    id: 7,
+    key: 'e-agri',
+    cat: 'fullstack',
+    title: 'E-agri-Digitaly — Digital Agriculture Management',
+    kannada: 'ಡಿಜಿಟಲ್ ಕೃಷಿ',
+    badge: 'AgriTech Platform',
+    img: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=900&auto=format&fit=crop',
+    tags: ['PHP 8', 'MySQL', 'Bootstrap 5', 'HTML5', 'CSS3'],
+    desc: 'Digital agricultural platform designed for Karnataka farmers to monitor crop growth cycles, manage water/fertilizer, and check mandi pricing.',
+    long: 'Designed specifically with regional farming needs in mind, E-agri-Digitaly equips farmers with unified tools to plan seed planting timelines, calculate exact fertilizer ratios, monitor rainfall alerts, and view live market prices across Karnataka mandis.',
+    features: [
+      'Comprehensive crop timeline planner from sowing to harvest stage',
+      'Water management and scheduled soil nutrition recommendations',
+      'Direct buyer-to-farmer price transparency module reducing middleman deductions',
+      'Optimized lightweight interface that loads quickly on 2G/3G mobile networks'
+    ],
+    demo: '#',
+    code: 'https://github.com/ningarajukkali/E-agri-Digitaly',
+    stats: { users: 'Farmer Focus', perf: '95%', stack: 'PHP & MySQL' }
+  },
+  {
+    id: 8,
+    key: 'nexus-assistant',
+    cat: 'ai',
+    title: 'Nexus Assistant — Voice-Activated AI Personal Agent',
+    kannada: 'ನೆಕ್ಸಸ್ ಅಸಿಸ್ಟೆಂಟ್',
+    badge: 'Desktop AI Agent',
+    img: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=900&auto=format&fit=crop',
+    tags: ['Python 3', 'SQLite', 'SpeechRecognition', 'pyttsx3', 'Docker'],
+    desc: 'Voice-controlled personal assistant with persistent SQLite memory, speech recognition, offline TTS, and system automation.',
+    long: 'Nexus Assistant is an autonomous personal AI assistant crafted in Python. It captures voice input via SpeechRecognition, handles queries with natural text-to-speech feedback via pyttsx3, remembers user preferences across sessions in SQLite, and automates OS actions.',
+    features: [
+      'Offline-capable text-to-speech and dynamic audio voice recognition',
+      'Persistent SQLite conversation context and customizable quick tasks',
+      'System automation: program launchers, web lookups, calendar notifications, and email sending',
+      'Containerized for quick setup with Docker across Windows and Linux'
+    ],
+    demo: '#',
+    code: 'https://github.com/ningarajukkali/Nexus-Assistant',
+    stats: { users: 'Offline Ready', perf: '94%', stack: 'Python' }
+  }
+];
+
+/* ==========================================================================
+   2. TESTIMONIALS & RECOMMENDATIONS
+   ========================================================================== */
+const testimonials = [
+  {
+    name: 'Suresh Kumar',
+    role: 'Client • RestroCafe',
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
+    text: 'Ningaraj delivered our RestroCafe management system with remarkable speed and precision. The POS billing and kitchen display system work flawlessly during our peak hours. An extremely reliable and hardworking developer!',
+    stars: 5
+  },
+  {
+    name: 'Ananya Hegde',
+    role: 'Product Lead • Community Network',
+    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
+    text: 'Working with Ningaraj on the Community-Help portal was a delightful experience. His knack for clean React UI, prompt communication, and passion for making technology accessible to everyone is truly commendable.',
+    stars: 5
+  },
+  {
+    name: 'Dr. Raghavendra Bhat',
+    role: 'Academic Mentor & Tech Lead',
+    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+    text: 'Ningaraj stands out for his deep understanding of systems architecture, real-time protocols, and databases. His 8.1 CGPA in BCA reflects his discipline, while his projects like PulseSim demonstrate real engineering ingenuity.',
+    stars: 5
+  }
+];
+
+/* ==========================================================================
+   3. PRELOADER ANIMATION
+   ========================================================================== */
+(function initPreloader(){
+  const fill = document.getElementById('loaderFill');
+  const pct = document.getElementById('loaderPct');
+  if (!fill || !pct) return;
+  let p = 0;
+  const interval = setInterval(() => {
+    p += Math.random() * 18 + 5;
+    if (p >= 100) {
+      p = 100;
+      clearInterval(interval);
+      fill.style.width = '100%';
+      pct.textContent = '100%';
+      setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        if (preloader) preloader.classList.add('done');
+        triggerHeroEntrance();
+      }, 450);
     } else {
-        navbar.classList.remove('scrolled');
+      fill.style.width = Math.floor(p) + '%';
+      pct.textContent = Math.floor(p) + '%';
     }
-    if (scrollTopBtn) {
-        if (window.scrollY > 400) {
-            scrollTopBtn.classList.add('visible');
-        } else {
-            scrollTopBtn.classList.remove('visible');
-        }
-    }
-}
-
-// window.addEventListener('scroll', updateNavbar); // Removed - handled by debounce below
-
-// Mobile Menu Toggle
-function toggleMobileMenu() {
-    const navMenu = document.getElementById('navMenu');
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-
-    navMenu.classList.toggle('active');
-    mobileMenuBtn.classList.toggle('active');
-    mobileMenuOverlay.classList.toggle('active');
-}
-
-// ─── Premium Smooth Scroll ───────────────────────────────────────────────────
-function easedScrollTo(targetY, duration = 900) {
-    const startY = window.scrollY;
-    const diff = targetY - startY;
-    let start = null;
-
-    function easeInOutCubic(t) {
-        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-
-    function step(timestamp) {
-        if (!start) start = timestamp;
-        const elapsed = timestamp - start;
-        const progress = Math.min(elapsed / duration, 1);
-        window.scrollTo(0, startY + diff * easeInOutCubic(progress));
-        if (progress < 1) requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
-}
-
-function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        const navbarHeight = document.getElementById('navbar')?.offsetHeight || 70;
-        const targetY = section.getBoundingClientRect().top + window.scrollY - navbarHeight;
-        easedScrollTo(targetY, 900);
-    }
-    // Close mobile menu if open
-    const navMenu = document.getElementById('navMenu');
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-    if (navMenu && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-        mobileMenuOverlay.classList.remove('active');
-    }
-}
-
-function scrollToTop() {
-    easedScrollTo(0, 800);
-}
-
-// Create Floating Particles
-function createParticles(containerId, count) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    for (let i = 0; i < count; i++) {
-        const particle = document.createElement('div');
-        particle.style.position = 'absolute';
-        particle.style.width = '4px';
-        particle.style.height = '4px';
-        particle.style.background = 'rgba(6, 182, 212, 0.3)';
-        particle.style.borderRadius = '50%';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animation = `floatParticle ${3 + Math.random() * 2}s infinite ${Math.random() * 2}s`;
-        container.appendChild(particle);
-    }
-}
-
-// Add particle animation keyframes dynamically
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes floatParticle {
-        0%, 100% {
-            transform: translateY(0);
-            opacity: 0.2;
-        }
-        50% {
-            transform: translateY(-30px);
-            opacity: 0.5;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Initialize particles
-createParticles('heroParticles', 50);
-createParticles('footerParticles', 20);
-
-// Intersection Observer for Animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-
-            // Animate skill progress bars
-            if (entry.target.classList.contains('skill-card')) {
-                const progressFill = entry.target.querySelector('.progress-fill');
-                if (progressFill) {
-                    const width = progressFill.style.width;
-                    progressFill.style.width = '0';
-                    setTimeout(() => {
-                        progressFill.style.width = width;
-                    }, 100);
-                }
-            }
-
-            // Animate stats
-            if (entry.target.classList.contains('stat-item') || entry.target.classList.contains('stat-card')) {
-                animateValue(entry.target.querySelector('.stat-value, .stat-card-value'));
-            }
-        }
-    });
-}, observerOptions);
-
-// Observe all animated elements
-document.querySelectorAll('.fade-in, .fade-in-up, .skill-card, .project-card, .timeline-item, .stat-item, .stat-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-    observer.observe(el);
-});
-
-// Animate Number Values
-function animateValue(element) {
-    if (!element || element.dataset.animated) return;
-
-    const text = element.textContent;
-    const matches = text.match(/\d+/);
-    if (!matches) return;
-
-    const endValue = parseInt(matches[0]);
-    const hasPlus = text.includes('+');
-    const duration = 2000;
-    const frameDuration = 1000 / 60;
-    const totalFrames = Math.round(duration / frameDuration);
-    let frame = 0;
-
-    element.dataset.animated = 'true';
-
-    const counter = setInterval(() => {
-        frame++;
-        const progress = frame / totalFrames;
-        const currentValue = Math.round(endValue * progress);
-        element.textContent = currentValue + (hasPlus ? '+' : '');
-
-        if (frame === totalFrames) {
-            clearInterval(counter);
-            element.textContent = text;
-        }
-    }, frameDuration);
-}
-
-// Skill Card Hover Effects
-document.querySelectorAll('.skill-card').forEach(card => {
-    card.addEventListener('mouseenter', function () {
-        this.style.transform = 'scale(1.05) rotateY(5deg)';
-    });
-
-    card.addEventListener('mouseleave', function () {
-        this.style.transform = 'scale(1) rotateY(0)';
-    });
-});
-
-// Project Card Hover Effects
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseenter', function () {
-        // Create floating particles on hover
-        createHoverParticles(this);
-    });
-});
-
-function createHoverParticles(card) {
-    const particleCount = 6;
-    const gradient = card.dataset.gradient;
-
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.style.position = 'absolute';
-        particle.style.width = '8px';
-        particle.style.height = '8px';
-        particle.style.borderRadius = '50%';
-        particle.style.left = (20 + Math.random() * 60) + '%';
-        particle.style.top = (20 + Math.random() * 60) + '%';
-        particle.style.pointerEvents = 'none';
-        particle.style.zIndex = '100';
-
-        // Set gradient based on card
-        if (gradient === 'cyan-blue') {
-            particle.style.background = 'linear-gradient(135deg, #06b6d4, #3b82f6)';
-        } else if (gradient === 'violet-purple') {
-            particle.style.background = 'linear-gradient(135deg, #8b5cf6, #a855f7)';
-        } else if (gradient === 'pink-rose') {
-            particle.style.background = 'linear-gradient(135deg, #ec4899, #f43f5e)';
-        } else if (gradient === 'emerald-teal') {
-            particle.style.background = 'linear-gradient(135deg, #10b981, #14b8a6)';
-        } else if (gradient === 'orange-amber') {
-            particle.style.background = 'linear-gradient(135deg, #f97316, #f59e0b)';
-        } else if (gradient === 'indigo-blue') {
-            particle.style.background = 'linear-gradient(135deg, #6366f1, #3b82f6)';
-        }
-
-        particle.style.animation = `floatUp 1.5s ease-out ${i * 0.15}s`;
-
-        card.appendChild(particle);
-
-        setTimeout(() => {
-            particle.remove();
-        }, 1500);
-    }
-}
-
-// Add float up animation
-const floatUpStyle = document.createElement('style');
-floatUpStyle.textContent = `
-    @keyframes floatUp {
-        0% {
-            opacity: 0;
-            transform: scale(0) translateY(0);
-        }
-        50% {
-            opacity: 1;
-            transform: scale(1) translateY(-20px);
-        }
-        100% {
-            opacity: 0;
-            transform: scale(0) translateY(-40px);
-        }
-    }
-`;
-document.head.appendChild(floatUpStyle);
-
-// Timeline Icon Rotation on Hover
-document.querySelectorAll('.timeline-icon').forEach(icon => {
-    icon.addEventListener('mouseenter', function () {
-        this.style.transform = 'translateX(-50%) scale(1.1) rotate(360deg)';
-    });
-
-    icon.addEventListener('mouseleave', function () {
-        this.style.transform = 'translateX(-50%) scale(1) rotate(0deg)';
-    });
-});
-
-// Terminal Input Focus Effects
-document.querySelectorAll('.terminal-input').forEach(input => {
-    input.addEventListener('focus', function () {
-        this.style.boxShadow = '0 0 20px rgba(6, 182, 212, 0.3)';
-        this.style.borderColor = '#06b6d4';
-    });
-
-    input.addEventListener('blur', function () {
-        this.style.boxShadow = 'none';
-        this.style.borderColor = 'rgba(6, 182, 212, 0.3)';
-    });
-});
-
-// Contact Form Submission
-document.getElementById('contactForm')?.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const formData = {
-        name: this.querySelector('input[type="text"]').value,
-        email: this.querySelector('input[type="email"]').value,
-        message: this.querySelector('textarea').value
-    };
-
-    console.log('Form submitted:', formData);
-
-    // Show success message
-    alert('Message sent successfully! Thank you for reaching out.');
-
-    // Reset form
-    this.reset();
-});
-
-// Parallax Effect for Hero Section
-window.addEventListener('scroll', function () {
-    const scrolled = window.scrollY;
-    const heroContent = document.querySelector('.hero-content');
-    const heroImage = document.querySelector('.hero-image');
-
-    if (heroContent) {
-        heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
-    }
-
-    if (heroImage) {
-        heroImage.style.transform = `translateY(${scrolled * 0.2}px)`;
-    }
-});
-
-// Add smooth reveal for elements on scroll
-const revealElements = document.querySelectorAll('.glass-card, .feature-card, .contact-card');
-revealElements.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(50px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-});
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1 });
-
-revealElements.forEach(el => revealObserver.observe(el));
-
-// Button Click Effects
-document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('click', function (e) {
-        const ripple = document.createElement('div');
-        ripple.style.position = 'absolute';
-        ripple.style.width = '20px';
-        ripple.style.height = '20px';
-        ripple.style.borderRadius = '50%';
-        ripple.style.background = 'rgba(255, 255, 255, 0.5)';
-        ripple.style.transform = 'scale(0)';
-        ripple.style.animation = 'ripple 0.6s ease-out';
-        ripple.style.pointerEvents = 'none';
-
-        const rect = this.getBoundingClientRect();
-        ripple.style.left = (e.clientX - rect.left - 10) + 'px';
-        ripple.style.top = (e.clientY - rect.top - 10) + 'px';
-
-        this.style.position = 'relative';
-        this.style.overflow = 'hidden';
-        this.appendChild(ripple);
-
-        setTimeout(() => ripple.remove(), 600);
-    });
-});
-
-// Add ripple animation
-const rippleStyle = document.createElement('style');
-rippleStyle.textContent = `
-    @keyframes ripple {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(rippleStyle);
-
-// Cursor Trail Effect (Optional)
-let cursorTrail = [];
-const maxTrailLength = 20;
-
-document.addEventListener('mousemove', function (e) {
-    if (window.innerWidth > 768) { // Only on desktop
-        cursorTrail.push({ x: e.clientX, y: e.clientY });
-
-        if (cursorTrail.length > maxTrailLength) {
-            cursorTrail.shift();
-        }
-    }
-});
-
-// Loading Animation
-window.addEventListener('load', function () {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
-});
-
-// Dynamic Year in Footer
-const currentYear = new Date().getFullYear();
-const copyrightText = document.querySelector('.footer-copyright');
-if (copyrightText) {
-    copyrightText.innerHTML = copyrightText.innerHTML.replace('2025', currentYear);
-}
-
-// Keyboard Navigation
-document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-        const navMenu = document.getElementById('navMenu');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-
-        if (navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-            mobileMenuBtn.classList.remove('active');
-            mobileMenuOverlay.classList.remove('active');
-        }
-    }
-});
-
-// Lazy Loading Images
-const images = document.querySelectorAll('img');
-const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            if (img.complete) {
-                img.style.opacity = '1';
-            } else {
-                img.style.opacity = '0';
-                img.style.transition = 'opacity 0.5s ease';
-                img.onload = () => {
-                    img.style.opacity = '1';
-                };
-            }
-
-            imageObserver.unobserve(img);
-        }
-    });
-});
-
-images.forEach(img => imageObserver.observe(img));
-
-// Console Easter Egg
-console.log('%c👋 Hey there, developer!', 'font-size: 20px; font-weight: bold; color: #06b6d4;');
-console.log('%cLooks like you\'re checking out the code. Feel free to reach out if you want to collaborate!', 'font-size: 14px; color: #8b5cf6;');
-console.log('%c📧 ningaraj.ukkali@example.com', 'font-size: 12px; color: #22d3ee;');
-
-// Performance Optimization - Debounce Scroll
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply debounce to scroll handlers
-window.addEventListener('scroll', debounce(updateScrollProgress, 10));
-window.addEventListener('scroll', debounce(updateNavbar, 10));
-
-console.log('%c✨ Portfolio loaded successfully!', 'font-size: 16px; font-weight: bold; color: #10b981;');
-// Toggle Projects Visibility
-function toggleProjects() {
-    const extraProjects = document.querySelectorAll('.extra-project');
-    const viewAllBtn = document.getElementById('viewAllBtn');
-
-    let isHidden = true;
-    if (extraProjects.length > 0) {
-        isHidden = extraProjects[0].style.display === 'none';
-    }
-
-    if (isHidden) {
-        extraProjects.forEach(el => {
-            // Revert display to default grid/block or remove display none
-            el.style.display = '';
-
-            // If it's a grid container and needs explicit grid, do it
-            if (el.classList.contains('projects-grid')) {
-                el.style.display = 'grid';
-            }
-        });
-        viewAllBtn.textContent = 'Show Less';
-    } else {
-        extraProjects.forEach(el => {
-            el.style.display = 'none';
-        });
-        viewAllBtn.textContent = 'View All Projects';
-
-        // Scroll back to top of projects section so the user doesn't lose their place
-        document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-// Project Modal Logic
-function openProjectModal(btnElement) {
-    const card = btnElement.closest('.project-card');
-    if (!card) return;
-
-    const title = card.getAttribute('data-title');
-    const desc = card.getAttribute('data-description');
-    const github = card.getAttribute('data-github');
-    const demo = card.getAttribute('data-demo');
-
-    document.getElementById('modalTitle').textContent = title;
-    document.getElementById('modalDescription').innerHTML = desc;
-
-    const githubBtn = document.getElementById('modalGithubBtn');
-    if (github && github !== '#') {
-        githubBtn.href = github;
-        githubBtn.style.display = 'flex';
-    } else {
-        githubBtn.style.display = 'none';
-    }
-
-    const demoBtn = document.getElementById('modalDemoBtn');
-    if (demo) {
-        demoBtn.href = demo;
-    }
-    demoBtn.style.display = 'flex';
-
-    const modal = document.getElementById('projectModal');
-    modal.classList.add('show');
-
-    // Prevent background scrolling
-    document.body.style.overflow = 'hidden';
-}
-
-
-function closeProjectModal() {
-    const modal = document.getElementById('projectModal');
-    modal.classList.remove('show');
-
-    // Restore scrolling
-    document.body.style.overflow = '';
-}
-
-// Attach direct GitHub repository link handler to card buttons
-document.querySelectorAll('.btn-project-github').forEach(btn => {
-    btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        const card = this.closest('.project-card');
-        const github = card ? card.getAttribute('data-github') : null;
-        if (github && github !== '#') {
-            window.open(github, '_blank');
-        }
-    });
-});
-
-// Resume Interactive Preview Toggle
-function toggleResumePreview() {
-    const panel = document.getElementById('resumePreviewPanel');
-    const btnText = document.getElementById('resumePreviewText');
-    if (!panel) return;
-
-    if (panel.classList.contains('hidden')) {
-        panel.classList.remove('hidden');
-        if (btnText) btnText.textContent = 'Hide Preview';
-    } else {
-        panel.classList.add('hidden');
-        if (btnText) btnText.textContent = 'Interactive View';
-    }
-    if (window.renderBrandIcons) {
-        window.renderBrandIcons();
-    }
-    if (window.lucide) {
-        lucide.createIcons();
-    }
-}
-
-
-// ─── Advanced 3D Holographic Data Orb ────────────────────────────────────────
-(function initHolographicOrb() {
-    function loadScript(src, cb) {
-        const s = document.createElement('script');
-        s.src = src; s.onload = cb;
-        document.head.appendChild(s);
-    }
-    loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', build);
-
-    function build() {
-        const canvas = document.createElement('canvas');
-        canvas.id = 'orbCanvas';
-        canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
-        document.body.prepend(canvas);
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 500);
-        camera.position.set(0, 0, 20);
-
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-        renderer.setSize(innerWidth, innerHeight);
-        renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-        renderer.setClearColor(0x000000, 0);
-
-        // ── Glow sprite textures ─────────────────────────────────────────────
-        function makeGlow(size, r, g, b) {
-            const cv = document.createElement('canvas');
-            cv.width = cv.height = size;
-            const cx = cv.getContext('2d');
-            const grd = cx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-            grd.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',1)');
-            grd.addColorStop(0.35, 'rgba(' + r + ',' + g + ',' + b + ',0.6)');
-            grd.addColorStop(1, 'rgba(' + r + ',' + g + ',' + b + ',0)');
-            cx.fillStyle = grd; cx.fillRect(0, 0, size, size);
-            return new THREE.CanvasTexture(cv);
-        }
-        const tCyan = makeGlow(64, 6, 182, 212);
-        const tViolet = makeGlow(64, 139, 92, 246);
-        const tPink = makeGlow(64, 244, 114, 182);
-        const tWhite = makeGlow(64, 255, 255, 255);
-        const tEm = makeGlow(64, 52, 211, 153);
-
-        // ── Fibonacci particle sphere shell (outer) ──────────────────────────
-        const N = 6000;
-        const pos = new Float32Array(N * 3);
-        const col = new Float32Array(N * 3);
-        const c1 = new THREE.Color('#22d3ee'), c2 = new THREE.Color('#8b5cf6'), c3 = new THREE.Color('#f472b6');
-        for (let i = 0; i < N; i++) {
-            const phi = Math.acos(1 - 2 * (i + 0.5) / N);
-            const theta = Math.PI * (1 + Math.sqrt(5)) * i;
-            const r = 6.0 + (Math.random() - 0.5) * 0.5;
-            pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-            pos[i * 3 + 1] = r * Math.cos(phi);
-            pos[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
-            const t = phi / Math.PI;
-            const c = t < 0.5 ? c1.clone().lerp(c2, t * 2) : c2.clone().lerp(c3, (t - 0.5) * 2);
-            col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
-        }
-        const shellGeo = new THREE.BufferGeometry();
-        shellGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-        shellGeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
-        const shell = new THREE.Points(shellGeo, new THREE.PointsMaterial({
-            map: tCyan, size: 0.2, vertexColors: true,
-            transparent: true, opacity: 0.8,
-            blending: THREE.AdditiveBlending, depthWrite: false, alphaTest: 0.001,
-        }));
-        scene.add(shell);
-
-        // ── Inner particle cloud ─────────────────────────────────────────────
-        const IN = 2500;
-        const ip = new Float32Array(IN * 3);
-        for (let i = 0; i < IN; i++) {
-            const phi = Math.acos(1 - 2 * (i + 0.5) / IN);
-            const theta = Math.PI * (1 + Math.sqrt(5)) * i;
-            const r = 2.5 + Math.random() * 2.5;
-            ip[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-            ip[i * 3 + 1] = r * Math.cos(phi);
-            ip[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
-        }
-        const innerGeo = new THREE.BufferGeometry();
-        innerGeo.setAttribute('position', new THREE.BufferAttribute(ip, 3));
-        const inner = new THREE.Points(innerGeo, new THREE.PointsMaterial({
-            map: tWhite, size: 0.1, color: 0x88ccff,
-            transparent: true, opacity: 0.45,
-            blending: THREE.AdditiveBlending, depthWrite: false, alphaTest: 0.001,
-        }));
-        scene.add(inner);
-
-        // ── 3 Gyroscope orbital rings ────────────────────────────────────────
-        const RING_DEFS = [
-            { R: 8.5, col: 0x06b6d4, op: 0.55, rx: 0, rz: 0, sp: 0.0042 },
-            { R: 9.2, col: 0xa78bfa, op: 0.45, rx: Math.PI / 2, rz: 0, sp: -0.0055 },
-            { R: 9.8, col: 0xf472b6, op: 0.40, rx: Math.PI / 3, rz: Math.PI / 4, sp: 0.0035 },
-        ];
-        const rings = RING_DEFS.map(d => {
-            const m = new THREE.Mesh(
-                new THREE.TorusGeometry(d.R, 0.02, 8, 256),
-                new THREE.MeshBasicMaterial({
-                    color: d.col, transparent: true, opacity: d.op,
-                    blending: THREE.AdditiveBlending, depthWrite: false
-                })
-            );
-            m.rotation.x = d.rx; m.rotation.z = d.rz;
-            m.userData = { sp: d.sp, baseOp: d.op };
-            scene.add(m); return m;
-        });
-
-        // ── Orbiting glow sprites on rings ───────────────────────────────────
-        const orbs = [];
-        const orbTex = [tCyan, tViolet, tPink, tEm];
-        RING_DEFS.forEach((d, ri) => {
-            for (let k = 0; k < 5; k++) {
-                const sp = new THREE.Sprite(new THREE.SpriteMaterial({
-                    map: orbTex[k % orbTex.length], transparent: true, opacity: 1,
-                    blending: THREE.AdditiveBlending, depthWrite: false,
-                }));
-                sp.scale.set(0.8, 0.8, 0.8);
-                scene.add(sp);
-                orbs.push({ sp, ri, R: d.R, offset: (k / 5) * Math.PI * 2, sp_speed: d.sp * 9, rx: d.rx, rz: d.rz });
-            }
-        });
-
-        // ── Multi-layer core glow (sprites at origin) ────────────────────────
-        function coreSprite(tex, s, op) {
-            const sp = new THREE.Sprite(new THREE.SpriteMaterial({
-                map: tex, transparent: true, opacity: op,
-                blending: THREE.AdditiveBlending, depthWrite: false
-            }));
-            sp.scale.set(s, s, s); scene.add(sp); return sp;
-        }
-        const cW = coreSprite(tWhite, 3.0, 0.55);
-        const cC = coreSprite(tCyan, 6.5, 0.20);
-        const cV = coreSprite(tViolet, 11.0, 0.10);
-
-        // ── Background starfield ─────────────────────────────────────────────
-        const sPos = new Float32Array(4000 * 3);
-        for (let i = 0; i < 4000 * 3; i++) sPos[i] = (Math.random() - 0.5) * 300;
-        const starG = new THREE.BufferGeometry();
-        starG.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
-        scene.add(new THREE.Points(starG, new THREE.PointsMaterial({
-            size: 0.07, color: 0x99aaff, transparent: true, opacity: 0.3,
-            blending: THREE.AdditiveBlending, depthWrite: false,
-        })));
-
-        // ── Mouse ────────────────────────────────────────────────────────────
-        let mx = 0, my = 0, tmx = 0, tmy = 0;
-        window.addEventListener('mousemove', e => {
-            tmx = (e.clientX / innerWidth - 0.5) * 2;
-            tmy = -(e.clientY / innerHeight - 0.5) * 2;
-        });
-        window.addEventListener('resize', () => {
-            renderer.setSize(innerWidth, innerHeight);
-            camera.aspect = innerWidth / innerHeight;
-            camera.updateProjectionMatrix();
-        });
-
-        // ── Animate ──────────────────────────────────────────────────────────
-        const clock = new THREE.Clock();
-        function animate() {
-            requestAnimationFrame(animate);
-            const t = clock.getElapsedTime();
-
-            mx += (tmx - mx) * 0.045; my += (tmy - my) * 0.045;
-
-            // Camera parallax + subtle auto-drift
-            const cx = mx * 5 + Math.sin(t * 0.11) * 2;
-            const cy = my * 3 + Math.cos(t * 0.08) * 1.2;
-            camera.position.x += (cx - camera.position.x) * 0.022;
-            camera.position.y += (cy - camera.position.y) * 0.022;
-            camera.lookAt(0, 0, 0);
-
-            // Particle shells rotate on different axes for 3D depth
-            shell.rotation.y = t * 0.055;
-            shell.rotation.x = t * 0.022;
-            inner.rotation.y = -t * 0.07;
-            inner.rotation.z = t * 0.04;
-
-            // Ring spin + opacity pulse
-            rings.forEach((r, i) => {
-                r.rotation.y += r.userData.sp;
-                r.material.opacity = r.userData.baseOp * (0.65 + 0.35 * Math.sin(t * 1.1 + i * 2.1));
-            });
-
-            // Orbiting dots travel along ring paths
-            orbs.forEach(o => {
-                const a = t * o.sp_speed + o.offset;
-                const lp = new THREE.Vector3(Math.cos(a) * o.R, Math.sin(a) * o.R, 0);
-                lp.applyEuler(new THREE.Euler(o.rx, 0, o.rz));
-                const ry = rings[o.ri].rotation.y;
-                const x2 = lp.x * Math.cos(ry) - lp.z * Math.sin(ry);
-                const z2 = lp.x * Math.sin(ry) + lp.z * Math.cos(ry);
-                o.sp.position.set(x2, lp.y, z2);
-                const sc = 0.5 + 0.35 * Math.sin(t * 3 + o.offset);
-                o.sp.scale.set(sc, sc, sc);
-            });
-
-            // Core pulse
-            const pulse = 1 + 0.18 * Math.sin(t * 2.0);
-            cW.scale.set(3.0 * pulse, 3.0 * pulse, 1);
-            cC.scale.set(6.5 * pulse, 6.5 * pulse, 1);
-            cC.material.opacity = 0.18 + 0.08 * Math.sin(t * 2.0);
-            cV.scale.set(11 * pulse, 11 * pulse, 1);
-            cV.material.opacity = 0.08 + 0.04 * Math.sin(t * 2.0);
-
-            renderer.render(scene, camera);
-        }
-        animate();
-    }
+  }, 120);
 })();
 
-// Expose functions to global window object for inline onclick handlers in index.html
-// Since script.js is now a type="module", top-level functions are no longer automatically global.
-window.scrollToTop = scrollToTop;
-window.scrollToSection = scrollToSection;
-window.toggleMobileMenu = toggleMobileMenu;
-window.openProjectModal = openProjectModal;
-window.closeProjectModal = closeProjectModal;
-window.toggleProjects = toggleProjects;
-window.toggleResumePreview = toggleResumePreview;
-if (typeof renderBrandIcons === 'function') {
-    window.renderBrandIcons = renderBrandIcons;
+/* ==========================================================================
+   4. THREE.JS 3D COSMIC PARTICLE GALAXY
+   ========================================================================== */
+(function initThreeUniverse(){
+  if (prefersReduced) return;
+  const canvas = document.getElementById('bg-canvas');
+  if (!canvas || !window.THREE) return;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x060607, 0.026);
+
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 12;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const isMobile = window.innerWidth < 768;
+
+  function createPointsCloud(count, size, spread) {
+    const geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(count * 3);
+    const col = new Float32Array(count * 3);
+
+    const cGold = new THREE.Color(0xD4AF37);
+    const cRed = new THREE.Color(0x8A1414);
+    const cWhite = new THREE.Color(0xFFF8E1);
+    const cCyan = new THREE.Color(0x22D3EE);
+
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * spread;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * spread;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * spread;
+
+      const r = Math.random();
+      const color = r < 0.5 ? cGold : (r < 0.78 ? cRed : (r < 0.92 ? cWhite : cCyan));
+      col[i * 3] = color.r;
+      col[i * 3 + 1] = color.g;
+      col[i * 3 + 2] = color.b;
+    }
+
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+
+    const mat = new THREE.PointsMaterial({
+      size,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.8,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    });
+
+    return new THREE.Points(geo, mat);
+  }
+
+  const dust = createPointsCloud(isMobile ? 500 : 1400, 0.055, 36);
+  const bokeh = createPointsCloud(isMobile ? 70 : 180, 0.22, 32);
+  bokeh.material.opacity = 0.25;
+  scene.add(dust, bokeh);
+
+  // Subtle orbital ring
+  const ringGeo = new THREE.TorusGeometry(14, 0.016, 8, 120);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0xD4AF37, transparent: true, opacity: 0.12 });
+  const ring = new THREE.Mesh(ringGeo, ringMat);
+  ring.position.z = -8;
+  ring.rotation.x = Math.PI / 3.4;
+  scene.add(ring);
+
+  let mouseX = 0, mouseY = 0;
+  let targetX = 0, targetY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  }, { passive: true });
+
+  let time = 0;
+  function animateUniverse() {
+    requestAnimationFrame(animateUniverse);
+    time += 0.0016;
+
+    dust.rotation.y = time * 18;
+    dust.rotation.x = Math.sin(time * 6) * 0.07;
+    dust.position.y = Math.sin(time * 10) * 0.35;
+
+    bokeh.rotation.y = -time * 10;
+    bokeh.position.y = Math.cos(time * 8) * 0.45;
+
+    ring.rotation.z = time * 8;
+
+    targetX += (mouseX - targetX) * 0.04;
+    targetY += (mouseY - targetY) * 0.04;
+
+    camera.position.x = targetX * 1.5;
+    camera.position.y = -targetY * 1.0;
+    camera.lookAt(scene.position);
+
+    renderer.render(scene, camera);
+  }
+  animateUniverse();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+
+/* ==========================================================================
+   5. RENDER PROJECTS & 3D TILT CARDS
+   ========================================================================= */
+const projectsGrid = document.getElementById('projectsGrid');
+
+function createProjectCardHtml(p) {
+  return `
+    <article class="proj-card tilt-card glass glass-gold-top rounded-3xl overflow-hidden group cursor-pointer transition-all duration-300"
+             data-cat="${p.cat}" data-id="${p.id}" onclick="openProjectModal(${p.id})">
+      <div class="tilt-glare"></div>
+      <div class="relative h-[220px] overflow-hidden">
+        <img loading="lazy" src="${p.img}" alt="${p.title}" class="project-img w-full h-full object-cover"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] via-[#0A0A0B]/30 to-transparent"></div>
+        <div class="absolute top-4 left-4 flex gap-2">
+          <span class="text-[10px] tracking-[0.2em] uppercase bg-black/70 backdrop-blur border border-gold-500/30 text-gold-300 px-3 py-1 rounded-full font-bold">
+            ${p.badge}
+          </span>
+        </div>
+        <div class="absolute top-4 right-4 font-kannada text-gold-300/90 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs border border-gold-500/20">
+          ${p.kannada}
+        </div>
+        <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+          <div class="flex gap-4 text-[12px] text-white/70">
+            <span><i class="fas fa-microchip text-gold-500 mr-1.5"></i>${p.stats.stack}</span>
+            <span><i class="fas fa-gauge-high text-gold-500 mr-1.5"></i>${p.stats.perf}</span>
+          </div>
+          <span class="w-10 h-10 rounded-full btn-gold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400 translate-y-2 group-hover:translate-y-0 shadow-lg">
+            <i class="fas fa-arrow-up-right-from-square text-xs text-charcoal-950"></i>
+          </span>
+        </div>
+      </div>
+      <div class="p-6 tilt-inner">
+        <h3 class="font-bold text-[17px] leading-snug group-hover:text-gold-200 transition text-white">
+          ${p.title}
+        </h3>
+        <p class="text-white/50 text-[13.5px] mt-2.5 leading-relaxed line-clamp-2">
+          ${p.desc}
+        </p>
+        <div class="flex flex-wrap gap-1.5 mt-4">
+          ${p.tags.map(t => `<span class="chip px-3 py-1 rounded-full text-[11px] text-gold-200/90 font-medium">${t}</span>`).join('')}
+        </div>
+        <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/5 text-[13px] font-semibold">
+          <span class="text-gold-300 flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+            View Details <i class="fas fa-arrow-right text-[11px]"></i>
+          </span>
+          <div class="flex items-center gap-3" onclick="event.stopPropagation()">
+            ${p.demo !== '#' ? `<a href="${p.demo}" target="_blank" class="text-white/40 hover:text-gold-300 transition text-xs flex items-center gap-1"><i class="fas fa-globe"></i> Live</a>` : ''}
+            <a href="${p.code}" target="_blank" class="text-white/40 hover:text-gold-300 transition text-xs flex items-center gap-1"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  `;
 }
+
+function renderProjects(filter = 'all') {
+  if (!projectsGrid) return;
+  const filtered = filter === 'all' ? projects : projects.filter(p => p.cat === filter);
+  projectsGrid.innerHTML = filtered.map(createProjectCardHtml).join('');
+  attach3DTilt(projectsGrid.querySelectorAll('.tilt-card'));
+
+  if (!prefersReduced && window.gsap) {
+    gsap.fromTo(projectsGrid.children,
+      { y: 30, opacity: 0, scale: 0.98 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.08, ease: 'power3.out', overwrite: true }
+    );
+  }
+}
+renderProjects();
+
+// Project Filter Buttons Listener
+const projectFilters = document.getElementById('projectFilters');
+if (projectFilters) {
+  projectFilters.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    projectFilters.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderProjects(btn.dataset.filter);
+  });
+}
+
+/* ==========================================================================
+   6. 3D PERSPECTIVE TILT WITH SPECULAR LIGHT GLARE
+   ========================================================================== */
+function attach3DTilt(elements) {
+  if (prefersReduced || window.matchMedia('(pointer:coarse)').matches) return;
+
+  elements.forEach((card) => {
+    let raf = null;
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+
+      card.style.setProperty('--gx', (px * 100) + '%');
+      card.style.setProperty('--gy', (py * 100) + '%');
+
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        card.style.transform = `perspective(1000px) rotateY(${(px - 0.5) * 14}deg) rotateX(${(0.5 - py) * 12}deg) translateY(-6px)`;
+        card.style.boxShadow = '0 30px 70px rgba(0,0,0,0.65), 0 0 40px rgba(212,175,55,0.14)';
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      if (raf) cancelAnimationFrame(raf);
+      card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateY(0)';
+      card.style.boxShadow = '';
+    });
+  });
+}
+attach3DTilt(document.querySelectorAll('[data-tilt]'));
+
+/* ==========================================================================
+   7. HERO 3D ARTWORK PARALLAX & FLAGGED BADGES
+   ========================================================================== */
+(function initHeroParallax() {
+  if (prefersReduced) return;
+  const stage = document.getElementById('artworkStage');
+  const layers = document.querySelectorAll('[data-depth]');
+  let rx = 0, ry = 0;
+  let targetX = 0, targetY = 0;
+  let raf = null;
+
+  window.addEventListener('mousemove', (e) => {
+    targetX = (e.clientX / window.innerWidth - 0.5);
+    targetY = (e.clientY / window.innerHeight - 0.5);
+
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      ry += ((targetX * 16) - ry) * 0.08;
+      rx += ((-targetY * 12) - rx) * 0.08;
+
+      if (stage) {
+        stage.style.transform = `rotateY(${ry * 0.55}deg) rotateX(${rx * 0.55}deg)`;
+      }
+
+      layers.forEach((layer) => {
+        const depth = parseFloat(layer.dataset.depth) || 0.05;
+        const x = targetX * depth * 600;
+        const y = targetY * depth * 600;
+
+        if (layer.classList.contains('hk-top') || layer.classList.contains('hk-bottom')) {
+          layer.style.transform = `translate(calc(-50% + ${x}px), ${y}px)`;
+        } else if (layer.classList.contains('hk-left') || layer.classList.contains('hk-right')) {
+          layer.style.transform = `translate(${x}px, calc(-50% + ${y}px))`;
+        } else {
+          layer.style.transform = `translate(${x}px, ${y}px)`;
+        }
+      });
+    });
+  }, { passive: true });
+})();
+
+/* ==========================================================================
+   8. DYNAMIC TYPING ROTATOR
+   ========================================================================== */
+(function initTypingRotator() {
+  const roles = [
+    'Full Stack Developer',
+    'Python & FastAPI Specialist',
+    'AI Solutions Engineer',
+    'React & Modern UI Craftsman',
+    'Proud ಕನ್ನಡಿಗ (Kannadiga)'
+  ];
+  const el = document.getElementById('typed');
+  if (!el) return;
+
+  let roleIdx = 0, charIdx = 0, isDeleting = false;
+
+  function typeTick() {
+    const word = roles[roleIdx];
+    el.textContent = word.slice(0, charIdx);
+
+    if (!isDeleting) {
+      charIdx++;
+      if (charIdx > word.length) {
+        isDeleting = true;
+        setTimeout(typeTick, 1800);
+        return;
+      }
+    } else {
+      charIdx--;
+      if (charIdx === 0) {
+        isDeleting = false;
+        roleIdx = (roleIdx + 1) % roles.length;
+      }
+    }
+    setTimeout(typeTick, isDeleting ? 38 : 74);
+  }
+  typeTick();
+})();
+
+/* ==========================================================================
+   9. TESTIMONIALS SLIDER
+   ========================================================================== */
+let currentTestiIdx = 0;
+let testiTimer = null;
+
+function renderTestimonials() {
+  const track = document.getElementById('testiTrack');
+  const dots = document.getElementById('testiDots');
+  if (!track || !dots) return;
+
+  track.innerHTML = testimonials.map(t => `
+    <div class="min-w-full px-2 testimonial-slide">
+      <div class="flex gap-1 text-gold-400 mb-4 text-base">
+        ${'★'.repeat(t.stars)}<span class="ml-2 text-white/35 text-xs font-semibold">${t.stars}.0 / 5.0</span>
+      </div>
+      <p class="font-cormorant italic text-xl md:text-2xl leading-relaxed text-white/90">
+        “${t.text}”
+      </p>
+      <div class="flex items-center gap-4 mt-6 pt-5 border-t border-white/5">
+        <img src="${t.img}" class="w-13 h-13 min-w-[50px] min-h-[50px] rounded-full object-cover border-2 border-gold-500/50 shadow-[0_0_20px_rgba(212,175,55,0.3)]" alt="${t.name}"/>
+        <div>
+          <div class="font-bold text-base text-white">${t.name}</div>
+          <div class="text-xs text-gold-300/80">${t.role}</div>
+        </div>
+        <div class="ml-auto font-kannada text-2xl text-gold-500/25 select-none hidden sm:block">
+          ಧನ್ಯವಾದ
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  dots.innerHTML = testimonials.map((_, i) => `
+    <button onclick="goToTestimonial(${i})"
+            class="tdot h-2 rounded-full transition-all duration-500 ${i === 0 ? 'w-8 bg-gold-500' : 'w-2 bg-white/20'}"
+            aria-label="Testimonial slide ${i + 1}">
+    </button>
+  `).join('');
+
+  startAutoTestimonials();
+}
+
+window.goToTestimonial = function(idx) {
+  currentTestiIdx = (idx + testimonials.length) % testimonials.length;
+  const track = document.getElementById('testiTrack');
+  if (track) track.style.transform = `translateX(-${currentTestiIdx * 100}%)`;
+
+  document.querySelectorAll('.tdot').forEach((dot, j) => {
+    dot.className = `tdot h-2 rounded-full transition-all duration-500 ${j === currentTestiIdx ? 'w-8 bg-gold-500 shadow-[0_0_10px_rgba(212,175,55,0.6)]' : 'w-2 bg-white/20'}`;
+  });
+  startAutoTestimonials();
+};
+
+window.moveTestimonial = function(dir) {
+  window.goToTestimonial(currentTestiIdx + dir);
+};
+
+function startAutoTestimonials() {
+  clearInterval(testiTimer);
+  if (!prefersReduced) {
+    testiTimer = setInterval(() => window.goToTestimonial(currentTestiIdx + 1), 6500);
+  }
+}
+renderTestimonials();
+
+/* ==========================================================================
+   10. SKILL TABS & PROFICIENCY BARS
+   ========================================================================== */
+const skillTabs = document.getElementById('skillTabs');
+if (skillTabs) {
+  skillTabs.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-tab]');
+    if (!btn) return;
+    skillTabs.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.skill-card').forEach((card) => {
+      const isMatch = tab === 'all' || card.dataset.cat === tab;
+      card.style.display = isMatch ? '' : 'none';
+      if (isMatch && !prefersReduced && window.gsap) {
+        gsap.fromTo(card, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out' });
+      }
+    });
+  });
+}
+
+/* ==========================================================================
+   11. GSAP SCROLLTRIGGER & ENTRANCE ANIMATIONS
+   ========================================================================== */
+function triggerHeroEntrance() {
+  if (prefersReduced || !window.gsap) {
+    document.querySelectorAll('.hero-anim').forEach(e => e.style.opacity = '1');
+    return;
+  }
+  gsap.fromTo('.hero-anim',
+    { y: 44, opacity: 0 },
+    { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: 'power3.out' }
+  );
+  gsap.fromTo('#artworkPlane',
+    { y: 80, opacity: 0, rotateY: -18, scale: 0.94 },
+    { y: 0, opacity: 1, rotateY: 0, scale: 1, duration: 1.5, ease: 'power3.out', delay: 0.2 }
+  );
+  gsap.fromTo('.hero-kannada',
+    { opacity: 0 },
+    {
+      opacity: (i, el) => el.classList.contains('hk-bottom') ? 0.08 : (el.classList.contains('hk-top') ? 0.22 : 0.15),
+      duration: 2,
+      delay: 0.4
+    }
+  );
+}
+
+if (window.gsap && window.ScrollTrigger && !prefersReduced) {
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Reveal on scroll
+  document.querySelectorAll('section .reveal, footer .reveal').forEach((el) => {
+    if (el.closest('#projectsGrid')) return;
+    gsap.fromTo(el,
+      { y: 45, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      }
+    );
+  });
+
+  // Animated skill progress bars
+  document.querySelectorAll('.skill-fill').forEach((bar) => {
+    ScrollTrigger.create({
+      trigger: bar,
+      start: 'top 92%',
+      once: true,
+      onEnter: () => {
+        gsap.to(bar, { width: bar.dataset.width + '%', duration: 1.5, ease: 'power3.out' });
+      }
+    });
+  });
+
+  // Numeric count-up counters
+  document.querySelectorAll('.counter').forEach((c) => {
+    ScrollTrigger.create({
+      trigger: c,
+      start: 'top 92%',
+      once: true,
+      onEnter: () => {
+        const target = parseFloat(c.dataset.target);
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 1.8,
+          ease: 'power2.out',
+          onUpdate: () => {
+            c.textContent = Number.isInteger(target) ? Math.floor(obj.val) : obj.val.toFixed(1);
+          }
+        });
+      }
+    });
+  });
+
+  // Hero subtle parallax scrub
+  gsap.to('#heroContent', {
+    y: -60,
+    opacity: 0.35,
+    ease: 'none',
+    scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: 1 }
+  });
+  gsap.to('#heroArt', {
+    y: -90,
+    rotateY: 6,
+    ease: 'none',
+    scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: 1 }
+  });
+} else {
+  document.querySelectorAll('.reveal').forEach(e => { e.style.opacity = '1'; e.style.transform = 'none'; });
+  document.querySelectorAll('.skill-fill').forEach(b => b.style.width = b.dataset.width + '%');
+  document.querySelectorAll('.counter').forEach(c => c.textContent = c.dataset.target);
+}
+
+/* ==========================================================================
+   12. NAVIGATION & SCROLL TRACKING
+   ========================================================================== */
+const navbar = document.getElementById('navbar');
+const backTopBtn = document.getElementById('backTop');
+const scrollProgress = document.getElementById('scroll-progress');
+
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (navbar) navbar.classList.toggle('scrolled', y > 40);
+
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  if (scrollProgress && maxScroll > 0) {
+    scrollProgress.style.width = (y / maxScroll * 100) + '%';
+  }
+
+  if (backTopBtn) {
+    if (y > 500) {
+      backTopBtn.classList.remove('hidden');
+      backTopBtn.classList.add('flex');
+    } else {
+      backTopBtn.classList.add('hidden');
+      backTopBtn.classList.remove('flex');
+    }
+  }
+
+  // Active section highlighting
+  const sections = ['home', 'about', 'skills', 'projects', 'journey', 'resume', 'contact'];
+  let currentSec = 'home';
+  sections.forEach((id) => {
+    const s = document.getElementById(id);
+    if (s && y >= s.offsetTop - 150) currentSec = id;
+  });
+  document.querySelectorAll('.nav-link').forEach((link) => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + currentSec);
+  });
+}, { passive: true });
+
+if (backTopBtn) {
+  backTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+  });
+}
+
+// Mobile Menu Drawer
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+if (menuBtn && mobileMenu) {
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+    const icon = menuBtn.querySelector('i');
+    if (icon) {
+      icon.className = mobileMenu.classList.contains('hidden') ? 'fas fa-bars' : 'fas fa-times';
+    }
+  });
+
+  document.querySelectorAll('.mob-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      const icon = menuBtn.querySelector('i');
+      if (icon) icon.className = 'fas fa-bars';
+    });
+  });
+}
+
+/* ==========================================================================
+   13. CUSTOM MAGNETIC CURSOR
+   ========================================================================== */
+(function initCursor() {
+  if (window.matchMedia('(pointer:coarse)').matches || prefersReduced) return;
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (!dot || !ring) return;
+
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = mouseX + 'px';
+    dot.style.top = mouseY + 'px';
+  }, { passive: true });
+
+  function cursorLoop() {
+    ringX += (mouseX - ringX) * 0.16;
+    ringY += (mouseY - ringY) * 0.16;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(cursorLoop);
+  }
+  cursorLoop();
+
+  document.querySelectorAll('a, button, .tilt-card, input, textarea, .proj-card').forEach((el) => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+  });
+})();
+
+// Magnetic Button attraction effect
+if (!prefersReduced && window.matchMedia('(pointer:fine)').matches) {
+  document.querySelectorAll('.magnetic').forEach((btn) => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) * 0.2;
+      const y = (e.clientY - rect.top - rect.height / 2) * 0.28;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+}
+
+/* ==========================================================================
+   14. PROJECT DETAILS MODAL
+   ========================================================================== */
+window.openProjectModal = function(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+
+  const modalBody = document.getElementById('projectModalBody');
+  if (!modalBody) return;
+
+  modalBody.innerHTML = `
+    <div class="relative h-[250px] md:h-[300px] overflow-hidden rounded-t-3xl">
+      <img src="${p.img}" class="w-full h-full object-cover" alt="${p.title}"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#121214] via-[#121214]/40 to-transparent"></div>
+      <div class="absolute bottom-5 left-6 right-6 flex items-end justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] tracking-widest uppercase bg-gold-500/20 text-gold-300 border border-gold-500/30 px-3 py-1 rounded-full font-bold">
+              ${p.badge}
+            </span>
+            <span class="font-kannada text-gold-300 text-sm font-semibold">${p.kannada}</span>
+          </div>
+          <h3 class="font-playfair text-2xl md:text-3xl font-bold text-white drop-shadow-md">${p.title}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="p-6 md:p-8">
+      <div class="flex flex-wrap gap-2 mb-5">
+        ${p.tech.map(t => `<span class="chip px-3 py-1 rounded-full text-[12px] text-gold-200">${t}</span>`).join('')}
+      </div>
+      
+      <h4 class="text-sm tracking-wider uppercase text-gold-400 font-bold mb-2">Overview</h4>
+      <p class="text-white/70 leading-relaxed text-[15px] mb-6">${p.long}</p>
+
+      <h4 class="text-sm tracking-wider uppercase text-gold-400 font-bold mb-2.5">Key Architecture & Features</h4>
+      <ul class="space-y-2 mb-6">
+        ${p.features.map(f => `
+          <li class="flex items-start gap-2.5 text-white/65 text-[14px]">
+            <i class="fas fa-check-circle text-gold-400 mt-1 text-xs"></i>
+            <span>${f}</span>
+          </li>
+        `).join('')}
+      </ul>
+
+      <div class="grid grid-cols-3 gap-3 mb-6 text-center">
+        <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
+          <div class="font-bold text-gold-300 text-sm md:text-base">${p.stats.users}</div>
+          <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Deployment</div>
+        </div>
+        <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
+          <div class="font-bold text-gold-300 text-sm md:text-base">${p.stats.perf}</div>
+          <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Performance</div>
+        </div>
+        <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
+          <div class="font-bold text-gold-300 text-sm md:text-base">${p.stats.stack}</div>
+          <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Core Tech</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
+        ${p.demo !== '#' ? `
+          <a href="${p.demo}" target="_blank" class="btn-gold flex-1 text-center px-6 py-3.5 rounded-full text-sm font-bold flex items-center justify-center gap-2">
+            <i class="fas fa-arrow-up-right-from-square text-xs"></i> Live Demo
+          </a>
+        ` : `
+          <button onclick="showToast('Live demo launching soon')" class="btn-ghost flex-1 text-center px-6 py-3.5 rounded-full text-sm font-semibold opacity-60">
+            <i class="fas fa-globe mr-2"></i> Demo Available on Request
+          </button>
+        `}
+        <a href="${p.code}" target="_blank" class="btn-ghost flex-1 text-center px-6 py-3.5 rounded-full text-sm font-semibold flex items-center justify-center gap-2">
+          <i class="fab fa-github text-sm"></i> GitHub Repository
+        </a>
+      </div>
+    </div>
+  `;
+
+  const modal = document.getElementById('projectModal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+};
+
+window.closeProjectModal = function() {
+  const modal = document.getElementById('projectModal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+};
+
+/* ==========================================================================
+   15. INTERACTIVE RESUME MODAL & DOWNLOAD HANDLER
+   ========================================================================== */
+window.openResumeModal = function() {
+  const modal = document.getElementById('resumeModal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+};
+
+window.closeResumeModal = function() {
+  const modal = document.getElementById('resumeModal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+};
+
+window.downloadResumePdf = function(e) {
+  if (e) e.preventDefault();
+  // Download real assets/resume.pdf
+  const link = document.createElement('a');
+  link.href = 'assets/resume.pdf';
+  link.download = 'Ningaraj_R_Ukkali_Resume.pdf';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  showToast('Official Resume PDF downloaded successfully!');
+};
+
+// Modal background click & escape listeners
+document.addEventListener('click', (e) => {
+  if (e.target.id === 'projectModal') window.closeProjectModal();
+  if (e.target.id === 'resumeModal') window.closeResumeModal();
+});
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    window.closeProjectModal();
+    window.closeResumeModal();
+  }
+});
+
+/* ==========================================================================
+   16. ABOUT PHOTO GALLERY SWITCHER
+   ========================================================================== */
+window.switchAboutPhoto = function(src, btn) {
+  const img = document.getElementById('aboutPhotoImg');
+  if (!img) return;
+  img.style.opacity = '0.3';
+  setTimeout(() => {
+    img.src = src;
+    img.style.opacity = '1';
+  }, 200);
+
+  document.querySelectorAll('.photo-thumb-btn').forEach(b => b.classList.remove('ring-2', 'ring-gold-400'));
+  if (btn) btn.classList.add('ring-2', 'ring-gold-400');
+};
+
+/* ==========================================================================
+   17. CONTACT FORM, TOAST & UTILITIES
+   ========================================================================== */
+let selectedBudget = '';
+document.querySelectorAll('.budget-chip').forEach((chip) => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.budget-chip').forEach((c) => {
+      c.style.background = '';
+      c.style.color = '';
+      c.style.borderColor = '';
+    });
+    chip.style.background = 'linear-gradient(135deg, #D4AF37, #8A6F1F)';
+    chip.style.color = '#060607';
+    chip.style.borderColor = 'transparent';
+    selectedBudget = chip.dataset.v;
+  });
+});
+
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const fd = new FormData(this);
+    const name = fd.get('name');
+    const email = fd.get('email');
+    const message = fd.get('message');
+
+    if (!name || !email || !message) {
+      showToast('Please fill in all required fields.', true);
+      return;
+    }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      showToast('Please enter a valid email address.', true);
+      return;
+    }
+
+    const sendBtn = document.getElementById('sendBtn');
+    const sendLabel = document.getElementById('sendLabel');
+    if (sendBtn) sendBtn.disabled = true;
+    if (sendLabel) sendLabel.textContent = 'Sending Message...';
+
+    setTimeout(() => {
+      if (sendBtn) sendBtn.disabled = false;
+      if (sendLabel) sendLabel.textContent = 'Send Message';
+      this.reset();
+      selectedBudget = '';
+      document.querySelectorAll('.budget-chip').forEach((c) => {
+        c.style.background = '';
+        c.style.color = '';
+        c.style.borderColor = '';
+      });
+      showToast(`ಧನ್ಯವಾದ (Thank you) ${name.split(' ')[0]}! Message received — I'll get back to you shortly.`);
+    }, 1200);
+  });
+}
+
+window.showToast = function(msg, isErr = false) {
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
+  if (!toast || !toastMsg) return;
+
+  toastMsg.textContent = msg;
+  const iconWrap = toast.querySelector('.toast-icon-wrap');
+  if (iconWrap) {
+    iconWrap.className = isErr
+      ? 'toast-icon-wrap w-8 h-8 rounded-full bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400'
+      : 'toast-icon-wrap w-8 h-8 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400';
+    iconWrap.innerHTML = isErr ? '<i class="fas fa-exclamation text-xs"></i>' : '<i class="fas fa-check text-xs"></i>';
+  }
+
+  toast.style.transform = 'translate(-50%, 0)';
+  toast.style.opacity = '1';
+
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(() => {
+    toast.style.transform = 'translate(-50%, 5rem)';
+    toast.style.opacity = '0';
+  }, 3500);
+};
+
+window.copyEmail = function() {
+  const email = 'ningarajukkali@gmail.com';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(email).then(() => {
+      showToast('Email address copied to clipboard!');
+    }).catch(() => {
+      showToast(`Email: ${email}`);
+    });
+  } else {
+    showToast(`Email: ${email}`);
+  }
+};

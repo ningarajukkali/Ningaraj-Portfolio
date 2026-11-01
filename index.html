@@ -1,1135 +1,1337 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ningaraj Ukkali - Developer Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ningaraj R Ukkali — Full Stack & AI Developer | ಕನ್ನಡಿಗ</title>
+  <meta name="description" content="Portfolio of Ningaraj R Ukkali — Full Stack Software Engineer, AI Enthusiast, and proud Kannadiga. Specializing in Python, FastAPI, React, real-time architectures, and scalable cloud solutions."/>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Typography Pairing -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Serif+Kannada:wght@400;600;700;800;900&family=Noto+Sans+Kannada:wght@300;400;600;700&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Tailwind Theme Extension -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal: { 950: '#060607', 900: '#0A0A0B', 800: '#121214', 700: '#1A1A1E', 600: '#242428' },
+            gold: { 100: '#FFF8E1', 200: '#FFECB3', 300: '#F9DD7A', 400: '#ECC85A', 500: '#D4AF37', 600: '#B8962E', 700: '#8A6F1F' },
+            deepred: { 700: '#7A0C0C', 800: '#5C0A0A', 900: '#3D0606', 950: '#220404' }
+          },
+          fontFamily: {
+            grotesk: ['Space Grotesk', 'sans-serif'],
+            cormorant: ['Cormorant Garamond', 'serif'],
+            playfair: ['Playfair Display', 'serif'],
+            kannada: ['Noto Serif Kannada', 'Noto Sans Kannada', 'serif'],
+            kannadaSans: ['Noto Sans Kannada', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  
+  <!-- Animation Libraries: Three.js & GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
 </head>
+<body class="antialiased">
 
-<body>
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress" id="scrollProgress"></div>
+  <!-- ================= PRELOADER ================= -->
+  <div id="preloader">
+    <div class="loader-map">
+      <svg viewBox="0 0 200 220" fill="none">
+        <path d="M 60 35 C 100 20 150 18 190 28 C 220 35 245 50 238 85 C 232 110 220 130 215 150 C 208 175 200 195 185 220 C 170 245 150 275 138 305 C 130 295 118 280 105 265 C 85 240 65 220 55 195 C 40 165 32 120 38 85 C 42 60 48 42 60 35 Z"
+              stroke="#D4AF37" stroke-width="2.5" transform="translate(-20,-10) scale(0.95)"/>
+        <circle cx="100" cy="110" r="3.5" fill="#D4AF37"/>
+      </svg>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <span class="font-kannada text-gold-400 text-3xl font-bold drop-shadow-[0_0_12px_rgba(212,175,55,0.8)]">ಕ</span>
+      </div>
+    </div>
+    <div class="mt-5 font-kannada text-2xl gold-gradient-text font-bold tracking-widest">ಕನ್ನಡಿಗ • ನಿಂಗರಾಜ್</div>
+    <div class="mt-1 text-[11px] tracking-[0.4em] text-white/45 uppercase font-medium">Ningaraj R Ukkali • Software Engineer</div>
+    <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
+    <div class="mt-3 text-xs text-white/40 font-mono" id="loaderPct">0%</div>
+  </div>
 
-    <!-- Scroll to Top Button -->
-    <button id="scrollTopBtn" onclick="scrollToTop()" title="Back to top">
-        <i data-lucide="arrow-up"></i>
-    </button>
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <button class="logo" onclick="scrollToTop()">
-                &lt;Ningaraj /&gt;
-            </button>
+  <!-- Three.js Cosmic Canvas & Background Aura -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="bg-pattern"></div>
+  <div class="light-orb orb-gold"></div>
+  <div class="light-orb orb-red"></div>
+  <div class="bg-vignette"></div>
+  <div class="bg-noise"></div>
 
-            <div class="nav-menu" id="navMenu">
-                <button class="nav-link" onclick="scrollToSection('hero')">Home</button>
-                <button class="nav-link" onclick="scrollToSection('about')">About</button>
-                <button class="nav-link" onclick="scrollToSection('skills')">Skills</button>
-                <button class="nav-link" onclick="scrollToSection('projects')">Projects</button>
-                <button class="nav-link" onclick="scrollToSection('education')">Education</button>
-                <button class="nav-link" onclick="scrollToSection('resume')">Resume</button>
-                <button class="nav-link" onclick="scrollToSection('contact')">Contact</button>
+  <!-- Custom Cursor Follower -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ================= NAVIGATION ================= -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="flex items-center justify-between h-[76px]">
+        <!-- Brand / Logo -->
+        <a href="#home" class="flex items-center gap-3.5 group">
+          <div class="relative w-11 h-11 flex-shrink-0">
+            <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_14px_rgba(212,175,55,0.55)]">
+              <path d="M30 15 L70 12 L82 28 L78 55 L68 75 L50 90 L35 75 L22 55 L20 30 Z" fill="none" stroke="url(#navGoldGrad)" stroke-width="3"/>
+              <text x="50" y="58" text-anchor="middle" font-size="28" fill="#D4AF37" font-family="Noto Serif Kannada" font-weight="900">ಕ</text>
+              <defs>
+                <linearGradient id="navGoldGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#FFF8E1"/>
+                  <stop offset="50%" stop-color="#D4AF37"/>
+                  <stop offset="100%" stop-color="#8A6F1F"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="leading-tight">
+            <div class="font-bold tracking-widest text-[15px] text-white group-hover:text-gold-200 transition">
+              NINGARAJ <span class="text-gold-400 font-kannada text-sm">ನಿಂಗರಾಜ್</span>
             </div>
+            <div class="text-[10px] tracking-[0.3em] text-white/45 uppercase font-medium">Full Stack & AI • ಕನ್ನಡಿಗ</div>
+          </div>
+        </a>
 
-            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
-                <i data-lucide="menu" class="menu-icon"></i>
-                <i data-lucide="x" class="close-icon"></i>
-            </button>
+        <!-- Desktop Navigation Links -->
+        <div class="hidden lg:flex items-center gap-8 text-[13.5px] tracking-wide font-medium text-white/70">
+          <a href="#home" class="nav-link active">Home</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#skills" class="nav-link">Skills</a>
+          <a href="#projects" class="nav-link">Projects</a>
+          <a href="#journey" class="nav-link">Journey</a>
+          <a href="#resume" class="nav-link">Resume</a>
+          <a href="#contact" class="nav-link">Contact</a>
         </div>
-    </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
-
-    <!-- Starfield Background -->
-    <div class="starfield" id="starfield"></div>
-
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="floating-particles" id="heroParticles"></div>
-
-        <div class="hero-container">
-            <!-- Text Content - Left -->
-            <div class="hero-content animate-slide-in-left">
-                <p class="hero-tag">&lt; DEVELOPER /&gt;</p>
-                <h1 class="hero-title">
-                    Hi, I'm <span class="gradient-text">Ningaraj Ukkali</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Building the future with code, creativity, and innovation
-                </p>
-
-                <!-- Stats -->
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-value">21</div>
-                        <div class="stat-label">Age</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">BCA</div>
-                        <div class="stat-label">Graduate</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">Full Stack</div>
-                        <div class="stat-label">Developer</div>
-                    </div>
-                </div>
-
-                <!-- CTA Buttons -->
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="scrollToSection('projects')">
-                        View Projects
-                        <i data-lucide="arrow-right"></i>
-                    </button>
-                    <button class="btn btn-outline" onclick="scrollToSection('contact')">
-                        Contact Me
-                    </button>
-                </div>
-            </div>
-
-            <!-- 3D Profile Card - Right -->
-            <div class="hero-image animate-slide-in-right">
-                <div class="profile-card floating">
-                    <div class="hologram-frame">
-                        <div class="ring ring-outer rotating"></div>
-                        <div class="ring ring-inner rotating-reverse"></div>
-                        <div class="profile-img-container">
-                            <img src="img/raj_ru.jpeg" alt="Ningaraj Ukkali" class="profile-img">
-                        </div>
-                        <div class="corner corner-tl"></div>
-                        <div class="corner corner-tr"></div>
-                        <div class="corner corner-bl"></div>
-                        <div class="corner corner-br"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scroll Indicator -->
-            <div class="scroll-indicator">
-                <span>SCROLL</span>
-                <i data-lucide="chevron-down" class="bounce"></i>
-            </div>
+        <!-- Right Action Pill & Resume CTA -->
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="#contact" class="text-xs tracking-wider text-white/60 hover:text-gold-300 transition flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
+            <span>Available for Work</span>
+          </a>
+          <button onclick="downloadResumePdf(event)" class="btn-gold magnetic px-5 py-2.5 rounded-full text-[13px] font-bold tracking-wide flex items-center gap-2 shadow-lg">
+            <i class="fas fa-download text-xs"></i> Resume PDF
+          </button>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">About <span class="text-cyan">Me</span></h2>
-                <div class="title-underline"></div>
-            </div>
-
-            <div class="glass-card fade-in-up">
-                <div class="corner-decoration corner-tl-deco"></div>
-                <div class="corner-decoration corner-br-deco"></div>
-
-                <div class="about-content">
-                    <div class="about-image">
-                        <div class="about-img-wrapper">
-                            <img src="img/photo.jpg" alt="Ningaraj Ukkali">
-                        </div>
-                    </div>
-
-                    <div class="about-text">
-                        <h3>Ningaraj Ukkali</h3>
-                        <div class="about-description">
-                            <p>
-                                I'm a <span class="text-cyan">21-year-old </span> and a recent
-                                <span class="text-violet">BCA graduate</span>.
-                            </p>
-                            <p>
-                                Passionate about building modern web applications and exploring the fascinating world of
-                                <span class="text-cyan">Artificial Intelligence</span>. I love turning ideas into
-                                reality through clean, efficient code.
-                            </p>
-                            <p>
-                                My journey in tech is driven by curiosity and a desire to create solutions that make a
-                                difference.
-                                Always learning, always building, always growing.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-cards">
-                    <div class="feature-card">
-                        <i data-lucide="code-2"></i>
-                        <h4>Full Stack Developer</h4>
-                        <p>Building responsive and modern web applications</p>
-                    </div>
-                    <div class="feature-card">
-                        <i data-lucide="brain"></i>
-                        <h4>AI Enthusiast</h4>
-                        <p>Exploring machine learning and AI technologies</p>
-                    </div>
-                    <div class="feature-card">
-                        <i data-lucide="rocket"></i>
-                        <h4>Quick Learner</h4>
-                        <p>Always adapting to new technologies and trends</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="section section-alt" id="skills">
-        <div class="grid-background"></div>
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Technical <span class="text-cyan">Skills</span></h2>
-                <div class="title-underline"></div>
-                <p class="section-subtitle">Technologies and tools I use to bring ideas to life</p>
-            </div>
-
-            <div class="skills-grid">
-                <div class="skill-card" data-color="yellow-blue">
-                    <div class="skill-icon">
-                        <i data-lucide="code"></i>
-                    </div>
-                    <h3>Python</h3>
-                    <div class="skill-progress">
-                        <div class="progress-label">
-                            <span>Proficiency</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 85%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-color="orange-red">
-                    <div class="skill-icon">
-                        <i data-lucide="file-code"></i>
-                    </div>
-                    <h3>HTML</h3>
-                    <div class="skill-progress">
-                        <div class="progress-label">
-                            <span>Proficiency</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 90%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-color="blue-cyan">
-                    <div class="skill-icon">
-                        <i data-lucide="palette"></i>
-                    </div>
-                    <h3>CSS</h3>
-                    <div class="skill-progress">
-                        <div class="progress-label">
-                            <span>Proficiency</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 85%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-color="yellow-yellow">
-                    <div class="skill-icon">
-                        <i data-lucide="globe"></i>
-                    </div>
-                    <h3>JavaScript</h3>
-                    <div class="skill-progress">
-                        <div class="progress-label">
-                            <span>Proficiency</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 80%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-color="cyan-blue">
-                    <div class="skill-icon">
-                        <i data-lucide="database"></i>
-                    </div>
-                    <h3>MySQL</h3>
-                    <div class="skill-progress">
-                        <div class="progress-label">
-                            <span>Proficiency</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 75%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-color="purple-pink">
-                    <div class="skill-icon">
-                        <i data-lucide="brain"></i>
-                    </div>
-                    <h3>AI Basics</h3>
-                    <div class="skill-progress">
-                        <div class="progress-label">
-                            <span>Proficiency</span>
-                            <span>70%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 70%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-color="cyan-blue">
-                    <div class="skill-icon">
-                        <i data-lucide="atom"></i>
-                    </div>
-                    <h3>React.js</h3>
-                    <div class="skill-progress">
-                        <div class="progress-label">
-                            <span>Proficiency</span>
-                            <span>60%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 60%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-color="emerald-teal">
-                    <div class="skill-icon">
-                        <i data-lucide="server"></i>
-                    </div>
-                    <h3>Node.js</h3>
-                    <div class="skill-progress">
-                        <div class="progress-label">
-                            <span>Proficiency</span>
-                            <span>45%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 45%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-color="orange-amber">
-                    <div class="skill-icon">
-                        <i data-lucide="coffee"></i>
-                    </div>
-                    <h3>Java</h3>
-                    <div class="skill-progress">
-                        <div class="progress-label">
-                            <span>Proficiency</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 75%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="additional-skills fade-in-up">
-                <div class="skills-badge-container">
-                    <h4>Also familiar with</h4>
-                                        <div class="skills-badges">
-                        <span class="skill-badge">MongoDB</span>
-                        <span class="skill-badge">Express.js</span>
-                        <span class="skill-badge">Tailwind CSS</span>
-                        <span class="skill-badge">PHP</span>
-                        <span class="skill-badge">Flask</span>
-                        <span class="skill-badge">Git & GitHub</span>
-                        <span class="skill-badge">REST APIs</span>
-                        <span class="skill-badge">Firebase</span>
-                        <span class="skill-badge">Responsive Design</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="section" id="projects">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Featured <span class="text-cyan">Projects</span></h2>
-                <div class="title-underline"></div>
-                <p class="section-subtitle">A showcase of my recent work and creative experiments</p>
-            </div>
-
-            
-            <h3 class="project-category-title" style="text-align: center; margin-bottom: 2rem; color: var(--cyan-400); font-size: 2rem;">My Projects</h3>
-            <div class="projects-grid"><div class="project-card" data-gradient="cyan-blue" data-title='CraftCycle' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>CraftCycle is a full-stack marketplace platform built to connect creators with buyers in a seamless and secure environment. Leveraging a robust Python (Flask) backend and Supabase for database management.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Secure user authentication and role management</li><li>Dynamic product listings with categorized searches</li><li>Integrated Google Generative AI for optimizing product descriptions</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Python 3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Flask</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Supabase (PostgreSQL)</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>HTML5</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>CSS3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>JavaScript (ES6+)</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Google Generative AI</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/CraftCycle' data-demo='https://craftcycle.pages.dev'>
-                    <div class="project-number">01</div>
-                    <div class="corner-accent corner-tr-accent"></div>
-                    <h3>CraftCycle</h3>
-                    <p>A full-stack marketplace platform connecting creators and buyers.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python (Flask)</span>
-                        <span class="tech-tag">Supabase</span>
-                        <span class="tech-tag">HTML/CSS</span>
-                        <span class="tech-tag">AI Integration</span>
-                    </div>
-                    <div class="project-actions">
-                        <button class="btn-project-view" onclick="openProjectModal(this)">
-                            <i data-lucide="external-link"></i>
-                            <span>View</span>
-                        </button>
-                        <button class="btn-project-github">
-                            <i data-lucide="github"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="project-card" data-gradient="violet-purple" data-title='E-agri-Digitaly' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>A comprehensive digital agriculture management system designed to solve modern farming challenges on a single platform. Built with core web technologies for rural accessibility.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Tools to track crop cycles and harvest timelines</li><li>Resource management for water and fertilizers</li><li>Direct connection with agricultural markets for better pricing</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>HTML5</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>CSS3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>JavaScript (ES6+)</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Bootstrap 5</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>PHP 8</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>MySQL</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/E-agri-Digitaly' data-demo='#'>
-                    <div class="project-number">02</div>
-                    <div class="corner-accent corner-tr-accent"></div>
-                    <h3>E-agri-Digitaly</h3>
-                    <p>Agriculture management system to solve farmers' problems on a single platform.</p>
-                    <div class="tech-stack" style="flex-wrap: wrap;">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">JavaScript (ES6+)</span>
-                        <span class="tech-tag">Bootstrap 5</span>
-                        <span class="tech-tag">PHP 8</span>
-                        <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag">Git/GitHub</span>
-                    </div>
-                    <div class="project-actions">
-                        <button class="btn-project-view" onclick="openProjectModal(this)">
-                            <i data-lucide="external-link"></i>
-                            <span>View</span>
-                        </button>
-                        <button class="btn-project-github">
-                            <i data-lucide="github"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="project-card" data-gradient="pink-rose" data-title='PulseSim – Real-Time Medical Simulation Platform' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>A backend-driven medical simulation platform supporting real-time patient state updates and interactive user workflows. Engineered for high performance, real-time data streaming, and scalable session analysis.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Implemented bidirectional real-time communication using FastAPI, WebSockets, and Redis Pub/Sub</li><li>Designed state evaluation workflows to manage changing patient conditions and simulation events</li><li>Persisted chronological session events in PostgreSQL for session analysis and evaluation</li><li>Containerized backend services with Docker and developed using Linux-based tooling</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Python</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>FastAPI</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>WebSockets</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Redis</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>PostgreSQL</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Docker</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>LangGraph</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>React.js</span></div>' data-github='https://github.com/ningarajukkali/PulseSimulator' data-demo='#'>
-                    <div class="project-number">03</div>
-                    <div class="corner-accent corner-tr-accent"></div>
-                    <h3>PulseSim</h3>
-                    <p>Real-time medical simulation platform supporting patient state updates and clinical workflows.</p>
-                    <div class="tech-stack" style="flex-wrap: wrap;">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">FastAPI</span>
-                        <span class="tech-tag">WebSockets</span>
-                        <span class="tech-tag">Redis</span>
-                        <span class="tech-tag">Docker</span>
-                        <span class="tech-tag">PostgreSQL</span>
-                    </div>
-                    <div class="project-actions">
-                        <button class="btn-project-view" onclick="openProjectModal(this)">
-                            <i data-lucide="external-link"></i>
-                            <span>View</span>
-                        </button>
-                        <button class="btn-project-github">
-                            <i data-lucide="github"></i>
-                        </button>
-                    </div>
-                </div>
-                  <div class="project-card extra-project" style="display: none;" data-gradient="indigo-blue" data-title='BrahmX AI' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>An advanced AI platform designed for intelligent processing and workflow automation. Built with React and Vite for blazing-fast front-end performance, BrahmX AI integrates complex machine learning models.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Automates repetitive business tasks efficiently</li><li>Analyzes large datasets to generate actionable insights</li><li>Real-time dashboard for performance monitoring</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>React.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Vite</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Tailwind CSS</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Node.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Express</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>MongoDB</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>OpenAI API</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/BrahmX-AI' data-demo='#'>
-                    <div class="project-number">04</div>
-                    <div class="corner-accent corner-tr-accent"></div>
-                    <h3>BrahmX AI</h3>
-                    <p>An advanced AI platform designed for intelligent processing and workflow automation.</p>
-                    <div class="tech-stack" style="flex-wrap: wrap;">
-                        <span class="tech-tag">React.js</span>
-                        <span class="tech-tag">Vite</span>
-                        <span class="tech-tag">Tailwind CSS</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">Express</span>
-                        <span class="tech-tag">MongoDB</span>
-                        <span class="tech-tag">OpenAI API</span>
-                        <span class="tech-tag">Git/GitHub</span>
-                    </div>
-                    <div class="project-actions">
-                        <button class="btn-project-view" onclick="openProjectModal(this)">
-                            <i data-lucide="external-link"></i>
-                            <span>View</span>
-                        </button>
-                        <button class="btn-project-github">
-                            <i data-lucide="github"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="project-card extra-project" style="display: none;" data-gradient="violet-purple" data-title='CareerForge AI' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>A powerful startup project offering an AI-driven career pathing platform. Built on the MERN stack, CareerForge AI analyzes a user&#39;s skills and interests to recommend personalized trajectories.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>AI-based skill gap analysis and recommendations</li><li>Curated learning resources and course suggestions</li><li>Robust user data protection and API integration</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>MongoDB</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Express.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>React.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Node.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>JWT Auth</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>AI APIs</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Postman</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/CareerForge-AI' data-demo='#'>
-                    <div class="project-number">05</div>
-                    <div class="corner-accent corner-tr-accent"></div>
-                    <h3>CareerForge AI</h3>
-                    <p>A powerful startup project offering an AI-driven career pathing platform.</p>
-                    <div class="tech-stack" style="flex-wrap: wrap;">
-                        <span class="tech-tag">MongoDB</span>
-                        <span class="tech-tag">Express.js</span>
-                        <span class="tech-tag">React.js</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">JWT Auth</span>
-                        <span class="tech-tag">AI APIs</span>
-                        <span class="tech-tag">Postman</span>
-                        <span class="tech-tag">Git/GitHub</span>
-                    </div>
-                    <div class="project-actions">
-                        <button class="btn-project-view" onclick="openProjectModal(this)">
-                            <i data-lucide="external-link"></i>
-                            <span>View</span>
-                        </button>
-                        <button class="btn-project-github">
-                            <i data-lucide="github"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="project-card extra-project" style="display: none;" data-gradient="pink-rose" data-title='Nexus Assistant' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>A comprehensive personal AI assistant built in Python. Nexus Assistant features advanced voice recognition, persistent memory via SQLite, and high-level security capabilities.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Deploys seamlessly via Docker containers</li><li>Integrates with external APIs to control smart devices</li><li>Manages schedules and provides instant query answers</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Python 3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>SQLite</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>SpeechRecognition</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>pyttsx3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Docker</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>REST APIs</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/Nexus-Assistant' data-demo='#'>
-                    <div class="project-number">06</div>
-                    <div class="corner-accent corner-tr-accent"></div>
-                    <h3>Nexus Assistant</h3>
-                    <p>A comprehensive personal AI assistant built with voice recognition and smart integrations.</p>
-                    <div class="tech-stack" style="flex-wrap: wrap;">
-                        <span class="tech-tag">Python 3</span>
-                        <span class="tech-tag">SQLite</span>
-                        <span class="tech-tag">SpeechRecognition</span>
-                        <span class="tech-tag">pyttsx3</span>
-                        <span class="tech-tag">Docker</span>
-                        <span class="tech-tag">REST APIs</span>
-                        <span class="tech-tag">Git/GitHub</span>
-                    </div>
-                    <div class="project-actions">
-                        <button class="btn-project-view" onclick="openProjectModal(this)">
-                            <i data-lucide="external-link"></i>
-                            <span>View</span>
-                        </button>
-                        <button class="btn-project-github">
-                            <i data-lucide="github"></i>
-                        </button>
-                    </div>
-                </div>
-</div>
-            
-            </div>
-
-                
-            <div class="text-center" style="margin-top: 4rem;">
-                <button id="viewAllBtn" class="btn btn-outline" onclick="toggleProjects()">View All Projects</button>
-            
-                <h3 class="project-category-title" style="text-align: center; margin: 4rem 0 2rem; color: var(--violet-500); font-size: 2rem;">Client Projects</h3>
-            <div class="projects-grid">
-<div class="project-card" data-gradient="emerald-teal" data-title='RestroCafe' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>Developed as a custom client project, RestroCafe is a comprehensive cafe and restaurant management application built using PHP, HTML, and CSS.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Streamlined order processing and receipt generation</li><li>Intuitive menu and inventory management</li><li>Table reservation system tailored for restaurant staff</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>PHP 8</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>MySQL</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>HTML5</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>CSS3</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>JavaScript</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>jQuery</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Bootstrap</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>XAMPP</span></div>' data-github='https://github.com/ningarajukkali/RestroCafe' data-demo='https://restrocafe.onrender.com'>
-                    <div class="project-number">01</div>
-                    <div class="corner-accent corner-tr-accent"></div>
-                    <h3>RestroCafe</h3>
-                    <p>A modern cafe and restaurant management application developed as a client project.</p>
-                    <div class="tech-stack" style="flex-wrap: wrap;">
-                        <span class="tech-tag">PHP 8</span>
-                        <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">jQuery</span>
-                        <span class="tech-tag">Bootstrap</span>
-                        <span class="tech-tag">XAMPP</span>
-                    </div>
-                    <div class="project-actions">
-                        <button class="btn-project-view" onclick="openProjectModal(this)">
-                            <i data-lucide="external-link"></i>
-                            <span>View</span>
-                        </button>
-                        <button class="btn-project-github">
-                            <i data-lucide="github"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="project-card" data-gradient="orange-amber" data-title='Community-Help' data-description='<div><h4 style=&#39;color: var(--cyan-400); margin-bottom: 0.5rem; font-size: 1.2rem;&#39;>Overview</h4><p>A platform built as a client project that aims to bridge the gap between people in need and those willing to provide community assistance. Developed using JavaScript for broad accessibility.</p><h4 style=&#39;color: var(--violet-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Key Features</h4><ul style=&#39;list-style-type: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;&#39;><li>Peer-to-peer help request broadcasting</li><li>Local event organization and volunteer tracking</li><li>Mobile-first design ensuring access from any device</li></ul><h4 style=&#39;color: var(--pink-400); margin: 1.5rem 0 0.5rem; font-size: 1.2rem;&#39;>Tech Stack</h4><div style=&#39;display: flex; gap: 0.5rem; flex-wrap: wrap;&#39;><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>React.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Vite</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Tailwind CSS</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Node.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Express.js</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>MongoDB</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>REST APIs</span><span style=&#39;background: rgba(236,72,153,0.1); color: var(--pink-400); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; border: 1px solid rgba(236,72,153,0.2);&#39;>Git/GitHub</span></div>' data-github='https://github.com/ningarajukkali/Community-Help' data-demo='https://community-help-alpha.vercel.app/'>
-                    <div class="project-number">02</div>
-                    <div class="corner-accent corner-tr-accent"></div>
-                    <h3>Community-Help</h3>
-                    <p>A platform designed to connect people and provide community assistance, built as a client project.</p>
-                    <div class="tech-stack" style="flex-wrap: wrap;">
-                        <span class="tech-tag">React.js</span>
-                        <span class="tech-tag">Vite</span>
-                        <span class="tech-tag">Tailwind CSS</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">Express.js</span>
-                        <span class="tech-tag">MongoDB</span>
-                        <span class="tech-tag">REST APIs</span>
-                        <span class="tech-tag">Git/GitHub</span>
-                    </div>
-                    <div class="project-actions">
-                        <button class="btn-project-view" onclick="openProjectModal(this)">
-                            <i data-lucide="external-link"></i>
-                            <span>View</span>
-                        </button>
-                        <button class="btn-project-github">
-                            <i data-lucide="github"></i>
-                        </button>
-                    </div>
-                </div>
-
-                            </div>
-
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section class="section section-alt" id="education">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Education & <span class="text-cyan">Journey</span></h2>
-                <div class="title-underline"></div>
-                <p class="section-subtitle">My academic path and continuous learning adventures</p>
-            </div>
-
-            <div class="timeline">
-                <div class="timeline-line"></div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content timeline-left">
-                        <div class="timeline-card">
-                            <span class="year-badge year-cyan">2023 - 2026</span>
-                            <h3>Bachelor of Computer Applications (BCA)</h3>
-                            <p class="institution">Mangalore University, Mangalore, Karnataka, India • <strong>CGPA: 8.1</strong></p>
-                            <p class="description">Strong academic foundation in software engineering, backend systems, database management, real-time communication, and containerized architectures.</p>
-                            <div class="achievements">
-                                <span class="achievement-tag">CGPA: 8.1</span>
-                                <span class="achievement-tag">Backend Systems</span>
-                                <span class="achievement-tag">Python &amp; Java</span>
-                                <span class="achievement-tag">PostgreSQL &amp; Redis</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeline-icon">
-                        <i data-lucide="graduation-cap"></i>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content timeline-right">
-                        <div class="timeline-card">
-                            <span class="year-badge year-violet">2024</span>
-                            <h3>Advanced Web Development</h3>
-                            <p class="institution">Self-Learning & Projects</p>
-                            <p class="description">Mastered modern web technologies including HTML5, CSS3, JavaScript,
-                                and responsive design principles.</p>
-                            <div class="achievements">
-                                <span class="achievement-tag">Responsive Design</span>
-                                <span class="achievement-tag">Modern CSS</span>
-                                <span class="achievement-tag">JavaScript ES6+</span>
-                                <span class="achievement-tag">Git & GitHub</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeline-icon">
-                        <i data-lucide="book-open"></i>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content timeline-left">
-                        <div class="timeline-card">
-                            <span class="year-badge year-pink">2025</span>
-                            <h3>Python & Database Specialization</h3>
-                            <p class="institution">Academic & Personal Projects</p>
-                            <p class="description">Deep dive into Python programming and database management with MySQL,
-                                building real-world applications.</p>
-                            <div class="achievements">
-                                <span class="achievement-tag">Python Projects</span>
-                                <span class="achievement-tag">MySQL Mastery</span>
-                                <span class="achievement-tag">API Integration</span>
-                                <span class="achievement-tag">Problem Solving</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeline-icon">
-                        <i data-lucide="award"></i>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content timeline-right">
-                        <div class="timeline-card">
-                            <span class="year-badge year-emerald">2026 - Present</span>
-                            <h3>AI & Machine Learning Journey</h3>
-                            <p class="institution">Continuous Learning</p>
-                            <p class="description">Exploring artificial intelligence, machine learning concepts, and
-                                their practical applications in software development.</p>
-                            <div class="achievements">
-                                <span class="achievement-tag">AI Fundamentals</span>
-                                <span class="achievement-tag">ML Basics</span>
-                                <span class="achievement-tag">Data Analysis</span>
-                                <span class="achievement-tag">Future Technologies</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeline-icon">
-                        <i data-lucide="sparkles"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stats-grid fade-in-up">
-                <div class="stat-card stat-cyan">
-                    <div class="stat-card-value">3+</div>
-                    <div class="stat-card-label">Years of Study</div>
-                </div>
-                <div class="stat-card stat-violet">
-                    <div class="stat-card-value">15+</div>
-                    <div class="stat-card-label">Projects Built</div>
-                </div>
-                <div class="stat-card stat-pink">
-                    <div class="stat-card-value">20+</div>
-                    
-                    <div class="stat-card-label">Skills Acquired</div>
-                </div>
-                <div class="stat-card stat-emerald">
-                    <div class="stat-card-value">5+</div>
-                    <div class="stat-card-label">Certifications</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Resume Section -->
-    <section class="section section-alt" id="resume">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">My <span class="text-cyan">Resume</span></h2>
-                <div class="title-underline"></div>
-                <p class="section-subtitle">Explore my official resume, technical stack, freelance experience, and AI projects.</p>
-            </div>
-
-            <div class="resume-card-container fade-in-up">
-                <!-- Resume Hero Banner -->
-                <div class="resume-hero-banner">
-                    <div class="resume-hero-left">
-                        <div class="resume-badge">
-                            <i data-lucide="sparkles"></i> Open for Software Engineering &amp; Full-Stack Roles
-                        </div>
-                        <h3 class="resume-name">NINGARAJ R UKKALI</h3>
-                        <p class="resume-role">Aspiring Software Engineer | Backend &amp; Full-Stack Developer</p>
-                    </div>
-                    <div class="resume-hero-actions">
-                        <a href="assets/resume.pdf" download="Ningaraj_R_Ukkali_Resume.pdf" class="btn btn-primary resume-btn">
-                            <i data-lucide="download"></i> Download Resume PDF
-                        </a>
-                        <button class="btn btn-outline resume-btn" onclick="toggleResumePreview()">
-                            <i data-lucide="eye"></i> <span id="resumePreviewText">Interactive View</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Main Grid -->
-                <div class="resume-content-grid">
-                    <!-- Column 1: Summary & Competencies -->
-                    <div class="resume-col">
-                        <div class="resume-block">
-                            <div class="resume-block-header">
-                                <i data-lucide="user" class="text-cyan"></i>
-                                <h4>Summary</h4>
-                            </div>
-                            <p class="resume-text">
-                                BCA graduate and aspiring Software Engineer with hands-on experience building backend and full-stack applications involving REST APIs, real-time communication, databases, and containerized services. Strong foundation in Python, Java, JavaScript, SQL, OOP, and software development fundamentals. Experienced with FastAPI, Flask, WebSockets, Redis Pub/Sub, PostgreSQL, React.js, Docker, and Linux development environments. Interested in building reliable software systems, solving performance and scalability problems, and learning functional programming and large-scale system design.
-                            </p>
-                        </div>
-
-                        <div class="resume-block">
-                            <div class="resume-block-header">
-                                <i data-lucide="cpu" class="text-violet"></i>
-                                <h4>Technical Skills</h4>
-                            </div>
-                            <div class="resume-skills-list">
-                                <div class="resume-skill-tag tag-cyan"><strong>Programming:</strong> Python, Java, JavaScript (ES6+), SQL</div>
-                                <div class="resume-skill-tag tag-violet"><strong>Software Engineering:</strong> OOP, Data Structures &amp; Algorithms, REST APIs, API Integration, Authentication, Problem Solving</div>
-                                <div class="resume-skill-tag tag-pink"><strong>Backend &amp; Systems:</strong> FastAPI, Flask, WebSockets, Redis Pub/Sub, Backend Services</div>
-                                <div class="resume-skill-tag tag-emerald"><strong>Databases:</strong> PostgreSQL, MySQL, MongoDB, Redis</div>
-                                <div class="resume-skill-tag tag-cyan"><strong>Frontend:</strong> React.js, Tailwind CSS, Responsive UI, Component-Based Development</div>
-                                <div class="resume-skill-tag tag-violet"><strong>Infrastructure &amp; Tools:</strong> Docker, Linux CLI, Git, GitHub, Postman, VS Code</div>
-                            </div>
-                        </div>
-
-                        <div class="resume-block">
-                            <div class="resume-block-header">
-                                <i data-lucide="award" class="text-pink"></i>
-                                <h4>Activities &amp; Achievements</h4>
-                            </div>
-                            <div class="resume-skills-list">
-                                <div class="resume-skill-tag tag-cyan">• Participated in a Hackathon, developing an end-to-end functional MVP under strict time constraints</div>
-                                <div class="resume-skill-tag tag-violet">• Participated in various University Events, technical symposiums, and coding competitions</div>
-                                <div class="resume-skill-tag tag-pink">• Demonstrated teamwork, problem-solving, and communication skills across technical and client projects</div>
-                                <div class="resume-skill-tag tag-emerald">• Maintained strong academic performance with an 8.1 CGPA in Bachelor of Computer Applications</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Column 2: Experience, Projects & Education -->
-                    <div class="resume-col">
-                        <div class="resume-block">
-                            <div class="resume-block-header">
-                                <i data-lucide="briefcase" class="text-pink"></i>
-                                <h4>Work Experience</h4>
-                            </div>
-                            <div class="resume-timeline">
-                                <div class="resume-item">
-                                    <span class="resume-date">2025 – 2026</span>
-                                    <h5 class="resume-item-title">Freelance Software Developer | Self-Employed</h5>
-                                    <p class="resume-item-desc" style="color: var(--cyan-400); font-size: 0.85rem; margin-bottom: 0.5rem;">Mangalore, Karnataka</p>
-                                    <p class="resume-item-desc">
-                                        • Developed full-stack applications for student clients based on functional requirements and project specifications.<br>
-                                        • Worked across requirements analysis, application development, API integration, database integration, debugging, testing, and deployment.<br>
-                                        • Developed backend services and REST APIs using Python, FastAPI, and Flask.<br>
-                                        • Built responsive interfaces using React.js, JavaScript, and Tailwind CSS.<br>
-                                        • Used PostgreSQL, MySQL, MongoDB, Redis, Git, Docker, and Linux-based development workflows.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="resume-block">
-                            <div class="resume-block-header">
-                                <i data-lucide="code-2" class="text-cyan"></i>
-                                <h4>Projects</h4>
-                            </div>
-                            <div class="resume-timeline">
-                                <div class="resume-item">
-                                    <h5 class="resume-item-title">PulseSim – Real-Time Medical Simulation Platform <a href="https://github.com/ningarajukkali/PulseSimulator" target="_blank" style="color: var(--cyan-400); font-size: 0.85rem; margin-left: 0.5rem;">[GitHub]</a></h5>
-                                    <p class="resume-item-desc" style="color: #94a3b8; font-style: italic; font-size: 0.85rem; margin-bottom: 0.4rem;">
-                                        Python, FastAPI, WebSockets, Redis, PostgreSQL, Docker, LangGraph, React.js
-                                    </p>
-                                    <p class="resume-item-desc">
-                                        • Developed a backend-driven simulation platform supporting real-time patient state updates and interactive user workflows.<br>
-                                        • Implemented bidirectional real-time communication using FastAPI, WebSockets, and Redis Pub/Sub.<br>
-                                        • Designed state evaluation workflows to manage changing patient conditions and simulation events.<br>
-                                        • Persisted chronological session events in PostgreSQL for session analysis and evaluation.<br>
-                                        • Containerized backend services with Docker and developed using Linux-based tooling.
-                                    </p>
-                                </div>
-                                <div class="resume-item">
-                                    <h5 class="resume-item-title">CraftCycle | AI-Powered Circular Economy Marketplace <a href="https://github.com/ningarajukkali/CraftCycle" target="_blank" style="color: var(--cyan-400); font-size: 0.85rem; margin-left: 0.5rem;">[GitHub]</a> <a href="https://craftcycle.pages.dev" target="_blank" style="color: var(--violet-400); font-size: 0.85rem; margin-left: 0.3rem;">[Live Demo]</a></h5>
-                                    <p class="resume-item-desc" style="color: #94a3b8; font-style: italic; font-size: 0.85rem; margin-bottom: 0.4rem;">
-                                        HTML, CSS, JavaScript, Python, Flask, PostgreSQL, Supabase, REST APIs, JWT
-                                    </p>
-                                    <p class="resume-item-desc">
-                                        • Developed a full-stack marketplace for sourcing scrap materials and creating/upcycling products.<br>
-                                        • Built Flask REST APIs for authentication, marketplace workflows, and application data management.<br>
-                                        • Integrated Google Gemini Vision for AI-assisted image analysis and upcycling recommendations.<br>
-                                        • Connected the frontend with backend APIs and PostgreSQL/Supabase services.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="resume-block">
-                            <div class="resume-block-header">
-                                <i data-lucide="graduation-cap" class="text-emerald"></i>
-                                <h4>Education &amp; Certifications</h4>
-                            </div>
-                            <div class="resume-text">
-                                <p><strong>Bachelor of Computer Applications (BCA)</strong> (2023 – 2026)<br>
-                                Mangalore University, Mangalore, Karnataka, India | <strong>CGPA: 8.1</strong></p>
-                                <div style="margin-top: 0.8rem;">
-                                    <p>📜 <strong>Generative AI Professional Certification</strong> — Issued by OutSkill AI</p>
-                                    <p style="margin-top: 0.3rem;">📜 <strong>Foundations: Data, Data, Everywhere</strong> — Issued by Google (Coursera)</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Interactive Preview Panel -->
-                <div class="resume-preview-panel hidden" id="resumePreviewPanel">
-                    <div class="resume-preview-header">
-                        <span><i data-lucide="file-text"></i> Interactive Document View</span>
-                        <button class="resume-close-btn" onclick="toggleResumePreview()"><i data-lucide="x"></i></button>
-                    </div>
-                    <div class="resume-preview-body">
-                        <div class="resume-paper">
-                            <div class="paper-header">
-                                <h1>NINGARAJ R UKKALI</h1>
-                                <p class="paper-contact">
-                                    <a href="mailto:ningarajukkali@gmail.com">ningarajukkali@gmail.com</a> | +91 7019373549 | Mangalore, Karnataka, India
-                                </p>
-                                <p class="paper-contact" style="margin-top: 0.2rem;">
-                                    <a href="https://linkedin.com/in/ningaraj-ukkali" target="_blank">linkedin.com/in/ningaraj-ukkali</a> | 
-                                    <a href="https://github.com/ningarajukkali" target="_blank">github.com/ningarajukkali</a>
-                                </p>
-                            </div>
-                            <hr class="paper-divider" />
-                            
-                            <div class="paper-section">
-                                <h3>SUMMARY</h3>
-                                <p>BCA graduate and aspiring Software Engineer with hands-on experience building backend and full-stack applications involving REST APIs, real-time communication, databases, and containerized services. Strong foundation in Python, Java, JavaScript, SQL, OOP, and software development fundamentals. Experienced with FastAPI, Flask, WebSockets, Redis Pub/Sub, PostgreSQL, React.js, Docker, and Linux development environments. Interested in building reliable software systems, solving performance and scalability problems, and learning functional programming and large-scale system design.</p>
-                            </div>
-
-                            <div class="paper-section">
-                                <h3>EDUCATION</h3>
-                                <div class="paper-item-header">
-                                    <strong>Bachelor of Computer Applications (BCA)</strong>
-                                    <span class="paper-date">2023 – 2026</span>
-                                </div>
-                                <div class="paper-item-header">
-                                    <span>Mangalore University, Mangalore, Karnataka, India</span>
-                                    <span class="paper-date">CGPA: 8.1</span>
-                                </div>
-                            </div>
-                            
-                            <div class="paper-section">
-                                <h3>TECHNICAL SKILLS</h3>
-                                <ul>
-                                    <li><strong>Programming:</strong> Python, Java, JavaScript (ES6+), SQL</li>
-                                    <li><strong>Software Engineering:</strong> OOP, Data Structures &amp; Algorithms, REST APIs, API Integration, Authentication, Problem Solving</li>
-                                    <li><strong>Backend &amp; Systems:</strong> FastAPI, Flask, WebSockets, Redis Pub/Sub, Backend Services</li>
-                                    <li><strong>Databases:</strong> PostgreSQL, MySQL, MongoDB, Redis</li>
-                                    <li><strong>Frontend:</strong> React.js, Tailwind CSS, Responsive UI, Component-Based Development</li>
-                                    <li><strong>Infrastructure &amp; Tools:</strong> Docker, Linux CLI, Git, GitHub, Postman, VS Code</li>
-                                </ul>
-                            </div>
-
-                            <div class="paper-section">
-                                <h3>PROJECTS</h3>
-                                <div class="paper-item">
-                                    <div class="paper-item-header">
-                                        <strong>PulseSim – Real-Time Medical Simulation Platform</strong>
-                                        <span class="paper-links">[<a href="https://github.com/ningarajukkali/PulseSimulator" target="_blank">GitHub</a>]</span>
-                                    </div>
-                                    <p class="paper-tech">Technologies: Python, FastAPI, WebSockets, Redis, PostgreSQL, Docker, LangGraph, React.js</p>
-                                    <ul>
-                                        <li>Developed a backend-driven simulation platform supporting real-time patient state updates and interactive user workflows.</li>
-                                        <li>Implemented bidirectional real-time communication using FastAPI, WebSockets, and Redis Pub/Sub.</li>
-                                        <li>Designed state evaluation workflows to manage changing patient conditions and simulation events.</li>
-                                        <li>Persisted chronological session events in PostgreSQL for session analysis and evaluation.</li>
-                                        <li>Containerized backend services with Docker and developed using Linux-based tooling.</li>
-                                    </ul>
-                                </div>
-
-                                <div class="paper-item">
-                                    <div class="paper-item-header">
-                                        <strong>CraftCycle | AI-Powered Circular Economy Marketplace</strong>
-                                        <span class="paper-links">[<a href="https://github.com/ningarajukkali/CraftCycle" target="_blank">GitHub</a>] | [<a href="https://craftcycle.pages.dev" target="_blank">Live Demo</a>]</span>
-                                    </div>
-                                    <p class="paper-tech">Technologies: HTML, CSS, JavaScript, Python, Flask, PostgreSQL, Supabase, REST APIs, JWT</p>
-                                    <ul>
-                                        <li>Developed a full-stack marketplace for sourcing scrap materials and creating/upcycling products.</li>
-                                        <li>Built Flask REST APIs for authentication, marketplace workflows, and application data management.</li>
-                                        <li>Integrated Google Gemini Vision for AI-assisted image analysis and upcycling recommendations.</li>
-                                        <li>Connected the frontend with backend APIs and PostgreSQL/Supabase services.</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="paper-section">
-                                <h3>WORK EXPERIENCE</h3>
-                                <div class="paper-item">
-                                    <div class="paper-item-header">
-                                        <strong>Freelance Software Developer | Self-Employed</strong>
-                                        <span class="paper-date">2025 – 2026</span>
-                                    </div>
-                                    <p class="paper-tech" style="font-style: normal; color: #94a3b8;">Mangalore, Karnataka</p>
-                                    <ul>
-                                        <li>Developed full-stack applications for student clients based on functional requirements and project specifications.</li>
-                                        <li>Worked across requirements analysis, application development, API integration, database integration, debugging, testing, and deployment.</li>
-                                        <li>Developed backend services and REST APIs using Python, FastAPI, and Flask.</li>
-                                        <li>Built responsive interfaces using React.js, JavaScript, and Tailwind CSS.</li>
-                                        <li>Used PostgreSQL, MySQL, MongoDB, Redis, Git, Docker, and Linux-based development workflows.</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="paper-section">
-                                <h3>ACTIVITIES &amp; ACHIEVEMENTS</h3>
-                                <ul>
-                                    <li>Participated in a Hackathon, developing an end-to-end functional MVP under strict time constraints</li>
-                                    <li>Participated in various University Events, technical symposiums, and coding competitions</li>
-                                    <li>Demonstrated teamwork, problem-solving, and communication skills across technical and client projects</li>
-                                    <li>Maintained strong academic performance with an 8.1 CGPA in Bachelor of Computer Applications</li>
-                                </ul>
-                            </div>
-
-                            <div class="paper-section">
-                                <h3>CERTIFICATIONS</h3>
-                                <ul>
-                                    <li><strong>Generative AI Professional Certification</strong> — Issued by OutSkill AI</li>
-                                    <li><strong>Foundations: Data, Data, Everywhere</strong> — Issued by Google (Coursera)</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section" id="contact">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Get In <span class="text-cyan">Touch</span></h2>
-                <div class="title-underline"></div>
-                <p class="section-subtitle">Have a project in mind or just want to say hello? Feel free to reach out!
-                </p>
-            </div>
-
-            <div class="contact-grid">
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <div class="contact-card contact-cyan">
-                        <div class="contact-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-                        </div>
-                        <div>
-                            <p class="contact-label">Email</p>
-                            <p class="contact-value">ningarajukkali@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-card contact-violet">
-                        <div class="contact-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        </div>
-                        <div>
-                            <p class="contact-label">Phone</p>
-                            <p class="contact-value">+91 7019373549</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-card contact-pink">
-                        <div class="contact-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                        </div>
-                        <div>
-                            <p class="contact-label">Location</p>
-                            <p class="contact-value">Mangalore karnataka ,India</p>
-                        </div>
-                    </div>
-
-                    <div class="social-container">
-                        <h3>Connect With Me</h3>
-                        <div class="social-icons">
-                            <a href="https://github.com/ningarajukkali" target="_blank" rel="noopener noreferrer" class="social-link social-github" aria-label="GitHub">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                            </a>
-                            <a href="https://www.linkedin.com/in/ningaraj-ukkali" target="_blank" rel="noopener noreferrer" class="social-link social-linkedin" aria-label="LinkedIn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                            </a>
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-link social-twitter" aria-label="Twitter">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
-                            </a>
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link social-instagram" aria-label="Instagram">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Terminal-style Contact Form -->
-                <div class="contact-form-wrapper">
-                    <div class="terminal-header">
-                        <div class="terminal-buttons">
-                            <span class="terminal-btn terminal-red"></span>
-                            <span class="terminal-btn terminal-yellow"></span>
-                            <span class="terminal-btn terminal-green"></span>
-                        </div>
-                        <span class="terminal-title">contact@ningaraj-ukkali</span>
-                    </div>
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label class="terminal-label"><span class="prompt">&gt;</span> name:</label>
-                            <input type="text" class="terminal-input" placeholder="Enter your name" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="terminal-label"><span class="prompt">&gt;</span> email:</label>
-                            <input type="email" class="terminal-input" placeholder="your@email.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="terminal-label"><span class="prompt">&gt;</span> message:</label>
-                            <textarea class="terminal-input terminal-textarea" rows="5"
-                                placeholder="Type your message here..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">
-                            Send Message
-                            <i data-lucide="send"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-particles" id="footerParticles"></div>
-        <div class="footer-container">
-            <div class="footer-logo">&lt;Ningaraj /&gt;</div>
-            <p class="footer-copyright">
-                © 2025 Ningaraj Ukkali. Built with <i data-lucide="heart" class="heart-icon"></i> and code
-            </p>
-            <!-- <div class="footer-tech">
-                <span class="tech-badge">React</span>
-                <span class="tech-badge">TypeScript</span>
-                <span class="tech-badge">Tailwind CSS</span>
-                <span class="tech-badge">Motion</span>
-            </div> -->
-            <p class="footer-tagline">Designed and developed with passion for creating amazing digital experiences</p>
-        </div>
-    </footer>
-
-    <script type="module" src="script.js"></script>
-    <script>
-        // Render brand icons that are missing in Lucide
-        function renderBrandIcons() {
-            const brandSvgs = {
-                github: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>',
-                linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>',
-                twitter: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>',
-                instagram: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>'
-            };
-            document.querySelectorAll('[data-lucide]').forEach(function(el) {
-                const name = el.getAttribute('data-lucide');
-                if (brandSvgs[name]) {
-                    const temp = document.createElement('div');
-                    temp.innerHTML = brandSvgs[name];
-                    const svg = temp.firstElementChild;
-                    if (svg) {
-                        el.classList.forEach(function(cls) { svg.classList.add(cls); });
-                        el.replaceWith(svg);
-                    }
-                }
-            });
-        }
-        renderBrandIcons();
-        if (window.lucide) {
-            lucide.createIcons();
-        }
-    </script>
-
-    <!-- Project Modal -->
-    <div id="projectModal" class="modal">
-        <div class="modal-overlay" onclick="closeProjectModal()"></div>
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeProjectModal()">
-                <i data-lucide="x"></i>
-            </button>
-            <h3 id="modalTitle" class="gradient-text" style="font-size: 2rem; margin-bottom: 1rem;">Project Title</h3>
-            <div class="modal-body">
-                <p id="modalDescription" style="color: var(--text-secondary); line-height: 1.6; font-size: 1.1rem;">Project detailed description goes here.</p>
-                <div class="modal-actions" style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <a id="modalGithubBtn" href="#" target="_blank" class="btn btn-outline" style="flex: 1; display: flex; justify-content: center; align-items: center; gap: 0.5rem; text-decoration: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg> GitHub
-                    </a>
-                    <a id="modalDemoBtn" href="#" target="_blank" class="btn btn-primary" style="flex: 1; display: flex; justify-content: center; align-items: center; gap: 0.5rem; text-decoration: none;">
-                        <i data-lucide="external-link"></i> Demo
-                    </a>
-                </div>
-            </div>
-        </div>
+        <!-- Mobile Menu Toggle Button -->
+        <button id="menuBtn" class="lg:hidden w-11 h-11 rounded-full glass flex items-center justify-center text-gold-300 focus:outline-none">
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+      </div>
     </div>
 
-</body>
+    <!-- Mobile Drawer Menu -->
+    <div id="mobileMenu" class="lg:hidden hidden border-t border-gold-500/15 bg-[#060607]/95 backdrop-blur-2xl">
+      <div class="px-6 py-6 flex flex-col gap-3.5 text-white/80 font-medium">
+        <a href="#home" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
+          <span>Home</span> <span class="font-kannada text-gold-500/70 text-sm">ಮುಖಪುಟ</span>
+        </a>
+        <a href="#about" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
+          <span>About</span> <span class="font-kannada text-gold-500/70 text-sm">ನನ್ನ ಬಗ್ಗೆ</span>
+        </a>
+        <a href="#skills" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
+          <span>Skills</span> <span class="font-kannada text-gold-500/70 text-sm">ಕೌಶಲ್ಯ</span>
+        </a>
+        <a href="#projects" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
+          <span>Projects</span> <span class="font-kannada text-gold-500/70 text-sm">ಯೋಜನೆಗಳು</span>
+        </a>
+        <a href="#journey" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
+          <span>Journey</span> <span class="font-kannada text-gold-500/70 text-sm">ಅನುಭವ</span>
+        </a>
+        <a href="#resume" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
+          <span>Resume</span> <span class="font-kannada text-gold-500/70 text-sm">ರೆಸ್ಯೂಮೆ</span>
+        </a>
+        <a href="#contact" class="mob-link flex items-center justify-between py-2">
+          <span>Contact</span> <span class="font-kannada text-gold-500/70 text-sm">ಸಂಪರ್ಕ</span>
+        </a>
+        <div class="grid grid-cols-2 gap-3 mt-3">
+          <button onclick="downloadResumePdf(event)" class="btn-gold rounded-full py-3 font-bold text-xs flex items-center justify-center gap-2">
+            <i class="fas fa-download"></i> Download CV
+          </button>
+          <button onclick="openResumeModal()" class="btn-ghost rounded-full py-3 font-semibold text-xs flex items-center justify-center gap-2">
+            <i class="fas fa-eye"></i> View Online
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
 
+  <!-- ================= HERO SECTION ================= -->
+  <header id="home" class="relative min-h-screen flex items-center overflow-hidden pt-[110px] pb-16" style="perspective:1400px;">
+    <!-- Parallax Kannada Typography on Borders -->
+    <div class="hk-glow font-kannada" data-depth="0.015">ಕ</div>
+    <div class="hero-kannada hk-top kannada-outline" data-depth="0.05">ಕನ್ನಡಿಗ</div>
+    <div class="hero-kannada hk-bottom kannada-outline" data-depth="0.03">ಕನ್ನಡಿಗ</div>
+    <div class="hero-kannada hk-left kannada-outline-red font-kannada" data-depth="0.07">ಕನ್ನಡ • ಕರ್ನಾಟಕ • ಕನ್ನಡಿಗ</div>
+    <div class="hero-kannada hk-right font-kannada" data-depth="0.07" style="color:transparent; -webkit-text-stroke:1.2px rgba(212,175,55,0.35);">ಜೈ ಕರ್ನಾಟಕ • ಜೈ ಕನ್ನಡ</div>
+
+    <!-- Soft Ambient Spotlights -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[320px] pointer-events-none"
+         style="background:radial-gradient(ellipse, rgba(212,175,55,0.14) 0%, transparent 70%);"></div>
+
+    <div class="relative z-20 max-w-7xl mx-auto px-5 md:px-8 w-full grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      <!-- Hero Left: Content -->
+      <div class="lg:col-span-7" id="heroContent">
+        <!-- Live Location Badge -->
+        <div class="hero-anim inline-flex items-center gap-3 glass rounded-full pl-2 pr-5 py-1.5 mb-6">
+          <span class="bg-gradient-to-r from-deepred-700 to-gold-600 text-[11px] font-bold px-3 py-1 rounded-full tracking-widest uppercase text-white shadow-md">
+            ● Live
+          </span>
+          <span class="text-[12.5px] tracking-wider text-white/80">
+            Mangalore & Bengaluru — <span class="font-kannada text-gold-300 font-semibold">ನಮ್ಮ ಕರ್ನಾಟಕ</span>
+          </span>
+        </div>
+
+        <!-- Heritage Greeting -->
+        <p class="hero-anim label-kannada text-gold-400/90 text-xs md:text-sm uppercase mb-3 font-semibold">
+          || ನಮಸ್ಕಾರ • HELLO, I'M ||
+        </p>
+
+        <!-- Main Title -->
+        <h1 class="hero-anim font-playfair font-extrabold leading-[0.95] text-[clamp(2.8rem,7.5vw,5.6rem)]">
+          <span class="block text-white drop-shadow-[0_10px_35px_rgba(0,0,0,0.9)]">Ningaraj R Ukkali</span>
+          <span class="block gold-gradient-text italic font-cormorant font-bold">Full Stack & AI Developer</span>
+        </h1>
+
+        <!-- Typing Rotator -->
+        <div class="hero-anim mt-4 text-xl md:text-2xl font-medium text-white/90 h-[38px] flex items-center">
+          <span class="text-white/50 font-light mr-2">Specializing in</span>
+          <span id="typed" class="text-gold-300 font-semibold"></span>
+          <span class="typing-caret"></span>
+        </div>
+
+        <!-- Description -->
+        <p class="hero-anim mt-5 max-w-xl text-white/70 leading-relaxed text-[15px] md:text-base">
+          21-year-old <span class="text-white font-medium">BCA Graduate (8.1 CGPA)</span> & Software Engineer crafting high-performance, real-time web applications and intelligent AI platforms with
+          <span class="text-white font-medium">Python, FastAPI, React, Node.js & modern cloud tooling</span>.
+          Rooted in <span class="font-kannada text-gold-300 font-semibold">ಕರ್ನಾಟಕ</span> with deep pride in Kannada identity, shipping scalable systems with speed, precision, and soul.
+        </p>
+
+        <!-- Action CTAs -->
+        <div class="hero-anim mt-8 flex flex-wrap items-center gap-4">
+          <a href="#projects" class="btn-gold magnetic px-8 py-3.5 rounded-full font-bold text-[14px] tracking-wide flex items-center gap-3">
+            <span>Explore My Work</span> <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+          <button onclick="openResumeModal()" class="btn-ghost magnetic px-8 py-3.5 rounded-full font-semibold text-[14px] tracking-wide flex items-center gap-3">
+            <i class="fas fa-file-invoice text-gold-400 text-xs"></i>
+            <span>Interactive Resume</span>
+          </button>
+        </div>
+
+        <!-- Social Icons & Contact Pill -->
+        <div class="hero-anim mt-8 flex flex-wrap items-center gap-4">
+          <div class="flex items-center gap-3">
+            <a href="https://github.com/ningarajukkali" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-full glass glass-hover flex items-center justify-center text-white/80 hover:text-gold-300 transition" title="GitHub">
+              <i class="fab fa-github text-lg"></i>
+            </a>
+            <a href="https://linkedin.com/in/ningaraj-ukkali" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-full glass glass-hover flex items-center justify-center text-white/80 hover:text-gold-300 transition" title="LinkedIn">
+              <i class="fab fa-linkedin-in text-lg"></i>
+            </a>
+            <a href="mailto:ningarajukkali@gmail.com" class="w-11 h-11 rounded-full glass glass-hover flex items-center justify-center text-white/80 hover:text-gold-300 transition" title="Send Email">
+              <i class="fas fa-envelope text-base"></i>
+            </a>
+            <a href="tel:+917019373549" class="w-11 h-11 rounded-full glass glass-hover flex items-center justify-center text-white/80 hover:text-gold-300 transition" title="Call Phone">
+              <i class="fas fa-phone text-sm"></i>
+            </a>
+          </div>
+          <div class="hidden sm:block h-8 w-px bg-gradient-to-b from-transparent via-gold-500/40 to-transparent"></div>
+          <button onclick="copyEmail()" class="text-[13px] text-white/60 hover:text-gold-300 transition flex items-center gap-2 glass px-4 py-2 rounded-full">
+            <i class="fas fa-copy text-gold-400/80 text-xs"></i>
+            <span>ningarajukkali@gmail.com</span>
+          </button>
+        </div>
+
+        <!-- Quick Proof Badges -->
+        <div class="hero-anim mt-8 flex flex-wrap items-center gap-6 text-[12px] tracking-wider text-white/50 uppercase font-medium">
+          <span class="flex items-center gap-2"><i class="fas fa-circle-check text-emerald-400"></i> 8+ Real Projects</span>
+          <span class="flex items-center gap-2"><i class="fas fa-graduation-cap text-gold-400"></i> 8.1 CGPA • BCA</span>
+          <span class="flex items-center gap-2"><i class="fas fa-bolt text-gold-400"></i> Open for Roles</span>
+        </div>
+      </div>
+
+      <!-- Hero Right: 3D Artwork Stage with Uploaded Portrait -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-end" id="heroArt">
+        <div class="artwork-stage w-full max-w-[420px]" id="artworkStage">
+          <div class="art-glow"></div>
+          
+          <!-- Floating Interactive Badges -->
+          <div class="absolute -left-7 top-10 z-20 glass rounded-2xl px-4 py-3 float-slow hidden sm:block border-gold-500/30" data-depth="0.09" style="animation-delay:-2s;">
+            <div class="text-[10px] tracking-[0.25em] text-gold-400 uppercase font-bold">Python • FastAPI • React</div>
+            <div class="font-bold text-sm mt-0.5 text-white">Full Stack & Systems</div>
+          </div>
+          <div class="absolute -right-6 top-1/3 z-20 glass rounded-2xl px-4 py-3 float-slow hidden sm:block border-gold-500/30" data-depth="0.11">
+            <div class="font-kannada text-gold-300 text-lg leading-none font-bold">ಕನ್ನಡಿಗ</div>
+            <div class="text-[10px] tracking-[0.25em] text-white/55 uppercase mt-1">Proud Identity</div>
+          </div>
+          <div class="absolute -left-6 bottom-20 z-20 glass rounded-full px-4 py-2 flex items-center gap-2.5 float-slow hidden sm:flex border-gold-500/30" data-depth="0.08" style="animation-delay:-4s;">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
+            <span class="text-xs font-semibold text-white">Open to SDE Roles</span>
+          </div>
+
+          <!-- Main 3D Framed Artwork Showcase Plane -->
+          <div class="artwork-plane" id="artworkPlane">
+            <div class="metal-frame">
+              <div class="frame-corner fc-tl"></div>
+              <div class="frame-corner fc-tr"></div>
+              <div class="frame-corner fc-bl"></div>
+              <div class="frame-corner fc-br"></div>
+              
+              <div class="art-inner">
+                <!-- Frame Header -->
+                <div class="px-5 pt-4 pb-2 flex items-center justify-between">
+                  <span class="font-kannada text-[11px] text-gold-300 tracking-widest font-semibold">|| ಕನ್ನಡಾಂಬೆ ||</span>
+                  <div class="flex-1 mx-3 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent"></div>
+                  <span class="font-kannada text-[11px] text-gold-300 tracking-widest font-semibold">ಕರ್ನಾಟಕ</span>
+                </div>
+
+                <!-- Showcase Picture Container -->
+                <div class="relative px-3 pt-1 pb-2">
+                  <div class="relative rounded-xl overflow-hidden border border-gold-500/25 shadow-2xl">
+                    <img src="img/portrait.jpg" alt="Ningaraj R Ukkali — ಕನ್ನಡಿಗ Portrait" class="portrait-hero-img"/>
+                    
+                    <!-- Overlay Vignette & Calligraphy Accent -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#060607]/90 via-transparent to-black/20 pointer-events-none"></div>
+                    
+                    <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between pointer-events-none">
+                      <div>
+                        <div class="text-white font-bold text-base drop-shadow-md">Ningaraj R Ukkali</div>
+                        <div class="font-kannada text-gold-300 text-xs drop-shadow">ಕನ್ನಡಿಗ • ಡೆವಲಪರ್</div>
+                      </div>
+                      <div class="glass rounded-full px-2.5 py-1 text-[10px] tracking-widest uppercase flex items-center gap-1.5 border-emerald-400/40 text-emerald-300 font-semibold">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Mangalore
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Caption Footer -->
+                <div class="px-5 pb-2 text-center">
+                  <h3 class="font-bold tracking-[0.3em] text-[14px] text-white">NINGARAJ R UKKALI</h3>
+                  <p class="font-kannada text-gold-400 text-[12px] mt-0.5 tracking-wider font-semibold">ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ • ಸಿರಿಗನ್ನಡಂ ಬಾಳ್ಗೆ</p>
+                </div>
+                <div class="temple-border mx-4 mb-2"></div>
+                <div class="px-5 pb-3 flex items-center justify-between text-[10px] tracking-[0.2em] text-white/45 uppercase font-medium">
+                  <span>BCA GRADUATE</span><span class="text-gold-500">✦ ✦ ✦</span><span>2026</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="art-reflection"></div>
+          </div>
+          <div class="art-shadow"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scroll Cue Indicator -->
+    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/40">
+      <span class="text-[9px] tracking-[0.35em] uppercase font-semibold">Scroll</span>
+      <div class="w-[20px] h-[34px] rounded-full border border-gold-500/30 flex justify-center pt-2">
+        <div class="w-1 h-2 rounded-full bg-gold-400 animate-bounce"></div>
+      </div>
+    </div>
+    <div class="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#060607] to-transparent z-10 pointer-events-none"></div>
+  </header>
+
+  <!-- ================= MARQUEE TECH TICKER ================= -->
+  <div class="relative z-20 border-y border-gold-500/12 bg-black/40 backdrop-blur-md overflow-hidden marquee-wrap py-4">
+    <div class="marquee-track text-[13px] tracking-[0.28em] uppercase text-white/50 font-medium">
+      <span>Python <span class="text-gold-500 mx-5">✦</span> FastAPI <span class="text-deepred-700 mx-5">✦</span> React.js <span class="text-gold-500 mx-5">✦</span> <span class="font-kannada normal-case tracking-widest text-gold-400/90 font-bold">ಕನ್ನಡಿಗ</span> <span class="text-deepred-700 mx-5">✦</span> WebSockets <span class="text-gold-500 mx-5">✦</span> Redis Pub/Sub <span class="text-deepred-700 mx-5">✦</span> PostgreSQL <span class="text-gold-500 mx-5">✦</span> Docker <span class="text-deepred-700 mx-5">✦</span> Gemini AI <span class="text-gold-500 mx-5">✦</span> Tailwind <span class="text-deepred-700 mx-5">✦</span> Supabase <span class="text-gold-500 mx-5">✦</span></span>
+      <span>Python <span class="text-gold-500 mx-5">✦</span> FastAPI <span class="text-deepred-700 mx-5">✦</span> React.js <span class="text-gold-500 mx-5">✦</span> <span class="font-kannada normal-case tracking-widest text-gold-400/90 font-bold">ಕನ್ನಡಿಗ</span> <span class="text-deepred-700 mx-5">✦</span> WebSockets <span class="text-gold-500 mx-5">✦</span> Redis Pub/Sub <span class="text-deepred-700 mx-5">✦</span> PostgreSQL <span class="text-gold-500 mx-5">✦</span> Docker <span class="text-deepred-700 mx-5">✦</span> Gemini AI <span class="text-gold-500 mx-5">✦</span> Tailwind <span class="text-deepred-700 mx-5">✦</span> Supabase <span class="text-gold-500 mx-5">✦</span></span>
+    </div>
+  </div>
+
+  <!-- ================= STATS COUNTER SECTION ================= -->
+  <section class="relative z-20 max-w-7xl mx-auto px-5 md:px-8 py-14">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <div class="reveal glass glass-gold-top glass-hover stat-glow rounded-2xl p-6 text-center">
+        <div class="font-playfair text-4xl md:text-5xl font-bold gold-gradient-text"><span class="counter" data-target="21">0</span></div>
+        <div class="mt-1 text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-white/55 font-medium">Years Age</div>
+        <div class="font-kannada text-gold-500/60 text-xs mt-1">ಯುವ ಪ್ರತಿಭೆ</div>
+      </div>
+      <div class="reveal glass glass-gold-top glass-hover stat-glow rounded-2xl p-6 text-center">
+        <div class="font-playfair text-4xl md:text-5xl font-bold gold-gradient-text"><span class="counter" data-target="8.1">0</span></div>
+        <div class="mt-1 text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-white/55 font-medium">CGPA (BCA Graduate)</div>
+        <div class="font-kannada text-gold-500/60 text-xs mt-1">ಪದವಿ ಶ್ರೇಷ್ಠತೆ</div>
+      </div>
+      <div class="reveal glass glass-gold-top glass-hover stat-glow rounded-2xl p-6 text-center">
+        <div class="font-playfair text-4xl md:text-5xl font-bold gold-gradient-text"><span class="counter" data-target="8">0</span>+</div>
+        <div class="mt-1 text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-white/55 font-medium">Real Projects Built</div>
+        <div class="font-kannada text-gold-500/60 text-xs mt-1">ಯಶಸ್ವಿ ಯೋಜನೆಗಳು</div>
+      </div>
+      <div class="reveal glass glass-gold-top glass-hover stat-glow rounded-2xl p-6 text-center">
+        <div class="font-playfair text-4xl md:text-5xl font-bold gold-gradient-text"><span class="counter" data-target="15">0</span>+</div>
+        <div class="mt-1 text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-white/55 font-medium">Technologies Mastered</div>
+        <div class="font-kannada text-gold-500/60 text-xs mt-1">ತಂತ್ರಜ್ಞಾನ ಪರಿಣತಿ</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT SECTION ================= -->
+  <section id="about" class="relative z-20 max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+    <!-- Header -->
+    <div class="reveal text-center mb-14">
+      <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ನನ್ನ ಬಗ್ಗೆ • About Me</p>
+      <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2">
+        Driven by Curiosity, <span class="gold-gradient-text italic font-cormorant">Defined by Code</span>
+      </h2>
+      <div class="ornament-divider mt-4">
+        <div class="ornament-line"></div>
+        <div class="ornament-diamond"></div>
+        <span class="font-kannada text-gold-500/70 text-sm">ಕಲೆ & ವಿಜ್ಞಾನ</span>
+        <div class="ornament-diamond"></div>
+        <div class="ornament-line r"></div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+      
+      <!-- Left: Interactive Photo Showcase Card -->
+      <div class="reveal lg:col-span-5">
+        <div class="glass glass-gold-top rounded-3xl p-6 h-full relative overflow-hidden tilt-card" data-tilt>
+          <div class="tilt-glare"></div>
+          <div class="tilt-inner">
+            <div class="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl">
+              <img id="aboutPhotoImg" src="img/portrait.jpg" alt="Ningaraj Ukkali Portrait" class="w-full h-[360px] object-cover object-top transition-opacity duration-300"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#060607] via-transparent to-transparent"></div>
+              
+              <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+                <div>
+                  <div class="font-bold text-lg text-white">Ningaraj R Ukkali</div>
+                  <div class="font-kannada text-gold-300 text-sm">ಕನ್ನಡಿಗ ಡೆವಲಪರ್ • 21 Years</div>
+                </div>
+                <div class="glass rounded-full px-3 py-1.5 text-[11px] tracking-widest uppercase flex items-center gap-2 border-emerald-400/30 text-emerald-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> BCA Grad
+                </div>
+              </div>
+              <div class="absolute top-4 right-4 font-kannada text-3xl text-gold-400/40 select-none">ಕ</div>
+            </div>
+
+            <!-- Photo Switcher Thumbnails -->
+            <div class="flex items-center justify-between gap-3 mt-4">
+              <span class="text-xs text-white/50 tracking-wider uppercase font-medium">Views:</span>
+              <div class="flex gap-2">
+                <button onclick="switchAboutPhoto('img/portrait.jpg', this)" class="photo-thumb-btn ring-2 ring-gold-400 rounded-lg overflow-hidden w-12 h-12 border border-white/20 transition-all">
+                  <img src="img/portrait.jpg" class="w-full h-full object-cover" alt="Kannadiga Portrait"/>
+                </button>
+                <button onclick="switchAboutPhoto('img/raj_ru.jpeg', this)" class="photo-thumb-btn rounded-lg overflow-hidden w-12 h-12 border border-white/20 transition-all opacity-70 hover:opacity-100">
+                  <img src="img/raj_ru.jpeg" class="w-full h-full object-cover" alt="Developer Headshot"/>
+                </button>
+                <button onclick="switchAboutPhoto('img/photo.jpg', this)" class="photo-thumb-btn rounded-lg overflow-hidden w-12 h-12 border border-white/20 transition-all opacity-70 hover:opacity-100">
+                  <img src="img/photo.jpg" class="w-full h-full object-cover" alt="Classic Portrait"/>
+                </button>
+              </div>
+            </div>
+
+            <!-- Highlight Metrics -->
+            <div class="grid grid-cols-3 gap-3 mt-5 text-center">
+              <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
+                <div class="font-bold text-gold-300 text-base">BCA (8.1)</div>
+                <div class="text-[10px] tracking-widest uppercase text-white/45 mt-0.5">Mangalore Univ</div>
+              </div>
+              <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
+                <div class="font-bold text-gold-300 text-base">Karnataka</div>
+                <div class="text-[10px] tracking-widest uppercase text-white/45 mt-0.5">India</div>
+              </div>
+              <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
+                <div class="font-bold text-gold-300 text-base">EN / ಕನ್ನಡ</div>
+                <div class="text-[10px] tracking-widest uppercase text-white/45 mt-0.5">Languages</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Detailed Biography & Pillars -->
+      <div class="lg:col-span-7 flex flex-col gap-6">
+        <div class="reveal glass glass-gold-top rounded-3xl p-7 md:p-9 relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 font-kannada text-[10rem] leading-none text-gold-500/[0.05] select-none pointer-events-none">ನ</div>
+          <h3 class="font-playfair text-2xl md:text-3xl font-bold leading-snug text-white">
+            Hello! I'm Ningaraj R Ukkali — an aspiring <span class="gold-gradient-text">Software Engineer</span> from Karnataka.
+          </h3>
+          <p class="mt-4 text-white/70 leading-relaxed text-[15px]">
+            A 21-year-old recent <span class="text-white font-medium">BCA graduate from Mangalore University (CGPA 8.1)</span>, I specialize in engineering full-stack and backend systems that seamlessly integrate REST APIs, real-time communication protocols, relational databases, and containerized architectures.
+          </p>
+          <p class="mt-3 text-white/70 leading-relaxed text-[15px]">
+            From architecting low-latency medical streaming platforms with <span class="text-gold-300 font-medium">FastAPI, WebSockets, and Redis</span> to developing AI-integrated marketplaces with <span class="text-gold-300 font-medium">Python, Supabase, and Google Gemini Vision</span>, I take pride in crafting software that solves real-world challenges.
+          </p>
+          <p class="mt-3 text-white/70 leading-relaxed text-[15px]">
+            Deeply inspired by <span class="font-kannada text-gold-300 font-medium">ಕನ್ನಡ ನಾಡು ಮತ್ತು ಸಂಸ್ಕೃತಿ</span>, I bring the same dedication, rhythm, and attention to detail into every codebase and UI I build.
+          </p>
+
+          <div class="mt-6 grid sm:grid-cols-2 gap-3.5 text-[14px]">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-full bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400">
+                <i class="fas fa-location-dot text-sm"></i>
+              </span>
+              <span class="text-white/80">Mangalore & Bengaluru, Karnataka</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-full bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400">
+                <i class="fas fa-graduation-cap text-sm"></i>
+              </span>
+              <span class="text-white/80">BCA (Mangalore Univ • 8.1 CGPA)</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-full bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400">
+                <i class="fas fa-briefcase text-sm"></i>
+              </span>
+              <span class="text-white/80">Freelance Software Developer</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-full bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400">
+                <i class="fas fa-certificate text-sm"></i>
+              </span>
+              <span class="text-white/80">Generative AI Certified (OutSkill AI)</span>
+            </div>
+          </div>
+
+          <div class="mt-7 flex flex-wrap gap-3.5">
+            <button onclick="downloadResumePdf(event)" class="btn-gold magnetic px-7 py-3 rounded-full text-sm font-bold flex items-center gap-2">
+              <i class="fas fa-download"></i> Download Resume PDF
+            </button>
+            <button onclick="openResumeModal()" class="btn-ghost magnetic px-7 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
+              <i class="fas fa-eye text-gold-400"></i> Interactive Document View
+            </button>
+          </div>
+        </div>
+
+        <!-- 3 Pillars Grid -->
+        <div class="grid sm:grid-cols-3 gap-4">
+          <div class="reveal glass glass-hover rounded-2xl p-5 text-center">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br from-gold-500/20 to-deepred-700/20 border border-gold-500/20 flex items-center justify-center text-gold-300 text-xl">
+              <i class="fas fa-server"></i>
+            </div>
+            <h4 class="font-bold mt-3 text-[15px] text-white">Backend & Systems</h4>
+            <p class="text-white/50 text-[13px] mt-1">FastAPI, WebSockets, Redis, PostgreSQL</p>
+          </div>
+          <div class="reveal glass glass-hover rounded-2xl p-5 text-center">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br from-gold-500/20 to-deepred-700/20 border border-gold-500/20 flex items-center justify-center text-gold-300 text-xl">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h4 class="font-bold mt-3 text-[15px] text-white">AI Integration</h4>
+            <p class="text-white/50 text-[13px] mt-1">Gemini Vision, OpenAI APIs, LangGraph</p>
+          </div>
+          <div class="reveal glass glass-hover rounded-2xl p-5 text-center">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br from-gold-500/20 to-deepred-700/20 border border-gold-500/20 flex items-center justify-center text-gold-300 text-xl">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <h4 class="font-bold mt-3 text-[15px] text-white">Modern Frontend</h4>
+            <p class="text-white/50 text-[13px] mt-1">React, Vite, Tailwind, Cinematic UI</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SKILLS SECTION ================= -->
+  <section id="skills" class="relative z-20 py-16 md:py-24 border-y border-gold-500/10 bg-black/30 backdrop-blur-sm overflow-hidden">
+    <div class="absolute left-1/2 top-0 -translate-x-1/2 font-kannada text-[16rem] leading-none text-gold-500/[0.03] select-none pointer-events-none whitespace-nowrap">ಕೌಶಲ್ಯ</div>
+    
+    <div class="max-w-7xl mx-auto px-5 md:px-8 relative">
+      <div class="reveal text-center mb-12">
+        <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ಕೌಶಲ್ಯಗಳು • Technical Arsenal</p>
+        <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2">
+          Engineering & <span class="gold-gradient-text italic font-cormorant">Architecture Stack</span>
+        </h2>
+        <div class="ornament-divider mt-4">
+          <div class="ornament-line"></div>
+          <div class="ornament-diamond"></div>
+          <span class="font-kannada text-gold-500/70 text-sm">ಪರಿಣತಿ</span>
+          <div class="ornament-diamond"></div>
+          <div class="ornament-line r"></div>
+        </div>
+      </div>
+
+      <!-- Skill Category Filter Buttons -->
+      <div class="flex flex-wrap justify-center gap-3 mb-10 reveal" id="skillTabs">
+        <button data-tab="all" class="filter-btn active px-6 py-2.5 rounded-full text-[13px] font-semibold border border-white/15 text-white/70 transition">All Skills</button>
+        <button data-tab="backend" class="filter-btn px-6 py-2.5 rounded-full text-[13px] font-semibold border border-white/15 text-white/70 transition">Backend & Systems</button>
+        <button data-tab="frontend" class="filter-btn px-6 py-2.5 rounded-full text-[13px] font-semibold border border-white/15 text-white/70 transition">Frontend & UI</button>
+        <button data-tab="databases" class="filter-btn px-6 py-2.5 rounded-full text-[13px] font-semibold border border-white/15 text-white/70 transition">Databases</button>
+        <button data-tab="tools" class="filter-btn px-6 py-2.5 rounded-full text-[13px] font-semibold border border-white/15 text-white/70 transition">AI & Tools</button>
+      </div>
+
+      <!-- Skills Cards Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="skillsGrid">
+        
+        <!-- Python -->
+        <div class="reveal glass glass-gold-top glass-hover rounded-2xl p-6 skill-card" data-cat="backend">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 text-xl"><i class="fab fa-python"></i></div>
+              <div><div class="font-bold text-white">Python</div><div class="text-xs text-white/45">FastAPI, Flask, OOP</div></div>
+            </div>
+            <span class="text-gold-300 font-bold text-sm font-mono">88%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+
+        <!-- React.js -->
+        <div class="reveal glass glass-gold-top glass-hover rounded-2xl p-6 skill-card" data-cat="frontend">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center text-cyan-400 text-xl"><i class="fab fa-react"></i></div>
+              <div><div class="font-bold text-white">React.js & Vite</div><div class="text-xs text-white/45">Component-Based, Hooks</div></div>
+            </div>
+            <span class="text-gold-300 font-bold text-sm font-mono">85%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+
+        <!-- FastAPI & WebSockets -->
+        <div class="reveal glass glass-gold-top glass-hover rounded-2xl p-6 skill-card" data-cat="backend">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center text-emerald-400 text-xl"><i class="fas fa-network-wired"></i></div>
+              <div><div class="font-bold text-white">WebSockets & Redis</div><div class="text-xs text-white/45">Real-time Pub/Sub Streaming</div></div>
+            </div>
+            <span class="text-gold-300 font-bold text-sm font-mono">80%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+        </div>
+
+        <!-- PostgreSQL & Supabase -->
+        <div class="reveal glass glass-gold-top glass-hover rounded-2xl p-6 skill-card" data-cat="databases">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xl"><i class="fas fa-database"></i></div>
+              <div><div class="font-bold text-white">PostgreSQL & Supabase</div><div class="text-xs text-white/45">Relational DB & Cloud Auth</div></div>
+            </div>
+            <span class="text-gold-300 font-bold text-sm font-mono">82%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="82"></div></div>
+        </div>
+
+        <!-- JavaScript ES6+ -->
+        <div class="reveal glass glass-gold-top glass-hover rounded-2xl p-6 skill-card" data-cat="frontend">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-400 text-xl"><i class="fab fa-js"></i></div>
+              <div><div class="font-bold text-white">JavaScript (ES6+)</div><div class="text-xs text-white/45">Async, DOM, Modern Tooling</div></div>
+            </div>
+            <span class="text-gold-300 font-bold text-sm font-mono">85%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+
+        <!-- Node.js & Express -->
+        <div class="reveal glass glass-gold-top glass-hover rounded-2xl p-6 skill-card" data-cat="backend">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 text-xl"><i class="fab fa-node-js"></i></div>
+              <div><div class="font-bold text-white">Node.js & Express</div><div class="text-xs text-white/45">RESTful Services & APIs</div></div>
+            </div>
+            <span class="text-gold-300 font-bold text-sm font-mono">75%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+        </div>
+
+        <!-- MySQL & MongoDB -->
+        <div class="reveal glass glass-gold-top glass-hover rounded-2xl p-6 skill-card" data-cat="databases">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 text-xl"><i class="fas fa-server"></i></div>
+              <div><div class="font-bold text-white">MySQL & MongoDB</div><div class="text-xs text-white/45">SQL & NoSQL Systems</div></div>
+            </div>
+            <span class="text-gold-300 font-bold text-sm font-mono">80%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+        </div>
+
+        <!-- Docker & Linux CLI -->
+        <div class="reveal glass glass-gold-top glass-hover rounded-2xl p-6 skill-card" data-cat="tools">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-400/10 border border-blue-400/20 flex items-center justify-center text-blue-400 text-xl"><i class="fab fa-docker"></i></div>
+              <div><div class="font-bold text-white">Docker & Linux</div><div class="text-xs text-white/45">Containerization & CLI</div></div>
+            </div>
+            <span class="text-gold-300 font-bold text-sm font-mono">78%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="78"></div></div>
+        </div>
+
+        <!-- AI & Generative APIs -->
+        <div class="reveal glass glass-gold-top glass-hover rounded-2xl p-6 skill-card" data-cat="tools">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-deepred-700/20 border border-deepred-700/40 flex items-center justify-center text-gold-300 text-xl"><i class="fas fa-brain"></i></div>
+              <div><div class="font-bold text-white">Generative AI APIs</div><div class="text-xs text-white/45">Google Gemini, OpenAI, OutSkill Cert</div></div>
+            </div>
+            <span class="text-gold-300 font-bold text-sm font-mono">84%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-width="84"></div></div>
+        </div>
+
+      </div>
+
+      <!-- Additional Tech Badges -->
+      <div class="reveal mt-8 glass rounded-2xl p-6 flex flex-wrap items-center justify-center gap-2.5">
+        <span class="text-[12px] tracking-[0.25em] uppercase text-white/45 mr-3 font-semibold">Also proficient in:</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">Java (OOP)</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">Tailwind CSS</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">HTML5 / CSS3</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">PHP 8</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">LangGraph</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">RESTful APIs</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">Git & GitHub</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">Postman</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">Three.js</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200 font-kannada">ಕನ್ನಡ ಯುಐ</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURED PROJECTS SECTION ================= -->
+  <section id="projects" class="relative z-20 max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+    <div class="reveal text-center mb-10">
+      <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ಯೋಜನೆಗಳು • Selected Work</p>
+      <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2 text-white">
+        Featured <span class="gold-gradient-text italic font-cormorant">Engineering Projects</span>
+      </h2>
+      <div class="ornament-divider mt-4">
+        <div class="ornament-line"></div>
+        <div class="ornament-diamond"></div>
+        <span class="font-kannada text-gold-500/70 text-sm">ಸೃಷ್ಟಿ</span>
+        <div class="ornament-diamond"></div>
+        <div class="ornament-line r"></div>
+      </div>
+      <p class="text-white/55 mt-4 max-w-2xl mx-auto text-[15px]">
+        Explore 8 production, AI, client, and real-time systems crafted with modern stacks. Hover to experience 3D card tilt, click to inspect architecture & live links.
+      </p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="reveal flex flex-wrap justify-center gap-3 mb-10" id="projectFilters">
+      <button data-filter="all" class="filter-btn active px-6 py-2.5 rounded-full text-[13px] font-semibold border border-white/15 text-white/70 transition">All Work (8)</button>
+      <button data-filter="fullstack" class="filter-btn px-6 py-2.5 rounded-full text-[13px] font-semibold border border-white/15 text-white/70 transition">Full Stack & Platforms</button>
+      <button data-filter="ai" class="filter-btn px-6 py-2.5 rounded-full text-[13px] font-semibold border border-white/15 text-white/70 transition">AI & Automation</button>
+      <button data-filter="backend" class="filter-btn px-6 py-2.5 rounded-full text-[13px] font-semibold border border-white/15 text-white/70 transition">Real-Time Backend</button>
+      <button data-filter="client" class="filter-btn px-6 py-2.5 rounded-full text-[13px] font-semibold border border-white/15 text-white/70 transition">Client Deliveries</button>
+    </div>
+
+    <!-- Projects Grid Container -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectsGrid" style="perspective:1200px;">
+      <!-- Populated dynamically via script.js -->
+    </div>
+
+    <!-- GitHub Profile Link -->
+    <div class="reveal text-center mt-12">
+      <a href="https://github.com/ningarajukkali" target="_blank" rel="noopener noreferrer" class="btn-ghost magnetic inline-flex items-center gap-3 px-8 py-3.5 rounded-full text-sm font-semibold">
+        <i class="fab fa-github text-base text-gold-400"></i>
+        <span>Explore All Repositories on GitHub</span>
+        <i class="fas fa-arrow-up-right-from-square text-xs text-gold-400"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE & JOURNEY ================= -->
+  <section id="journey" class="relative z-20 py-16 md:py-24 border-y border-gold-500/10 bg-black/30 backdrop-blur-sm overflow-hidden">
+    <div class="absolute right-0 top-1/2 -translate-y-1/2 font-kannada text-[14rem] leading-none text-deepred-700/[0.06] select-none pointer-events-none hidden lg:block" style="writing-mode:vertical-rl;">ಅನುಭವ</div>
+
+    <div class="max-w-5xl mx-auto px-5 md:px-8 relative">
+      <div class="reveal text-center mb-14">
+        <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ಅನುಭವ • Academic & Work Journey</p>
+        <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2 text-white">
+          Education & <span class="gold-gradient-text italic font-cormorant">Professional Experience</span>
+        </h2>
+        <div class="ornament-divider mt-4">
+          <div class="ornament-line"></div>
+          <div class="ornament-diamond"></div>
+          <span class="font-kannada text-gold-500/70 text-sm">ಪಯಣ</span>
+          <div class="ornament-diamond"></div>
+          <div class="ornament-line r"></div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="timeline-line"></div>
+        <div class="space-y-8">
+          
+          <!-- Item 1: Freelance Software Developer -->
+          <div class="reveal relative grid md:grid-cols-2 gap-6 items-center">
+            <div class="md:text-right md:pr-12 pl-12 md:pl-0 order-2 md:order-1">
+              <div class="glass glass-hover rounded-2xl p-6 inline-block text-left w-full border-gold-500/25">
+                <span class="text-[11px] tracking-[0.25em] uppercase text-gold-400 bg-gold-500/10 border border-gold-500/20 px-3 py-1 rounded-full font-bold">2025 — 2026</span>
+                <h3 class="font-bold text-lg mt-3 text-white">Freelance Software Developer</h3>
+                <p class="text-gold-300/80 text-sm font-medium">Self-Employed • Mangalore & Bengaluru</p>
+                <p class="text-white/60 text-[14px] mt-2 leading-relaxed">
+                  Engineered full-stack applications and RESTful backend microservices for student and corporate clients. Implemented FastAPI, Flask, React, and Supabase databases with end-to-end debugging and deployment.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-3.5">
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">Python</span>
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">FastAPI</span>
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">React</span>
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">Docker</span>
+                </div>
+              </div>
+            </div>
+            <div class="absolute left-[13px] md:left-1/2 md:-translate-x-1/2 top-6 w-4 h-4 rounded-full bg-gold-500 timeline-dot order-1"></div>
+            <div class="hidden md:block order-2 font-kannada text-5xl text-gold-500/15 select-none font-bold">೨೦೨೬</div>
+          </div>
+
+          <!-- Item 2: BCA Degree -->
+          <div class="reveal relative grid md:grid-cols-2 gap-6 items-center">
+            <div class="hidden md:block text-right font-kannada text-5xl text-gold-500/15 select-none font-bold">೨೦೨೩</div>
+            <div class="absolute left-[13px] md:left-1/2 md:-translate-x-1/2 top-6 w-4 h-4 rounded-full bg-deepred-700 timeline-dot border-2 border-gold-500"></div>
+            <div class="pl-12 md:pl-12">
+              <div class="glass glass-hover rounded-2xl p-6 border-gold-500/25">
+                <span class="text-[11px] tracking-[0.25em] uppercase text-gold-400 bg-gold-500/10 border border-gold-500/20 px-3 py-1 rounded-full font-bold">2023 — 2026</span>
+                <h3 class="font-bold text-lg mt-3 text-white">Bachelor of Computer Applications (BCA)</h3>
+                <p class="text-gold-300/80 text-sm font-medium">Mangalore University, Karnataka • <span class="text-emerald-400 font-bold">CGPA: 8.1</span></p>
+                <p class="text-white/60 text-[14px] mt-2 leading-relaxed">
+                  Strong academic foundation in Data Structures, Object-Oriented Programming (Java/Python), Database Management Systems, Software Engineering, and Operating Systems.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-3.5">
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">8.1 CGPA</span>
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">Data Structures</span>
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">DBMS</span>
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">OOP</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3: Generative AI & Google Certifications -->
+          <div class="reveal relative grid md:grid-cols-2 gap-6 items-center">
+            <div class="md:text-right md:pr-12 pl-12 md:pl-0 order-2 md:order-1">
+              <div class="glass glass-hover rounded-2xl p-6 inline-block text-left w-full border-gold-500/25">
+                <span class="text-[11px] tracking-[0.25em] uppercase text-gold-400 bg-gold-500/10 border border-gold-500/20 px-3 py-1 rounded-full font-bold">Certifications</span>
+                <h3 class="font-bold text-lg mt-3 text-white">Generative AI Professional & Google Data</h3>
+                <p class="text-gold-300/80 text-sm font-medium">OutSkill AI & Google (Coursera)</p>
+                <p class="text-white/60 text-[14px] mt-2 leading-relaxed">
+                  Accredited in Generative AI prompting, model fine-tuning concepts, and foundational data analytics from Google. Applied directly in projects like CraftCycle and BrahmX AI.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-3.5">
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">OutSkill AI</span>
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">Google Certified</span>
+                  <span class="chip px-3 py-1 rounded-full text-[11px]">Gen AI</span>
+                </div>
+              </div>
+            </div>
+            <div class="absolute left-[13px] md:left-1/2 md:-translate-x-1/2 top-6 w-4 h-4 rounded-full bg-charcoal-600 border-2 border-gold-500 timeline-dot order-1"></div>
+            <div class="hidden md:block order-2 font-kannada text-5xl text-gold-500/15 select-none font-bold">ಸಾಧನೆ</div>
+          </div>
+
+          <!-- Item 4: Hackathons & University Symposia -->
+          <div class="reveal relative grid md:grid-cols-2 gap-6 items-center">
+            <div class="hidden md:block text-right font-kannada text-5xl text-gold-500/15 select-none font-bold">ಸ್ಪರ್ಧೆ</div>
+            <div class="absolute left-[13px] md:left-1/2 md:-translate-x-1/2 top-6 w-4 h-4 rounded-full bg-charcoal-600 border-2 border-deepred-700 timeline-dot"></div>
+            <div class="pl-12 md:pl-12">
+              <div class="glass glass-hover rounded-2xl p-6 border-dashed">
+                <span class="text-[11px] tracking-[0.25em] uppercase text-white/60 bg-white/5 border border-white/10 px-3 py-1 rounded-full font-medium">Hackathons & Competitions</span>
+                <h3 class="font-bold text-lg mt-3 text-white">Hackathon MVP Builder & Symposiums</h3>
+                <p class="text-gold-300/80 text-sm font-medium">Inter-University Technical Fests</p>
+                <p class="text-white/60 text-[14px] mt-2 leading-relaxed">
+                  Participated in hackathons delivering working MVPs under strict time constraints. Actively involved in tech symposiums, coding challenges, and collaborative peer learning.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESUME EXECUTIVE SECTION ================= -->
+  <section id="resume" class="relative z-20 max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+    <div class="reveal text-center mb-12">
+      <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ರೆಸ್ಯೂಮೆ • Official Credentials</p>
+      <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2 text-white">
+        Official <span class="gold-gradient-text italic font-cormorant">Curriculum Vitae</span>
+      </h2>
+      <div class="ornament-divider mt-4">
+        <div class="ornament-line"></div>
+        <div class="ornament-diamond"></div>
+        <span class="font-kannada text-gold-500/70 text-sm">ದಾಖಲೆ</span>
+        <div class="ornament-diamond"></div>
+        <div class="ornament-line r"></div>
+      </div>
+    </div>
+
+    <!-- Executive Resume Banner Card -->
+    <div class="reveal glass glass-gold-top rounded-3xl p-8 md:p-10 border-gold-500/25 relative overflow-hidden">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div>
+          <div class="inline-flex items-center gap-2 glass px-3.5 py-1.5 rounded-full text-xs font-semibold text-gold-300 border-gold-500/30 mb-4">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Open for Software Engineering & Full Stack Roles
+          </div>
+          <h3 class="font-playfair text-3xl md:text-4xl font-bold text-white">NINGARAJ R UKKALI</h3>
+          <p class="text-gold-300 font-medium text-base mt-1">Aspiring Software Engineer | Backend & Full-Stack Developer</p>
+          <p class="text-white/60 text-sm max-w-2xl mt-3 leading-relaxed">
+            Download the official verified PDF copy or explore the interactive document preview with full academic history, project technical descriptions, and verifiable skills.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+          <button onclick="downloadResumePdf(event)" class="btn-gold magnetic px-8 py-4 rounded-full font-bold text-sm tracking-wide flex items-center justify-center gap-3 shadow-xl">
+            <i class="fas fa-file-pdf text-base"></i> Download Resume PDF
+          </button>
+          <button onclick="openResumeModal()" class="btn-ghost magnetic px-8 py-4 rounded-full font-semibold text-sm tracking-wide flex items-center justify-center gap-3">
+            <i class="fas fa-expand text-gold-400"></i> Interactive Document
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS SLIDER ================= -->
+  <section id="testimonials" class="relative z-20 max-w-6xl mx-auto px-5 md:px-8 py-14">
+    <div class="reveal text-center mb-10">
+      <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ಅಭಿಪ್ರಾಯ • Recommendations</p>
+      <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2 text-white">
+        Client & Mentor <span class="gold-gradient-text italic font-cormorant">Endorsements</span>
+      </h2>
+      <div class="ornament-divider mt-4">
+        <div class="ornament-line"></div>
+        <div class="ornament-diamond"></div>
+        <span class="font-kannada text-gold-500/70 text-sm">ವಿಶ್ವಾಸ</span>
+        <div class="ornament-diamond"></div>
+        <div class="ornament-line r"></div>
+      </div>
+    </div>
+
+    <div class="reveal glass rounded-3xl p-8 md:p-12 relative overflow-hidden border-gold-500/20">
+      <div class="absolute top-6 left-8 text-7xl font-playfair text-gold-500/10 select-none">“</div>
+      
+      <div class="overflow-hidden">
+        <div id="testiTrack" class="flex transition-transform duration-700" style="transition-timing-function:cubic-bezier(0.16,1,0.3,1);">
+          <!-- Populated dynamically via script.js -->
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between mt-8 pt-6 border-t border-white/5">
+        <div class="flex gap-2" id="testiDots"></div>
+        <div class="flex gap-3">
+          <button onclick="moveTestimonial(-1)" class="w-11 h-11 rounded-full glass glass-hover flex items-center justify-center text-gold-300" aria-label="Previous testimonial">
+            <i class="fas fa-arrow-left text-sm"></i>
+          </button>
+          <button onclick="moveTestimonial(1)" class="w-11 h-11 rounded-full btn-gold flex items-center justify-center" aria-label="Next testimonial">
+            <i class="fas fa-arrow-right text-sm text-charcoal-950"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT SECTION ================= -->
+  <section id="contact" class="relative z-20 py-16 md:py-24 border-t border-gold-500/10 bg-black/40 backdrop-blur-sm overflow-hidden">
+    <div class="absolute left-0 bottom-0 font-kannada text-[12rem] leading-none text-gold-500/[0.03] select-none pointer-events-none">ಸಂಪರ್ಕ</div>
+
+    <div class="max-w-7xl mx-auto px-5 md:px-8 relative">
+      <div class="reveal text-center mb-12">
+        <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ಸಂಪರ್ಕ • Get In Touch</p>
+        <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2 text-white">
+          Let's Build Something <span class="gold-gradient-text italic font-cormorant">Impactful</span>
+        </h2>
+        <div class="ornament-divider mt-4">
+          <div class="ornament-line"></div>
+          <div class="ornament-diamond"></div>
+          <span class="font-kannada text-gold-500/70 text-sm">ಬನ್ನಿ</span>
+          <div class="ornament-diamond"></div>
+          <div class="ornament-line r"></div>
+        </div>
+        <p class="text-white/55 mt-4 max-w-xl mx-auto text-sm md:text-base">
+          Have an engineering opportunity, freelance collaboration, or exciting project?
+          <span class="font-kannada text-gold-300 font-medium">ಬನ್ನಿ, ಮಾತನಾಡೋಣ!</span> I respond within 24 hours.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8">
+        
+        <!-- Contact Information Cards -->
+        <div class="reveal lg:col-span-5 flex flex-col gap-4">
+          <!-- Email Card -->
+          <a href="mailto:ningarajukkali@gmail.com" class="glass glass-hover rounded-2xl p-6 flex items-center gap-4 group">
+            <span class="w-13 h-13 min-w-[52px] min-h-[52px] rounded-2xl bg-gradient-to-br from-gold-500/20 to-deepred-700/20 border border-gold-500/20 flex items-center justify-center text-gold-300 text-xl">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <div class="flex-1">
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/45 font-medium">Email Address</div>
+              <div class="font-semibold text-white group-hover:text-gold-300 transition text-sm md:text-base">ningarajukkali@gmail.com</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square text-white/20 group-hover:text-gold-400 transition"></i>
+          </a>
+
+          <!-- Phone Card -->
+          <a href="tel:+917019373549" class="glass glass-hover rounded-2xl p-6 flex items-center gap-4 group">
+            <span class="min-w-[52px] min-h-[52px] rounded-2xl bg-gradient-to-br from-gold-500/20 to-deepred-700/20 border border-gold-500/20 flex items-center justify-center text-gold-300 text-xl">
+              <i class="fas fa-phone"></i>
+            </span>
+            <div class="flex-1">
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/45 font-medium">Direct Phone</div>
+              <div class="font-semibold text-white group-hover:text-gold-300 transition text-sm md:text-base">+91 7019373549</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square text-white/20 group-hover:text-gold-400 transition"></i>
+          </a>
+
+          <!-- Location Card -->
+          <div class="glass rounded-2xl p-6 flex items-center gap-4">
+            <span class="min-w-[52px] min-h-[52px] rounded-2xl bg-gradient-to-br from-gold-500/20 to-deepred-700/20 border border-gold-500/20 flex items-center justify-center text-gold-300 text-xl">
+              <i class="fas fa-location-dot"></i>
+            </span>
+            <div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-white/45 font-medium">Location</div>
+              <div class="font-semibold text-white">Mangalore & Bengaluru, Karnataka <span class="font-kannada text-gold-300 text-sm">• ಭಾರತ</span></div>
+            </div>
+          </div>
+
+          <!-- Socials Grid & Karnataka Geographic Coordinates -->
+          <div class="glass rounded-2xl p-6">
+            <div class="text-[11px] tracking-[0.25em] uppercase text-white/45 mb-4 font-medium">Connect on Networks</div>
+            <div class="flex gap-3">
+              <a href="https://github.com/ningarajukkali" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-white/[0.04] border border-white/10 py-3 flex items-center justify-center hover:border-gold-500/40 hover:text-gold-300 transition text-white/70">
+                <i class="fab fa-github text-lg"></i>
+              </a>
+              <a href="https://linkedin.com/in/ningaraj-ukkali" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-white/[0.04] border border-white/10 py-3 flex items-center justify-center hover:border-gold-500/40 hover:text-gold-300 transition text-white/70">
+                <i class="fab fa-linkedin-in text-lg"></i>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-white/[0.04] border border-white/10 py-3 flex items-center justify-center hover:border-gold-500/40 hover:text-gold-300 transition text-white/70">
+                <i class="fab fa-x-twitter text-lg"></i>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-white/[0.04] border border-white/10 py-3 flex items-center justify-center hover:border-gold-500/40 hover:text-gold-300 transition text-white/70">
+                <i class="fab fa-instagram text-lg"></i>
+              </a>
+            </div>
+
+            <!-- Geographic Badge -->
+            <div class="mt-5 rounded-xl overflow-hidden border border-gold-500/20 relative h-[120px] bg-gradient-to-br from-deepred-950 via-charcoal-900 to-charcoal-800 flex items-center justify-center">
+              <div class="text-center relative">
+                <div class="font-kannada text-gold-300 text-xl font-bold">ನಮ್ಮ ಕರ್ನಾಟಕ</div>
+                <div class="text-[11px] tracking-[0.3em] uppercase text-white/45 mt-1 font-mono">12.91° N • 74.85° E</div>
+              </div>
+              <div class="absolute top-3 right-3 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#34d399]"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="reveal lg:col-span-7">
+          <form id="contactForm" class="glass glass-gold-top rounded-3xl p-7 md:p-9 h-full border-gold-500/20" novalidate>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-[12px] tracking-widest uppercase text-white/50 font-medium">Your Name *</label>
+                <input required name="name" type="text" placeholder="e.g. Ramesh Gowda" class="field mt-2 w-full rounded-xl px-4 py-3.5 text-sm"/>
+              </div>
+              <div>
+                <label class="text-[12px] tracking-widest uppercase text-white/50 font-medium">Email Address *</label>
+                <input required name="email" type="email" placeholder="e.g. your@company.com" class="field mt-2 w-full rounded-xl px-4 py-3.5 text-sm"/>
+              </div>
+            </div>
+            
+            <div class="mt-4">
+              <label class="text-[12px] tracking-widest uppercase text-white/50 font-medium">Subject / Opportunity</label>
+              <input name="subject" type="text" placeholder="Full-time SDE role / Freelance project" class="field mt-2 w-full rounded-xl px-4 py-3.5 text-sm"/>
+            </div>
+
+            <div class="mt-4">
+              <label class="text-[12px] tracking-widest uppercase text-white/50 font-medium">Project Scope / Budget</label>
+              <div class="flex flex-wrap gap-2 mt-2" id="budgetChips">
+                <button type="button" class="budget-chip chip px-4 py-2 rounded-full text-[13px] hover:border-gold-500/50 transition" data-v="Full-time Role">Full-time SDE</button>
+                <button type="button" class="budget-chip chip px-4 py-2 rounded-full text-[13px] hover:border-gold-500/50 transition" data-v="Contract / Freelance">Contract Work</button>
+                <button type="button" class="budget-chip chip px-4 py-2 rounded-full text-[13px] hover:border-gold-500/50 transition" data-v="₹25k-75k">₹25k–75k</button>
+                <button type="button" class="budget-chip chip px-4 py-2 rounded-full text-[13px] hover:border-gold-500/50 transition" data-v="Let's Discuss">Let's Discuss</button>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <label class="text-[12px] tracking-widest uppercase text-white/50 font-medium">Message *</label>
+              <textarea required name="message" rows="5" placeholder="Share project details or job description... (ನಿಮ್ಮ ಯೋಜನೆಯ ಬಗ್ಗೆ ತಿಳಿಸಿ)" class="field mt-2 w-full rounded-xl px-4 py-3.5 text-sm resize-none"></textarea>
+            </div>
+
+            <div class="mt-6 flex flex-col sm:flex-row items-center gap-4">
+              <button type="submit" id="sendBtn" class="btn-gold magnetic w-full sm:w-auto px-10 py-4 rounded-full font-bold text-sm tracking-wide flex items-center justify-center gap-3">
+                <span id="sendLabel">Send Message</span>
+                <i class="fas fa-paper-plane text-xs text-charcoal-950"></i>
+              </button>
+              <p class="text-white/40 text-[13px]">
+                Typical response time: <span class="text-emerald-400 font-semibold">&lt; 12 hours</span>. Direct inbox delivery.
+              </p>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="relative z-20 border-t border-gold-500/12 bg-[#040405] pt-14 pb-8 overflow-hidden">
+    <div class="temple-border absolute top-0 inset-x-0"></div>
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="grid md:grid-cols-4 gap-8">
+        
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-500/20 to-deepred-700/30 border border-gold-500/25 flex items-center justify-center font-kannada font-black text-gold-300 text-xl">
+              ಕ
+            </div>
+            <div>
+              <div class="font-bold tracking-widest text-white">NINGARAJ R UKKALI</div>
+              <div class="font-kannada text-gold-500/80 text-xs font-semibold">ಕನ್ನಡಿಗ • ಸಾಫ್ಟ್‌ವೇರ್ ಡೆವಲಪರ್</div>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm mt-4 max-w-md leading-relaxed">
+            Full Stack & AI Software Engineer from Karnataka building resilient, high-speed applications for the globe. Proud of Kannada heritage, passionate about engineering scalable systems.
+            <span class="block mt-2 font-kannada text-gold-400 font-semibold">ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ, ಸಿರಿಗನ್ನಡಂ ಬಾಳ್ಗೆ!</span>
+          </p>
+        </div>
+
+        <div>
+          <div class="text-[12px] tracking-[0.25em] uppercase text-gold-500 mb-4 font-bold">Quick Navigation</div>
+          <div class="flex flex-col gap-2.5 text-sm text-white/60">
+            <a href="#home" class="hover:text-gold-300 transition">Home (ಮುಖಪುಟ)</a>
+            <a href="#about" class="hover:text-gold-300 transition">About (ನನ್ನ ಬಗ್ಗೆ)</a>
+            <a href="#skills" class="hover:text-gold-300 transition">Technical Skills (ಕೌಶಲ್ಯ)</a>
+            <a href="#projects" class="hover:text-gold-300 transition">Featured Projects (ಯೋಜನೆಗಳು)</a>
+            <a href="#journey" class="hover:text-gold-300 transition">Journey & Education (ಅನುಭವ)</a>
+            <a href="#contact" class="hover:text-gold-300 transition">Contact (ಸಂಪರ್ಕ)</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-[12px] tracking-[0.25em] uppercase text-gold-500 mb-4 font-bold">Connect</div>
+          <div class="flex flex-col gap-2.5 text-sm text-white/60">
+            <a href="https://github.com/ningarajukkali" target="_blank" rel="noopener noreferrer" class="hover:text-gold-300 transition flex items-center gap-2">
+              <i class="fab fa-github text-gold-400"></i> GitHub
+            </a>
+            <a href="https://linkedin.com/in/ningaraj-ukkali" target="_blank" rel="noopener noreferrer" class="hover:text-gold-300 transition flex items-center gap-2">
+              <i class="fab fa-linkedin text-gold-400"></i> LinkedIn
+            </a>
+            <a href="mailto:ningarajukkali@gmail.com" class="hover:text-gold-300 transition flex items-center gap-2">
+              <i class="fas fa-envelope text-gold-400"></i> ningarajukkali@gmail.com
+            </a>
+            <button onclick="downloadResumePdf(event)" class="text-left hover:text-gold-300 transition flex items-center gap-2">
+              <i class="fas fa-file-pdf text-gold-400"></i> Download Resume PDF ↗
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-white/40">
+        <span>© 2026 Ningaraj R Ukkali • Crafted with passion in Karnataka, India</span>
+        <span class="font-kannada text-gold-500/60 font-semibold">ಜೈ ಕರ್ನಾಟಕ ಮಾತೆ • ಜೈ ಹಿಂದ್</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= PROJECT DETAILS MODAL ================= -->
+  <div id="projectModal" class="fixed inset-0 z-[80] hidden items-center justify-center p-4 modal-backdrop">
+    <div class="modal-window glass rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative border border-gold-500/30 shadow-2xl">
+      <button onclick="closeProjectModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/70 border border-white/20 flex items-center justify-center hover:border-gold-500 hover:text-gold-300 transition text-white">
+        <i class="fas fa-times"></i>
+      </button>
+      <div id="projectModalBody">
+        <!-- Loaded dynamically via script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= INTERACTIVE EXECUTIVE RESUME MODAL ================= -->
+  <div id="resumeModal" class="fixed inset-0 z-[85] hidden items-center justify-center p-4 modal-backdrop">
+    <div class="modal-window max-w-4xl w-full max-h-[92vh] overflow-y-auto relative">
+      <button onclick="closeResumeModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/80 border border-white/20 flex items-center justify-center hover:border-gold-500 hover:text-gold-300 transition text-white">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="resume-paper">
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+          <div>
+            <h1 class="text-2xl md:text-3xl font-bold tracking-wide text-white">NINGARAJ R UKKALI</h1>
+            <p class="text-gold-300 text-sm font-medium mt-1">Aspiring Software Engineer | Backend & Full-Stack Developer</p>
+            <p class="text-white/60 text-xs mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
+              <span><i class="fas fa-envelope text-gold-500 mr-1"></i> <a href="mailto:ningarajukkali@gmail.com" class="hover:underline">ningarajukkali@gmail.com</a></span>
+              <span><i class="fas fa-phone text-gold-500 mr-1"></i> +91 7019373549</span>
+              <span><i class="fas fa-location-dot text-gold-500 mr-1"></i> Mangalore, Karnataka, India</span>
+            </p>
+            <p class="text-white/60 text-xs mt-1 flex flex-wrap gap-x-3">
+              <span><i class="fab fa-linkedin text-gold-500 mr-1"></i> <a href="https://linkedin.com/in/ningaraj-ukkali" target="_blank" class="hover:underline text-gold-300">linkedin.com/in/ningaraj-ukkali</a></span>
+              <span><i class="fab fa-github text-gold-500 mr-1"></i> <a href="https://github.com/ningarajukkali" target="_blank" class="hover:underline text-gold-300">github.com/ningarajukkali</a></span>
+            </p>
+          </div>
+          <button onclick="downloadResumePdf(event)" class="btn-gold px-5 py-2.5 rounded-full text-xs font-bold flex items-center gap-2">
+            <i class="fas fa-download"></i> Download PDF
+          </button>
+        </div>
+
+        <!-- Summary -->
+        <div class="mt-6">
+          <div class="paper-section-title"><i class="fas fa-user text-xs"></i> Professional Summary</div>
+          <p class="text-white/70 text-sm leading-relaxed">
+            BCA graduate (CGPA 8.1) and aspiring Software Engineer with hands-on experience building backend and full-stack applications involving REST APIs, real-time communication, relational and NoSQL databases, and containerized services. Strong foundation in Python, Java, JavaScript (ES6+), SQL, Object-Oriented Design, and data structures. Experienced with FastAPI, Flask, WebSockets, Redis Pub/Sub, PostgreSQL, Supabase, React.js, Docker, and Linux development environments. Passionate about designing resilient systems and solving complex scalability challenges.
+          </p>
+        </div>
+
+        <!-- Education -->
+        <div class="mt-6">
+          <div class="paper-section-title"><i class="fas fa-graduation-cap text-xs"></i> Education</div>
+          <div class="flex items-start justify-between text-sm">
+            <div>
+              <strong class="text-white">Bachelor of Computer Applications (BCA)</strong>
+              <div class="text-white/60 text-xs">Mangalore University, Mangalore, Karnataka, India</div>
+            </div>
+            <div class="text-right">
+              <span class="text-gold-300 font-bold">CGPA: 8.1</span>
+              <div class="text-white/40 text-xs">2023 – 2026</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Skills -->
+        <div class="mt-6">
+          <div class="paper-section-title"><i class="fas fa-code text-xs"></i> Technical Skills</div>
+          <div class="grid sm:grid-cols-2 gap-3 text-xs">
+            <div class="glass p-3 rounded-xl border border-white/5">
+              <strong class="text-gold-300 block mb-1">Programming Languages</strong>
+              <span class="text-white/70">Python, Java, JavaScript (ES6+), SQL, HTML5, CSS3</span>
+            </div>
+            <div class="glass p-3 rounded-xl border border-white/5">
+              <strong class="text-gold-300 block mb-1">Backend & Systems</strong>
+              <span class="text-white/70">FastAPI, Flask, Node.js, Express.js, WebSockets, Redis Pub/Sub</span>
+            </div>
+            <div class="glass p-3 rounded-xl border border-white/5">
+              <strong class="text-gold-300 block mb-1">Databases & Cloud</strong>
+              <span class="text-white/70">PostgreSQL, Supabase, MySQL, MongoDB, SQLite, Redis</span>
+            </div>
+            <div class="glass p-3 rounded-xl border border-white/5">
+              <strong class="text-gold-300 block mb-1">Frontend & DevOps</strong>
+              <span class="text-white/70">React.js, Vite, Tailwind CSS, Docker, Linux CLI, Git, GitHub, Postman</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Projects -->
+        <div class="mt-6">
+          <div class="paper-section-title"><i class="fas fa-folder-open text-xs"></i> Selected Key Projects</div>
+          
+          <div class="space-y-4 text-xs">
+            <!-- Project 1 -->
+            <div class="border-l-2 border-gold-500/50 pl-3">
+              <div class="flex items-center justify-between">
+                <strong class="text-white text-sm">PulseSim – Real-Time Medical Simulation Platform</strong>
+                <a href="https://github.com/ningarajukkali/PulseSimulator" target="_blank" class="text-gold-300 hover:underline"><i class="fab fa-github"></i> GitHub</a>
+              </div>
+              <p class="text-gold-400/80 font-mono text-[11px] mt-0.5">Python, FastAPI, WebSockets, Redis Pub/Sub, PostgreSQL, Docker, React.js</p>
+              <ul class="list-disc list-inside text-white/70 space-y-1 mt-1.5">
+                <li>Built a backend simulation platform streaming dynamic physiological vitals with sub-50ms latency.</li>
+                <li>Engineered bidirectional WebSockets broadcast channels coordinated through Redis Pub/Sub.</li>
+                <li>Containerized the full microservices stack with Docker for reproducible deployment on Linux.</li>
+              </ul>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="border-l-2 border-gold-500/50 pl-3">
+              <div class="flex items-center justify-between">
+                <strong class="text-white text-sm">CraftCycle – AI Circular Economy Marketplace</strong>
+                <span class="flex gap-2">
+                  <a href="https://github.com/ningarajukkali/CraftCycle" target="_blank" class="text-gold-300 hover:underline"><i class="fab fa-github"></i> Code</a>
+                  <a href="https://craftcycle.pages.dev" target="_blank" class="text-cyan-400 hover:underline"><i class="fas fa-globe"></i> Demo</a>
+                </span>
+              </div>
+              <p class="text-gold-400/80 font-mono text-[11px] mt-0.5">Flask, Supabase (PostgreSQL), Google Gemini Vision AI, JavaScript ES6+</p>
+              <ul class="list-disc list-inside text-white/70 space-y-1 mt-1.5">
+                <li>Developed a full-stack platform connecting waste scrap sellers with artisans and upcyclers.</li>
+                <li>Integrated Google Gemini Vision API to analyze scrap materials and automate catalog descriptions.</li>
+              </ul>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="border-l-2 border-gold-500/50 pl-3">
+              <div class="flex items-center justify-between">
+                <strong class="text-white text-sm">RestroCafe – Restaurant Operations Suite</strong>
+                <span class="flex gap-2">
+                  <a href="https://github.com/ningarajukkali/RestroCafe" target="_blank" class="text-gold-300 hover:underline"><i class="fab fa-github"></i> Code</a>
+                  <a href="https://restrocafe.onrender.com" target="_blank" class="text-cyan-400 hover:underline"><i class="fas fa-globe"></i> Demo</a>
+                </span>
+              </div>
+              <p class="text-gold-400/80 font-mono text-[11px] mt-0.5">PHP 8, MySQL, Bootstrap 5, JavaScript, jQuery</p>
+              <ul class="list-disc list-inside text-white/70 space-y-1 mt-1.5">
+                <li>Delivered a turn-key POS and kitchen order dispatch platform for restaurant clients.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Work Experience -->
+        <div class="mt-6">
+          <div class="paper-section-title"><i class="fas fa-briefcase text-xs"></i> Work Experience</div>
+          <div class="text-xs">
+            <div class="flex items-center justify-between">
+              <strong class="text-white text-sm">Freelance Software Developer | Self-Employed</strong>
+              <span class="text-white/40">2025 – 2026</span>
+            </div>
+            <div class="text-gold-300/80 text-[11px] mb-1.5">Mangalore & Bengaluru, Karnataka</div>
+            <ul class="list-disc list-inside text-white/70 space-y-1">
+              <li>Delivered custom client applications meeting functional software requirements and tight deadlines.</li>
+              <li>Engineered REST APIs using Python, FastAPI, and Flask; built interactive user interfaces with React.js.</li>
+              <li>Handled end-to-end database schema modeling, authentication, testing, and deployment.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="mt-6">
+          <div class="paper-section-title"><i class="fas fa-award text-xs"></i> Certifications & Honors</div>
+          <ul class="list-disc list-inside text-xs text-white/70 space-y-1">
+            <li><strong>Generative AI Professional Certification</strong> — OutSkill AI</li>
+            <li><strong>Foundations: Data, Data, Everywhere</strong> — Google (Coursera)</li>
+            <li><strong>Academic Merit Award (8.1 CGPA)</strong> — Mangalore University</li>
+            <li><strong>Hackathon MVP Finalist</strong> — Rapid prototype build under competition constraints</li>
+          </ul>
+        </div>
+
+        <!-- Close & Download Footer in Modal -->
+        <div class="mt-8 pt-4 border-t border-white/10 flex justify-between items-center">
+          <span class="text-xs text-white/40">Verified Document • Ningaraj R Ukkali</span>
+          <button onclick="downloadResumePdf(event)" class="btn-gold px-6 py-2.5 rounded-full text-xs font-bold flex items-center gap-2">
+            <i class="fas fa-download"></i> Save as PDF
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FLOATING TOAST NOTIFICATION ================= -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-24 opacity-0 z-[95] glass rounded-full px-6 py-3 flex items-center gap-3 border-gold-500/40 shadow-[0_0_40px_rgba(212,175,55,0.25)]">
+    <div class="toast-icon-wrap w-8 h-8 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+      <i class="fas fa-check text-xs"></i>
+    </div>
+    <span id="toastMsg" class="text-sm font-medium text-white">Action successful</span>
+  </div>
+
+  <!-- Back to Top Floating Button -->
+  <button id="backTop" class="fixed bottom-6 right-6 z-[70] w-12 h-12 rounded-full btn-gold items-center justify-center hidden shadow-2xl" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up text-sm text-charcoal-950"></i>
+  </button>
+
+  <!-- Interactive Logic Engine -->
+  <script type="module" src="script.js"></script>
+</body>
 </html>
