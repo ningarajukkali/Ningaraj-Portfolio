@@ -181,28 +181,25 @@ const projects = [
 ];
 
 /* ==========================================================================
-   2. TESTIMONIALS & RECOMMENDATIONS
+   2. CLIENT TESTIMONIALS & REVIEWS
    ========================================================================== */
 const testimonials = [
   {
-    name: 'Suresh Kumar',
-    role: 'Client • RestroCafe',
-    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
-    text: 'Ningaraj delivered our RestroCafe management system with remarkable speed and precision. The POS billing and kitchen display system work flawlessly during our peak hours. An extremely reliable and hardworking developer!',
+    name: 'Vigneshwara',
+    role: 'College Client & Peer • Custom Project Client',
+    initial: 'V',
+    bg: 'bg-gradient-to-br from-gold-500/25 to-deepred-700/35 border-gold-500/60 text-gold-300',
+    tag: 'College Client',
+    text: 'Ningaraj developed our management system with outstanding quality, speed, and clean code. The database architecture, responsive interface, and seamless workflows made the entire project a huge success. An exceptionally talented and trustworthy developer!',
     stars: 5
   },
   {
-    name: 'Ananya Hegde',
-    role: 'Product Lead • Community Network',
-    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
-    text: 'Working with Ningaraj on the Community-Help portal was a delightful experience. His knack for clean React UI, prompt communication, and passion for making technology accessible to everyone is truly commendable.',
-    stars: 5
-  },
-  {
-    name: 'Dr. Raghavendra Bhat',
-    role: 'Academic Mentor & Tech Lead',
-    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
-    text: 'Ningaraj stands out for his deep understanding of systems architecture, real-time protocols, and databases. His 8.1 CGPA in BCA reflects his discipline, while his projects like PulseSim demonstrate real engineering ingenuity.',
+    name: 'Elma',
+    role: 'Student Client • St. Joseph\'s College',
+    initial: 'E',
+    bg: 'bg-gradient-to-br from-cyan-500/20 to-gold-500/25 border-cyan-400/50 text-cyan-200',
+    tag: "St. Joseph's College",
+    text: 'Working with Ningaraj was an amazing experience! He understood our exact requirements right away, delivered a clean and responsive full-stack platform ahead of schedule, and provided great support throughout. Highly recommend him for any software project!',
     stars: 5
   }
 ];
@@ -552,14 +549,21 @@ function renderTestimonials() {
 
   track.innerHTML = testimonials.map(t => `
     <div class="min-w-full px-2 testimonial-slide">
-      <div class="flex gap-1 text-gold-400 mb-4 text-base">
-        ${'★'.repeat(t.stars)}<span class="ml-2 text-white/35 text-xs font-semibold">${t.stars}.0 / 5.0</span>
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex gap-1 text-gold-400 text-base">
+          ${'★'.repeat(t.stars)}<span class="ml-2 text-white/40 text-xs font-semibold">${t.stars}.0 / 5.0</span>
+        </div>
+        <span class="text-[11px] tracking-wider uppercase px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gold-300 font-medium">
+          <i class="fas fa-graduation-cap text-gold-400 mr-1.5"></i>${t.tag}
+        </span>
       </div>
       <p class="font-cormorant italic text-xl md:text-2xl leading-relaxed text-white/90">
         “${t.text}”
       </p>
       <div class="flex items-center gap-4 mt-6 pt-5 border-t border-white/5">
-        <img src="${t.img}" class="w-13 h-13 min-w-[50px] min-h-[50px] rounded-full object-cover border-2 border-gold-500/50 shadow-[0_0_20px_rgba(212,175,55,0.3)]" alt="${t.name}"/>
+        <div class="w-13 h-13 min-w-[50px] min-h-[50px] rounded-2xl ${t.bg} border-2 flex items-center justify-center font-bold text-xl shadow-[0_0_20px_rgba(212,175,55,0.25)] select-none font-playfair">
+          ${t.initial}
+        </div>
         <div>
           <div class="font-bold text-base text-white">${t.name}</div>
           <div class="text-xs text-gold-300/80">${t.role}</div>
