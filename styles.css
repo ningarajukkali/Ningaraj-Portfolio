@@ -188,24 +188,6 @@ body {
   visibility: hidden;
   pointer-events: none;
 }
-.loader-map {
-  width: 110px;
-  height: 110px;
-  position: relative;
-}
-.loader-map svg {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 0 25px rgba(212,175,55,0.6));
-}
-.loader-map path {
-  stroke-dasharray: 600;
-  stroke-dashoffset: 600;
-  animation: drawMap 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes drawMap {
-  to { stroke-dashoffset: 0; }
-}
 .loader-bar {
   width: 220px;
   height: 3px;
