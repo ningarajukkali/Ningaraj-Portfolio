@@ -56,15 +56,16 @@
     <!-- Dedicated Three.js 3D Interactive WebGL Canvas -->
     <canvas id="intro-3d-canvas" class="absolute inset-0 w-full h-full pointer-events-auto"></canvas>
 
-    <!-- Ambient 3D Depth Overlays & Vignette -->
+    <!-- Ambient 3D Depth Overlays, Temple Lattice & Vignette -->
     <div class="intro-radial-glow"></div>
-    <div class="intro-grid-overlay"></div>
+    <div class="intro-temple-pattern"></div>
+    <div class="intro-sahyadri-mist"></div>
     <div class="intro-vignette"></div>
 
     <!-- Top HUD Navigation & Quick Skip Bar -->
-    <header class="relative z-20 px-6 py-5 md:px-10 md:py-6 flex items-center justify-between text-xs tracking-widest text-white/60 font-mono">
+    <header class="relative z-20 px-6 py-4 md:px-10 md:py-5 flex items-center justify-between text-xs tracking-widest text-white/60 font-mono">
       <div class="flex items-center gap-3">
-        <div class="flex items-end gap-1 h-3.5 intro-audio-bars">
+        <div class="flex items-end gap-1 h-3.5 intro-audio-bars" title="Karavali Chende Rhythm">
           <span class="bar b1"></span>
           <span class="bar b2"></span>
           <span class="bar b3"></span>
@@ -72,11 +73,11 @@
         </div>
         <span class="text-yellow-400 font-semibold tracking-wider hidden sm:inline">SYS // NINGARAJ.UKKALI</span>
         <span class="text-white/20 hidden sm:inline">•</span>
-        <span class="text-white/50 hidden md:inline">12.91°N 74.85°E • KA</span>
+        <span class="text-white/50 hidden md:inline">12.91°N 74.85°E • KARNATAKA</span>
       </div>
 
-      <div class="font-kannada text-yellow-300 text-xs md:text-sm font-semibold tracking-wider drop-shadow-[0_0_10px_rgba(234,179,8,0.5)]">
-        || ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ • ಸಿರಿಗನ್ನಡಂ ಬಾಳ್ಗೆ ||
+      <div class="font-kannada text-yellow-300 text-xs md:text-sm font-bold tracking-wider drop-shadow-[0_0_12px_rgba(234,179,8,0.6)]">
+        || ಜಯ ಭಾರತ ಜನನಿಯ ತನುಜಾತೆ, ಜಯ ಹೇ ಕರ್ನಾಟಕ ಮಾತೆ ||
       </div>
 
       <button id="skipIntroBtn" type="button" class="intro-skip-btn group flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-yellow-500/40 bg-black/60 hover:bg-yellow-500/20 text-white/80 hover:text-yellow-300 transition-all font-mono text-[11px] shadow-lg">
@@ -86,17 +87,17 @@
     </header>
 
     <!-- Center Content / Telemetry Overlay (Aligned with 3D Core) -->
-    <main class="relative z-20 my-auto text-center px-4 max-w-3xl mx-auto flex flex-col items-center pointer-events-none">
+    <main class="relative z-20 my-auto text-center px-4 max-w-4xl mx-auto flex flex-col items-center pointer-events-none">
       
       <!-- Cultural Insignia Badge -->
-      <div class="intro-badge inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-red-600/25 via-yellow-500/20 to-red-600/25 border border-yellow-500/35 mb-4 backdrop-blur-md shadow-[0_0_25px_rgba(234,179,8,0.25)]">
+      <div class="intro-badge inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-red-600/25 via-yellow-500/20 to-red-600/25 border border-yellow-500/35 mb-3 backdrop-blur-md shadow-[0_0_25px_rgba(234,179,8,0.25)]">
         <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_#ef4444]"></span>
-        <span class="font-kannada text-xs font-bold text-yellow-300 uppercase tracking-widest">ಕರ್ನಾಟಕ • ಸಾಗರೋತ್ತರ ಸಾಫ್ಟ್‌ವೇರ್ ತಂತ್ರಜ್ಞ</span>
+        <span class="font-kannada text-xs font-bold text-yellow-300 uppercase tracking-widest">ಕರ್ನಾಟಕದ ಗತವೈಭವ • ಸಂಸ್ಕೃತಿ • ಪ್ರಕೃತಿ • ತಂತ್ರಜ್ಞಾನ</span>
         <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse shadow-[0_0_8px_#facc15]"></span>
       </div>
 
       <!-- Main Cinematic Title -->
-      <h1 class="intro-title font-playfair text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white mb-2 drop-shadow-[0_10px_35px_rgba(0,0,0,0.95)]">
+      <h1 class="intro-title font-playfair text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white mb-1.5 drop-shadow-[0_10px_35px_rgba(0,0,0,0.95)]">
         NINGARAJ R UKKALI
       </h1>
 
@@ -106,16 +107,60 @@
       </p>
 
       <!-- Kannada Identity Seal -->
-      <p class="font-kannada text-sm md:text-base text-yellow-300/90 font-semibold mt-1.5 tracking-wider drop-shadow-sm">
-        ಕನ್ನಡಿಗ • ಸಾಫ್ಟ್‌ವೇರ್ ಡೆವಲಪರ್
+      <p class="font-kannada text-sm md:text-base text-yellow-300/90 font-semibold mt-1 tracking-wider drop-shadow-sm">
+        ಕನ್ನಡಿಗ • ಸಾಫ್ಟ್‌ವೇರ್ ಡೆವಲಪರ್ • ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ
       </p>
 
+      <!-- Interactive 4 Heritage Pillars Selector Tabs -->
+      <div class="mt-5 flex flex-wrap justify-center gap-2 pointer-events-auto" id="heritageTabs">
+        <button type="button" class="heritage-tab active px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2" data-pillar="0">
+          <span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_6px_#ef4444]"></span>
+          <span>೧. ಯಕ್ಷಗಾನ & ಕರಾವಳಿ</span>
+        </button>
+        <button type="button" class="heritage-tab px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2" data-pillar="1">
+          <span class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_6px_#facc15]"></span>
+          <span>೨. ಹಂಪಿ & ಹೊಯ್ಸಳ ಶಿಲ್ಪಕಲೆ</span>
+        </button>
+        <button type="button" class="heritage-tab px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2" data-pillar="2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]"></span>
+          <span>೩. ಸಹ್ಯಾದ್ರಿ & ಜೋಗ ಜಲಪಾತ</span>
+        </button>
+        <button type="button" class="heritage-tab px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2" data-pillar="3">
+          <span class="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_6px_#fbbf24]"></span>
+          <span>೪. ಕನ್ನಡ ತಂತ್ರಜ್ಞಾನ</span>
+        </button>
+      </div>
+
+      <!-- Heritage Showcase Display Card -->
+      <div id="heritageCard" class="heritage-card mt-4 w-full max-w-xl mx-auto rounded-2xl p-4 md:p-5 border border-yellow-500/35 glass relative overflow-hidden text-left pointer-events-auto shadow-2xl transition-all duration-500">
+        <div class="flex items-start gap-3.5 md:gap-4">
+          <!-- Cultural Icon Emblem Container -->
+          <div id="heritageIconWrap" class="w-13 h-13 min-w-[52px] min-h-[52px] rounded-2xl bg-gradient-to-br from-yellow-500/25 via-red-600/30 to-black border border-yellow-400/40 flex items-center justify-center text-yellow-300 text-xl md:text-2xl shadow-[0_0_20px_rgba(234,179,8,0.3)]">
+            <i class="fas fa-crown" id="heritageIcon"></i>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span id="heritageTag" class="text-[10px] tracking-[0.25em] uppercase font-bold text-yellow-400">ಕರಾವಳಿಯ ಗಂಡುಕಲೆ • TRADITIONAL ART</span>
+              <span class="text-[10px] font-mono text-white/50"><span id="heritageIndex">01</span> / 04</span>
+            </div>
+            <h3 id="heritageTitle" class="text-sm md:text-base font-bold text-white font-playfair mt-0.5">Yakshagana & Coastal Mangalore Heritage</h3>
+            <p id="heritageDesc" class="text-xs md:text-sm text-white/75 mt-1 font-kannada leading-relaxed">
+              ರಂಗಸ್ಥಳದ ರಂಗು, ಕಿರೀಟದ ರಾಜಗಾಂಭೀರ್ಯ, ಕಡಲ ತೀರದ ಮಂಗಳೂರಿನ ದೈವಿಕ ಪರಂಪರೆ. ಚಂಡೆಯ ನಾದದಲ್ಲಿ ಮೈನೆರೆವ ಪೌರಾಣಿಕ ಕಲೆ.
+            </p>
+            <div id="heritageQuote" class="text-[11px] text-yellow-300/85 italic mt-1.5 flex items-center gap-2 font-mono">
+              <i class="fas fa-quote-left text-[9px] text-yellow-500"></i>
+              <span>"ಕರಾವಳಿಯ ಕಲೆ, ನಾಡಿನ ದೈವಿಕ ಸಿರಿಯ ಸಂಕೇತ."</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- 3D Progress Circular HUD & Ready Button Container -->
-      <div class="mt-8 relative flex flex-col items-center min-h-[140px] justify-center">
+      <div class="mt-5 relative flex flex-col items-center min-h-[100px] justify-center">
         
         <!-- Loading Progress HUD (Active during 0-100% calibration) -->
         <div id="introLoaderWrap" class="flex flex-col items-center transition-all duration-500 pointer-events-auto">
-          <div class="relative w-24 h-24 flex items-center justify-center">
+          <div class="relative w-20 h-20 flex items-center justify-center">
             <!-- Rotating HUD Circles -->
             <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.08)" stroke-width="3" fill="none"/>
@@ -129,29 +174,29 @@
               </defs>
             </svg>
             <div class="absolute inset-0 flex flex-col items-center justify-center font-mono">
-              <span id="loaderPct" class="text-xl font-bold text-white tracking-wider">0%</span>
+              <span id="loaderPct" class="text-lg font-bold text-white tracking-wider">0%</span>
               <span class="text-[8px] uppercase tracking-widest text-yellow-400 font-bold">LOADING</span>
             </div>
             <!-- Outer spinning dashed ring -->
-            <div class="absolute inset-[-6px] rounded-full border border-dashed border-yellow-500/35 intro-spin-slow"></div>
+            <div class="absolute inset-[-5px] rounded-full border border-dashed border-yellow-500/35 intro-spin-slow"></div>
           </div>
 
           <!-- Status Telemetry Ticker -->
-          <div class="mt-4 font-mono text-[11px] text-white/60 tracking-widest flex items-center gap-2">
+          <div class="mt-2.5 font-mono text-[10.5px] text-white/60 tracking-widest flex items-center gap-2">
             <span class="inline-block w-1.5 h-1.5 rounded-full bg-yellow-400 animate-ping"></span>
-            <span id="introStatusText">INITIALIZING 3D ENGINE...</span>
+            <span id="introStatusText">INITIALIZING 3D HERITAGE REALM...</span>
           </div>
 
-          <!-- Hidden compatibility elements for existing hooks -->
+          <!-- Hidden compatibility element -->
           <div class="hidden"><div id="loaderFill"></div></div>
         </div>
 
         <!-- Interactive Launch Button (Reveals at 100% calibration) -->
         <button id="introEnterBtn" type="button" class="intro-enter-btn hidden pointer-events-auto group relative">
           <div class="intro-btn-glow"></div>
-          <div class="relative z-10 flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-yellow-400 via-amber-400 to-red-600 text-charcoal-950 font-black text-sm tracking-wider uppercase shadow-[0_0_35px_rgba(234,179,8,0.55)] group-hover:scale-105 group-hover:shadow-[0_0_55px_rgba(234,179,8,0.85)] transition-all duration-300">
-            <span>ENTER EXPERIENCE</span>
-            <span class="font-kannada text-xs font-black">✦ ಪ್ರವೇಶಿಸಿ ✦</span>
+          <div class="relative z-10 flex items-center gap-3 px-8 py-3.5 md:py-4 rounded-full bg-gradient-to-r from-yellow-400 via-amber-400 to-red-600 text-charcoal-950 font-black text-xs md:text-sm tracking-wider uppercase shadow-[0_0_35px_rgba(234,179,8,0.55)] group-hover:scale-105 group-hover:shadow-[0_0_55px_rgba(234,179,8,0.85)] transition-all duration-300">
+            <span>ENTER THE REALM OF NINGARAJ</span>
+            <span class="font-kannada text-xs font-black">✦ ಕರ್ನಾಟಕದಿಂದ ವಿಶ್ವಕ್ಕೆ • ಪ್ರವೇಶಿಸಿ ✦</span>
             <i class="fas fa-arrow-right text-xs group-hover:translate-x-1.5 transition-transform duration-300"></i>
           </div>
         </button>
@@ -161,16 +206,16 @@
     </main>
 
     <!-- Bottom HUD Footer: Interactive Orbit Cue & Diagnostics -->
-    <footer class="relative z-20 px-6 py-4 md:px-10 md:py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] font-mono text-white/45 border-t border-white/5">
+    <footer class="relative z-20 px-6 py-3.5 md:px-10 md:py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] font-mono text-white/45 border-t border-white/5">
       <div class="flex items-center gap-3">
-        <i class="fas fa-cube text-yellow-400 text-xs"></i>
-        <span>INTERACTIVE 3D CORE</span>
+        <i class="fas fa-dharmachakra text-yellow-400 text-xs"></i>
+        <span>3D SACRED GANDABERUNDA SHRINE</span>
         <span class="hidden sm:inline text-white/20">•</span>
-        <span class="text-yellow-300/80 hidden sm:inline">HOVER / DRAG TO ROTATE SCENE</span>
+        <span class="text-yellow-300/80 hidden sm:inline">EXPLORE HERITAGE • DRAG TO ROTATE</span>
       </div>
       <div class="flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
-        <span class="text-white/70">WEBGL 2.0 • 60 FPS • PRODUCTION READY</span>
+        <span class="text-white/70">KARNATAKA ODYSSEY • 60 FPS • WEBGL 2.0</span>
       </div>
     </footer>
 
@@ -179,11 +224,21 @@
   <!-- Scroll Progress Bar -->
   <div id="scroll-progress"></div>
 
-  <!-- Three.js Cosmic Canvas & Background Aura -->
+  <!-- ================= IMMERSIVE KARNATAKA BACKGROUND TAPESTRY & NATURE ================= -->
   <canvas id="bg-canvas"></canvas>
-  <div class="bg-pattern"></div>
+  
+  <!-- Hoysala Stone Relief & Temple Mandala Tapestry -->
+  <div class="bg-hoysala-tapestry"></div>
+
+  <!-- Sahyadri Mountain Mist Ridge Silhouette (Western Ghats) -->
+  <div class="bg-sahyadri-ridge"></div>
+
+  <!-- Karnataka Flag Ambient Light Orbs (Amber Gold, Crimson Velvet & Sahyadri Emerald) -->
   <div class="light-orb orb-gold"></div>
   <div class="light-orb orb-red"></div>
+  <div class="light-orb orb-emerald"></div>
+
+  <!-- Vignette & Subtle Film Texture -->
   <div class="bg-vignette"></div>
   <div class="bg-noise"></div>
 

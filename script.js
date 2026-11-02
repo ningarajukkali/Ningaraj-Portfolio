@@ -205,7 +205,7 @@ const testimonials = [
 ];
 
 /* ==========================================================================
-   3. PROFESSIONAL 3D CINEMATIC INTRO & OPENING SCENE (THREE.JS + GSAP)
+   3. PROFESSIONAL 3D CINEMATIC INTRO & KARNATAKA HERITAGE ODYSSEY
    ========================================================================== */
 (function initProfessional3DIntro() {
   const introCanvas = document.getElementById('intro-3d-canvas');
@@ -217,9 +217,110 @@ const testimonials = [
   const enterBtn = document.getElementById('introEnterBtn');
   const skipBtn = document.getElementById('skipIntroBtn');
 
+  // Heritage Elements
+  const heritageTabs = document.querySelectorAll('.heritage-tab');
+  const heritageTitle = document.getElementById('heritageTitle');
+  const heritageDesc = document.getElementById('heritageDesc');
+  const heritageQuote = document.getElementById('heritageQuote');
+  const heritageTag = document.getElementById('heritageTag');
+  const heritageIndex = document.getElementById('heritageIndex');
+  const heritageIcon = document.getElementById('heritageIcon');
+
   let hasLaunched = false;
   let animId = null;
   let autoTimer = null;
+  let activePillarIdx = 0;
+
+  const heritagePillars = [
+    {
+      index: '01',
+      tag: 'ಕರಾವಳಿಯ ಗಂಡುಕಲೆ • TRADITIONAL FOLK ART',
+      title: 'Yakshagana & Coastal Mangalore Heritage',
+      desc: 'ರಂಗಸ್ಥಳದ ರಂಗು, ಕಿರೀಟದ ರಾಜಗಾಂಭೀರ್ಯ, ಕಡಲ ತೀರದ ಮಂಗಳೂರಿನ ದೈವಿಕ ಪರಂಪರೆ. ಚಂಡೆಯ ಗಂಭೀರ ನಾದದಲ್ಲಿ ಮೈನೆರೆವ ಪೌರಾಣಿಕ ಕಲೆ.',
+      quote: '"ಕರಾವಳಿಯ ಕಲೆ, ನಾಡಿನ ದೈವಿಕ ಸಿರಿಯ ಸಂಕೇತ."',
+      icon: 'fa-crown',
+      goldLight: 0xFACC15,
+      redLight: 0xDC2626
+    },
+    {
+      index: '02',
+      tag: 'ವಿಶ್ವ ಪಾರಂಪರಿಕ ಶಿಲ್ಪಕಲೆ • UNESCO HERITAGE',
+      title: 'Hampi Stone Chariot & Hoysala Architecture',
+      desc: 'ಕಲ್ಲಿನಲಿ ಕಾವ್ಯ ಬರೆದ ಅಮರಶಿಲ್ಪಿ ಜಕಣಾಚಾರಿಯ ನಾಡು. ವಿಜಯನಗರ ಸಾಮ್ರಾಜ್ಯದ ವಿಶ್ವವಿಖ್ಯಾತ ಕಲ್ಲಿನ ರಥ ಹಾಗೂ ಬೇಲೂರು-ಹಳೇಬೀಡು ಸೂಕ್ಷ್ಮ ಶಿಲ್ಪಕಲೆ.',
+      quote: '"ಕಲ್ಲಿನಲ್ಲೂ ಜೀವದುಂಬಿದ ಅಮರ ಶಿಲ್ಪಿಗಳ ಪುಣ್ಯಭೂಮಿ."',
+      icon: 'fa-landmark',
+      goldLight: 0xFDE047,
+      redLight: 0xB8860B
+    },
+    {
+      index: '03',
+      tag: 'ಪಶ್ಚಿಮ ಘಟ್ಟಗಳು • WESTERN GHATS NATURE',
+      title: 'Sahyadri Rainforests & Jog Falls Nature',
+      desc: 'ಹಾಲಿನಂತೆ ಧುಮ್ಮಿಕ್ಕುವ ಜೋಗದ ಜಲಧಾರೆ, ನಿತ್ಯಹರಿದ್ವರ್ಣದ ಅಗುಂಬೆ-ಕುದುರೆಮುಖ ವನರಾಶಿ, ಶ್ರೀಗಂಧದ ಕಂಪಿನ ಕಾವೇರಿ ನದಿ ತೀರದ ಪ್ರಕೃತಿ ಸೌಂದರ್ಯ.',
+      quote: '"ಹಸಿರ ಹೊದಿಕೆಯ ಸಹ್ಯಾದ್ರಿ, ಧುಮ್ಮಿಕ್ಕುವ ಜಲಪಾತದ ನಾದ."',
+      icon: 'fa-mountain-sun',
+      goldLight: 0x34D399,
+      redLight: 0x059669
+    },
+    {
+      index: '04',
+      tag: 'ಭಾರತದ ತಂತ್ರಜ್ಞಾನ ನಗರಿ • SILICON GATEWAY',
+      title: 'Silicon Innovation Rooted in Kannada Pride',
+      desc: 'ಪ್ರಾಚೀನತೆಯ ಬೇರು, ಜಾಗತಿಕ ತಂತ್ರಜ್ಞಾನದ ರೆಕ್ಕೆ. ಬೆಂಗಳೂರಿನಿಂದ ವಿಶ್ವಕ್ಕೆ ಎಐ ಮತ್ತು ಪೂರ್ಣ-ಸ್ಟಾಕ್ ತಂತ್ರಜ್ಞಾನವನ್ನು ನಿರ್ಮಿಸುವ ಯುವ ಕನ್ನಡಿಗ.',
+      quote: '"ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ, ಸಿರಿಗನ್ನಡಂ ಬಾಳ್ಗೆ — ತಂತ್ರಜ್ಞಾನದ ತುತ್ತತುದಿ."',
+      icon: 'fa-laptop-code',
+      goldLight: 0xFACC15,
+      redLight: 0x22D3EE
+    }
+  ];
+
+  function setPillar(idx) {
+    if (idx < 0 || idx >= heritagePillars.length) return;
+    activePillarIdx = idx;
+    const p = heritagePillars[idx];
+
+    heritageTabs.forEach((tab, i) => {
+      tab.classList.toggle('active', i === idx);
+    });
+
+    if (window.gsap) {
+      gsap.to('#heritageCard', {
+        opacity: 0.6,
+        y: 4,
+        duration: 0.18,
+        onComplete: () => {
+          if (heritageTitle) heritageTitle.textContent = p.title;
+          if (heritageDesc) heritageDesc.textContent = p.desc;
+          if (heritageQuote) heritageQuote.innerHTML = `<i class="fas fa-quote-left text-[9px] text-yellow-500 mr-2"></i><span>${p.quote}</span>`;
+          if (heritageTag) heritageTag.textContent = p.tag;
+          if (heritageIndex) heritageIndex.textContent = p.index;
+          if (heritageIcon) heritageIcon.className = `fas ${p.icon}`;
+
+          gsap.to('#heritageCard', { opacity: 1, y: 0, duration: 0.28 });
+        }
+      });
+    } else {
+      if (heritageTitle) heritageTitle.textContent = p.title;
+      if (heritageDesc) heritageDesc.textContent = p.desc;
+      if (heritageQuote) heritageQuote.innerHTML = `<i class="fas fa-quote-left text-[9px] text-yellow-500 mr-2"></i><span>${p.quote}</span>`;
+      if (heritageTag) heritageTag.textContent = p.tag;
+      if (heritageIndex) heritageIndex.textContent = p.index;
+      if (heritageIcon) heritageIcon.className = `fas ${p.icon}`;
+    }
+
+    if (window._introLights) {
+      window._introLights.gold.color.setHex(p.goldLight);
+      window._introLights.red.color.setHex(p.redLight);
+    }
+  }
+
+  heritageTabs.forEach((tab) => {
+    tab.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const idx = parseInt(tab.dataset.pillar, 10);
+      setPillar(idx);
+    });
+  });
 
   function endIntroInstantly() {
     if (hasLaunched) return;
@@ -251,7 +352,6 @@ const testimonials = [
     }
   }
 
-  // Skip handlers
   if (skipBtn) {
     skipBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -264,7 +364,7 @@ const testimonials = [
     }
   });
 
-  // Fast fallback for reduced motion or missing WebGL/Three.js
+  // Fast fallback for reduced motion or missing WebGL
   if (prefersReduced || !window.THREE || !introCanvas) {
     let p = 0;
     const fallbackInterval = setInterval(() => {
@@ -278,12 +378,12 @@ const testimonials = [
     return;
   }
 
-  /* ---------- Three.js 3D Interactive Opening Scene ---------- */
+  /* ---------- 3D Sacred Karnataka Temple & Gandaberunda Shrine ---------- */
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x050406, 0.032);
+  scene.fog = new THREE.FogExp2(0x050406, 0.035);
 
   const camera = new THREE.PerspectiveCamera(54, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.set(0, 0, 7.6);
+  camera.position.set(0, 0, 7.5);
 
   let renderer;
   try {
@@ -301,120 +401,146 @@ const testimonials = [
     return;
   }
 
-  // Ambient & Dynamic Point Lights (Karnataka Royal Gold & Crimson)
-  const ambientLight = new THREE.AmbientLight(0xfff8e1, 0.7);
+  // Dynamic Karnataka Sacred Lights
+  const ambientLight = new THREE.AmbientLight(0xfff8e1, 0.75);
   scene.add(ambientLight);
 
-  const goldKeyLight = new THREE.PointLight(0xFACC15, 3.8, 22);
+  const goldKeyLight = new THREE.PointLight(0xFACC15, 4.0, 24);
   goldKeyLight.position.set(4.5, 4.0, 5.5);
   scene.add(goldKeyLight);
 
-  const redFillLight = new THREE.PointLight(0xDC2626, 3.2, 20);
+  const redFillLight = new THREE.PointLight(0xDC2626, 3.4, 22);
   redFillLight.position.set(-4.5, -3.5, 5.0);
   scene.add(redFillLight);
 
-  const coreGlowLight = new THREE.PointLight(0xFDE047, 2.8, 8);
-  coreGlowLight.position.set(0, 0, 0);
-  scene.add(coreGlowLight);
+  const shrineCoreLight = new THREE.PointLight(0xFDE047, 3.0, 9);
+  shrineCoreLight.position.set(0, 0, 0);
+  scene.add(shrineCoreLight);
 
-  // 3D Master Celestial Group
-  const masterGroup = new THREE.Group();
-  scene.add(masterGroup);
+  window._introLights = { gold: goldKeyLight, red: redFillLight };
 
-  // 1. Inner Faceted Crystal Octahedron / Icosahedron
-  const crystalGeo = new THREE.IcosahedronGeometry(1.4, 0);
+  // 3D Master Sacred Shrine Group
+  const masterShrineGroup = new THREE.Group();
+  scene.add(masterShrineGroup);
+
+  // 1. Carved Hoysala Lotus Pedestal (Base)
+  const pedestalGeo = new THREE.CylinderGeometry(2.1, 2.3, 0.35, 32);
+  const pedestalMat = new THREE.MeshStandardMaterial({
+    color: 0x1a1208,
+    metalness: 0.85,
+    roughness: 0.25,
+    emissive: 0x3d2806,
+    emissiveIntensity: 0.3
+  });
+  const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
+  pedestal.position.y = -1.6;
+  masterShrineGroup.add(pedestal);
+
+  // Gold Ring around Pedestal Base
+  const pedestalRingGeo = new THREE.TorusGeometry(2.2, 0.03, 16, 64);
+  const goldRingMat = new THREE.MeshBasicMaterial({ color: 0xFACC15 });
+  const pedestalRing = new THREE.Mesh(pedestalRingGeo, goldRingMat);
+  pedestalRing.rotation.x = Math.PI / 2;
+  pedestalRing.position.y = -1.45;
+  masterShrineGroup.add(pedestalRing);
+
+  // 2. Central Sculpted Gandaberunda / Yakshagana Kireeta Core
+  const coreGroup = new THREE.Group();
+  masterShrineGroup.add(coreGroup);
+
+  // Inner Faceted Ruby-Gold Crystal
+  const crystalGeo = new THREE.IcosahedronGeometry(1.35, 0);
   const crystalMat = new THREE.MeshStandardMaterial({
-    color: 0x140a0a,
+    color: 0x1a0a0a,
     metalness: 0.95,
-    roughness: 0.18,
-    emissive: 0x3d0606,
-    emissiveIntensity: 0.35,
+    roughness: 0.15,
+    emissive: 0x5a0c0c,
+    emissiveIntensity: 0.45,
     flatShading: true
   });
   const crystalMesh = new THREE.Mesh(crystalGeo, crystalMat);
-  masterGroup.add(crystalMesh);
+  coreGroup.add(crystalMesh);
 
-  // 2. Outer Golden Wireframe Shell
-  const wireGeo = new THREE.IcosahedronGeometry(1.45, 0);
-  const wireMat = new THREE.MeshBasicMaterial({
+  // Outer Royal Gold Lattice Shell
+  const latticeGeo = new THREE.IcosahedronGeometry(1.42, 0);
+  const latticeMat = new THREE.MeshBasicMaterial({
     color: 0xFACC15,
     wireframe: true,
     transparent: true,
-    opacity: 0.75
+    opacity: 0.85
   });
-  const wireMesh = new THREE.Mesh(wireGeo, wireMat);
-  masterGroup.add(wireMesh);
+  const latticeMesh = new THREE.Mesh(latticeGeo, latticeMat);
+  coreGroup.add(latticeMesh);
 
-  // 3. Golden Vertex Light Nodes
-  const nodeGeo = new THREE.SphereGeometry(0.045, 8, 8);
-  const nodeMat = new THREE.MeshBasicMaterial({ color: 0xFFF8E1 });
-  const posAttr = wireGeo.attributes.position;
-  for (let i = 0; i < posAttr.count; i++) {
-    const node = new THREE.Mesh(nodeGeo, nodeMat);
-    node.position.set(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i));
-    masterGroup.add(node);
+  // Yakshagana Kireeta Sun-Ray Halo Prongs
+  const haloGroup = new THREE.Group();
+  const spokeCount = 18;
+  for (let i = 0; i < spokeCount; i++) {
+    const angle = (i / spokeCount) * Math.PI * 2;
+    const spokeGeo = new THREE.ConeGeometry(0.04, 0.75, 4);
+    const spokeMat = new THREE.MeshBasicMaterial({ color: i % 2 === 0 ? 0xFACC15 : 0xEF4444 });
+    const spoke = new THREE.Mesh(spokeGeo, spokeMat);
+    spoke.position.x = Math.cos(angle) * 1.85;
+    spoke.position.y = Math.sin(angle) * 1.85;
+    spoke.rotation.z = angle - Math.PI / 2;
+    haloGroup.add(spoke);
   }
+  coreGroup.add(haloGroup);
 
-  // 4. Concentric Celestial Gimbal Rings
-  // Ring 1: Karnataka Sun Gold Torus
+  // 3. Concentric Celestial Karnataka Gyroscope Rings
   const ring1Geo = new THREE.TorusGeometry(2.35, 0.026, 16, 120);
   const ring1Mat = new THREE.MeshStandardMaterial({
     color: 0xFACC15,
     emissive: 0xEAB308,
-    emissiveIntensity: 0.55,
+    emissiveIntensity: 0.6,
     metalness: 0.9,
     roughness: 0.2
   });
   const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-  ring1.rotation.x = Math.PI / 3.8;
-  masterGroup.add(ring1);
+  ring1.rotation.x = Math.PI / 3.6;
+  coreGroup.add(ring1);
 
-  // Ring 2: Crimson Heritage Torus
   const ring2Geo = new THREE.TorusGeometry(2.7, 0.022, 16, 120);
   const ring2Mat = new THREE.MeshStandardMaterial({
     color: 0xDC2626,
     emissive: 0x991B1B,
-    emissiveIntensity: 0.65,
+    emissiveIntensity: 0.7,
     metalness: 0.9,
     roughness: 0.2
   });
   const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-  ring2.rotation.y = Math.PI / 2.8;
-  masterGroup.add(ring2);
+  ring2.rotation.y = Math.PI / 2.6;
+  coreGroup.add(ring2);
 
-  // Ring 3: Fine Stardust Meridian Ring
-  const ring3Geo = new THREE.TorusGeometry(3.05, 0.014, 12, 120);
-  const ring3Mat = new THREE.MeshBasicMaterial({
-    color: 0xFDE047,
-    transparent: true,
-    opacity: 0.35
-  });
+  const ring3Geo = new THREE.TorusGeometry(3.05, 0.015, 12, 120);
+  const ring3Mat = new THREE.MeshBasicMaterial({ color: 0xFDE047, transparent: true, opacity: 0.4 });
   const ring3 = new THREE.Mesh(ring3Geo, ring3Mat);
   ring3.rotation.z = Math.PI / 5;
-  masterGroup.add(ring3);
+  coreGroup.add(ring3);
 
-  // 5. 3D Cosmic Particle Vortex (Gold, Crimson & Starlight)
+  // 4. Bioluminescent Agumbe Rainforest Fireflies & Sandalwood Embers
   const isMobile = window.innerWidth < 768;
-  const partCount = isMobile ? 450 : 1000;
+  const partCount = isMobile ? 500 : 1100;
   const partGeo = new THREE.BufferGeometry();
   const partPos = new Float32Array(partCount * 3);
   const partCols = new Float32Array(partCount * 3);
 
   const cGold = new THREE.Color(0xFACC15);
   const cRed = new THREE.Color(0xDC2626);
+  const cEmerald = new THREE.Color(0x34D399);
   const cWhite = new THREE.Color(0xFFF8E1);
 
   for (let i = 0; i < partCount; i++) {
     const angle = Math.random() * Math.PI * 2;
-    const radius = 1.9 + Math.random() * 4.6;
-    const spreadY = (Math.random() - 0.5) * 4.2;
+    const radius = 1.9 + Math.random() * 4.8;
+    const spreadY = (Math.random() - 0.5) * 4.5;
 
     partPos[i * 3] = Math.cos(angle) * radius;
     partPos[i * 3 + 1] = spreadY;
     partPos[i * 3 + 2] = Math.sin(angle) * radius;
 
     const r = Math.random();
-    const col = r < 0.6 ? cGold : (r < 0.85 ? cRed : cWhite);
+    const col = r < 0.5 ? cGold : (r < 0.75 ? cRed : (r < 0.9 ? cEmerald : cWhite));
     partCols[i * 3] = col.r;
     partCols[i * 3 + 1] = col.g;
     partCols[i * 3 + 2] = col.b;
@@ -424,14 +550,14 @@ const testimonials = [
   partGeo.setAttribute('color', new THREE.BufferAttribute(partCols, 3));
 
   const partMat = new THREE.PointsMaterial({
-    size: isMobile ? 0.045 : 0.055,
+    size: isMobile ? 0.048 : 0.058,
     vertexColors: true,
     transparent: true,
-    opacity: 0.85,
+    opacity: 0.88,
     blending: THREE.AdditiveBlending
   });
-  const stardust = new THREE.Points(partGeo, partMat);
-  scene.add(stardust);
+  const fireflies = new THREE.Points(partGeo, partMat);
+  scene.add(fireflies);
 
   // Mouse & Touch Tracking with Smooth Inertia Damping
   let mouseX = 0, mouseY = 0;
@@ -443,26 +569,28 @@ const testimonials = [
     mouseX = (clientX / window.innerWidth - 0.5) * 2;
     mouseY = (clientY / window.innerHeight - 0.5) * 2;
     targetRotY = mouseX * 0.75;
-    targetRotX = -mouseY * 0.55;
+    targetRotX = -mouseY * 0.5;
   }
   window.addEventListener('mousemove', onPointerMove, { passive: true });
   window.addEventListener('touchmove', onPointerMove, { passive: true });
 
-  // Animation Loop
+  // Render Loop
   let clockTime = 0;
   function renderIntroFrame() {
     animId = requestAnimationFrame(renderIntroFrame);
     clockTime += 0.016;
 
-    // Smooth inertia tilt towards cursor
-    masterGroup.rotation.y += (targetRotY - masterGroup.rotation.y) * 0.055;
-    masterGroup.rotation.x += (targetRotX - masterGroup.rotation.x) * 0.055;
+    // Smooth inertia tilt
+    masterShrineGroup.rotation.y += (targetRotY - masterShrineGroup.rotation.y) * 0.055;
+    masterShrineGroup.rotation.x += (targetRotX - masterShrineGroup.rotation.x) * 0.055;
 
-    // Continuous celestial gyroscope rotation
+    // Sacred Core & Kireeta Halo Continuous Rotations
     crystalMesh.rotation.y += 0.007;
     crystalMesh.rotation.x += 0.004;
-    wireMesh.rotation.y += 0.007;
-    wireMesh.rotation.x += 0.004;
+    latticeMesh.rotation.y += 0.007;
+    latticeMesh.rotation.x += 0.004;
+
+    haloGroup.rotation.z += 0.006;
 
     ring1.rotation.x += 0.011;
     ring1.rotation.y += 0.007;
@@ -472,10 +600,10 @@ const testimonials = [
 
     ring3.rotation.z += 0.005;
 
-    stardust.rotation.y = clockTime * 0.07;
-    stardust.rotation.x = Math.sin(clockTime * 0.3) * 0.035;
+    fireflies.rotation.y = clockTime * 0.065;
+    fireflies.rotation.x = Math.sin(clockTime * 0.3) * 0.035;
 
-    // Dynamic orbital light sweeps
+    // Orbiting light sources
     goldKeyLight.position.x = Math.sin(clockTime * 0.7) * 4.8;
     goldKeyLight.position.z = Math.cos(clockTime * 0.7) * 4.8;
     redFillLight.position.x = -Math.sin(clockTime * 0.5) * 4.8;
@@ -485,7 +613,6 @@ const testimonials = [
   }
   renderIntroFrame();
 
-  // Resize listener
   window.addEventListener('resize', () => {
     if (hasLaunched) return;
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -500,42 +627,42 @@ const testimonials = [
     if (autoTimer) clearTimeout(autoTimer);
 
     if (window.gsap) {
-      // 1. Camera Hyper-Speed Zoom Through 3D Crystal Core
+      // 1. Camera Hyper-Speed Zoom Through Sacred Shrine
       gsap.to(camera.position, {
-        z: -1.4,
-        duration: 1.35,
+        z: -1.5,
+        duration: 1.4,
         ease: 'power3.inOut'
       });
 
-      // 2. Camera Field of View Distortion (Hyperspace warp effect)
+      // 2. Camera Field of View Distortion (Hyperspace warp)
       gsap.to(camera, {
-        fov: 92,
-        duration: 1.35,
+        fov: 95,
+        duration: 1.4,
         ease: 'power3.inOut',
         onUpdate: () => camera.updateProjectionMatrix()
       });
 
-      // 3. Celestial Core Accelerates & Expands in Glory
-      gsap.to(masterGroup.scale, {
-        x: 3.2,
-        y: 3.2,
-        z: 3.2,
-        duration: 1.35,
+      // 3. Sacred Shrine Expands in Glory
+      gsap.to(masterShrineGroup.scale, {
+        x: 3.4,
+        y: 3.4,
+        z: 3.4,
+        duration: 1.4,
         ease: 'power3.in'
       });
-      gsap.to(masterGroup.rotation, {
+      gsap.to(masterShrineGroup.rotation, {
         y: '+=7',
         x: '+=4',
-        duration: 1.35,
+        duration: 1.4,
         ease: 'power3.in'
       });
 
-      // 4. Stardust Streaks Outward
-      gsap.to(stardust.scale, {
-        x: 4.5,
-        y: 4.5,
-        z: 4.5,
-        duration: 1.35,
+      // 4. Fireflies Streak Outward
+      gsap.to(fireflies.scale, {
+        x: 5.0,
+        y: 5.0,
+        z: 5.0,
+        duration: 1.4,
         ease: 'power3.in'
       });
 
@@ -543,7 +670,7 @@ const testimonials = [
       gsap.to('#preloader', {
         opacity: 0,
         scale: 1.1,
-        filter: 'blur(20px)',
+        filter: 'blur(22px)',
         duration: 0.95,
         delay: 0.55,
         ease: 'power3.inOut',
@@ -561,7 +688,6 @@ const testimonials = [
     }
   }
 
-  // Interactive Enter Button Handler
   if (enterBtn) {
     enterBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -569,27 +695,35 @@ const testimonials = [
     });
   }
 
-  /* ---------- Simulated 0% -> 100% Telemetry Progress ---------- */
+  /* ---------- Simulated 0% -> 100% Heritage Progress ---------- */
   let progress = 0;
+  let pillarCycleTimer = 0;
+
   const telemetrySteps = [
-    { threshold: 0, text: '[01/04] INITIALIZING THREE.JS 3D ENGINE...' },
-    { threshold: 30, text: '[02/04] COMPILING SHADERS & GEOMETRY...' },
-    { threshold: 65, text: '[03/04] CALIBRATING KARNATAKA IDENTITY AURA...' },
-    { threshold: 95, text: '[04/04] SYSTEMS OPTIMAL • READY TO LAUNCH' }
+    { threshold: 0, text: '[01/04] ೧. ಕರಾವಳಿ & ಯಕ್ಷಗಾನ ಸಂಸ್ಕೃತಿ • YAKSHAGANA' },
+    { threshold: 28, text: '[02/04] ೨. ಹಂಪಿ & ಹೊಯ್ಸಳ ಶಿಲ್ಪಕಲೆ • HAMPI HERITAGE' },
+    { threshold: 58, text: '[03/04] ೩. ಸಹ್ಯಾದ್ರಿ & ಜೋಗ ಜಲಪಾತ • SAHYADRI NATURE' },
+    { threshold: 85, text: '[04/04] ೪. ಕನ್ನಡ ತಂತ್ರಜ್ಞಾನ ನಗರಿ • SILICON GATEWAY' }
   ];
 
   const progressInterval = setInterval(() => {
-    progress += Math.random() * 12 + 4;
+    progress += Math.random() * 10 + 3.5;
+    pillarCycleTimer++;
+
+    // Auto-advance through the 4 cultural chapters
+    if (pillarCycleTimer % 7 === 0 && !hasLaunched) {
+      const nextIdx = (activePillarIdx + 1) % heritagePillars.length;
+      setPillar(nextIdx);
+    }
+
     if (progress >= 100) {
       progress = 100;
       clearInterval(progressInterval);
 
-      // Finalize progress display
       if (pctEl) pctEl.textContent = '100%';
       if (progressCircle) progressCircle.style.strokeDashoffset = '0';
-      if (statusEl) statusEl.textContent = '[04/04] SYSTEMS OPTIMAL • READY TO LAUNCH';
+      if (statusEl) statusEl.textContent = '[೦೪/೦೪] ಸಂಪೂರ್ಣ ಸಿದ್ಧವಾಗಿದೆ • READY TO ENTER';
 
-      // Transition from HUD loader gauge to Enter Experience Button
       setTimeout(() => {
         if (hasLaunched) return;
         if (loaderWrap) {
@@ -609,10 +743,9 @@ const testimonials = [
           }
         }
 
-        // Auto-launch countdown if user doesn't click
         autoTimer = setTimeout(() => {
           if (!hasLaunched) launchExperience();
-        }, 2200);
+        }, 2600);
       }, 400);
 
     } else {
@@ -631,12 +764,12 @@ const testimonials = [
         }
       }
     }
-  }, 90);
+  }, 95);
 
 })();
 
 /* ==========================================================================
-   4. THREE.JS 3D COSMIC PARTICLE GALAXY
+   4. THREE.JS 3D SAHYADRI & WESTERN GHATS NATURE ECOSYSTEM (BG CANVAS)
    ========================================================================== */
 (function initThreeUniverse(){
   if (prefersReduced) return;
@@ -644,7 +777,7 @@ const testimonials = [
   if (!canvas || !window.THREE) return;
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x060607, 0.026);
+  scene.fog = new THREE.FogExp2(0x060607, 0.024);
 
   const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z = 12;
@@ -655,51 +788,85 @@ const testimonials = [
 
   const isMobile = window.innerWidth < 768;
 
-  function createPointsCloud(count, size, spread) {
-    const geo = new THREE.BufferGeometry();
-    const pos = new Float32Array(count * 3);
-    const col = new Float32Array(count * 3);
+  // 1. Bioluminescent Agumbe Fireflies (Western Ghats)
+  const fireflyCount = isMobile ? 80 : 200;
+  const fireflyGeo = new THREE.BufferGeometry();
+  const fireflyPos = new Float32Array(fireflyCount * 3);
+  const fireflyCols = new Float32Array(fireflyCount * 3);
+  const fireflyOriginalY = new Float32Array(fireflyCount);
 
-    const cGold = new THREE.Color(0xD4AF37);
-    const cRed = new THREE.Color(0x8A1414);
-    const cWhite = new THREE.Color(0xFFF8E1);
-    const cCyan = new THREE.Color(0x22D3EE);
+  const cAmber = new THREE.Color(0xFDE047);
+  const cEmerald = new THREE.Color(0x34D399);
 
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * spread;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * spread;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * spread;
+  for (let i = 0; i < fireflyCount; i++) {
+    fireflyPos[i * 3] = (Math.random() - 0.5) * 32;
+    const y = (Math.random() - 0.5) * 22;
+    fireflyPos[i * 3 + 1] = y;
+    fireflyOriginalY[i] = y;
+    fireflyPos[i * 3 + 2] = (Math.random() - 0.5) * 25;
 
-      const r = Math.random();
-      const color = r < 0.5 ? cGold : (r < 0.78 ? cRed : (r < 0.92 ? cWhite : cCyan));
-      col[i * 3] = color.r;
-      col[i * 3 + 1] = color.g;
-      col[i * 3 + 2] = color.b;
-    }
-
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
-
-    const mat = new THREE.PointsMaterial({
-      size,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.8,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending
-    });
-
-    return new THREE.Points(geo, mat);
+    const col = Math.random() < 0.65 ? cAmber : cEmerald;
+    fireflyCols[i * 3] = col.r;
+    fireflyCols[i * 3 + 1] = col.g;
+    fireflyCols[i * 3 + 2] = col.b;
   }
 
-  const dust = createPointsCloud(isMobile ? 500 : 1400, 0.055, 36);
-  const bokeh = createPointsCloud(isMobile ? 70 : 180, 0.22, 32);
-  bokeh.material.opacity = 0.25;
-  scene.add(dust, bokeh);
+  fireflyGeo.setAttribute('position', new THREE.BufferAttribute(fireflyPos, 3));
+  fireflyGeo.setAttribute('color', new THREE.BufferAttribute(fireflyCols, 3));
 
-  // Subtle orbital ring
-  const ringGeo = new THREE.TorusGeometry(14, 0.016, 8, 120);
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0xD4AF37, transparent: true, opacity: 0.12 });
+  const fireflyMat = new THREE.PointsMaterial({
+    size: isMobile ? 0.16 : 0.22,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.85,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+  const fireflies = new THREE.Points(fireflyGeo, fireflyMat);
+  scene.add(fireflies);
+
+  // 2. Rising Sandalwood Embers (ಶ್ರೀಗಂಧ ಧೂಪ ಕಿಡಿಗಳು)
+  const emberCount = isMobile ? 500 : 1200;
+  const emberGeo = new THREE.BufferGeometry();
+  const emberPos = new Float32Array(emberCount * 3);
+  const emberCols = new Float32Array(emberCount * 3);
+  const emberSpeed = new Float32Array(emberCount);
+
+  const cGold = new THREE.Color(0xFACC15);
+  const cRuby = new THREE.Color(0xDC2626);
+  const cWhite = new THREE.Color(0xFFF8E1);
+
+  for (let i = 0; i < emberCount; i++) {
+    emberPos[i * 3] = (Math.random() - 0.5) * 38;
+    emberPos[i * 3 + 1] = (Math.random() - 0.5) * 32;
+    emberPos[i * 3 + 2] = (Math.random() - 0.5) * 35;
+
+    const r = Math.random();
+    const col = r < 0.6 ? cGold : (r < 0.82 ? cRuby : cWhite);
+    emberCols[i * 3] = col.r;
+    emberCols[i * 3 + 1] = col.g;
+    emberCols[i * 3 + 2] = col.b;
+
+    emberSpeed[i] = 0.008 + Math.random() * 0.018;
+  }
+
+  emberGeo.setAttribute('position', new THREE.BufferAttribute(emberPos, 3));
+  emberGeo.setAttribute('color', new THREE.BufferAttribute(emberCols, 3));
+
+  const emberMat = new THREE.PointsMaterial({
+    size: isMobile ? 0.045 : 0.055,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.8,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+  const embers = new THREE.Points(emberGeo, emberMat);
+  scene.add(embers);
+
+  // 3. Kaveri Auroral Silk Ring
+  const ringGeo = new THREE.TorusGeometry(15, 0.018, 8, 120);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0xFACC15, transparent: true, opacity: 0.15 });
   const ring = new THREE.Mesh(ringGeo, ringMat);
   ring.position.z = -8;
   ring.rotation.x = Math.PI / 3.4;
@@ -716,22 +883,34 @@ const testimonials = [
   let time = 0;
   function animateUniverse() {
     requestAnimationFrame(animateUniverse);
-    time += 0.0016;
+    time += 0.002;
 
-    dust.rotation.y = time * 18;
-    dust.rotation.x = Math.sin(time * 6) * 0.07;
-    dust.position.y = Math.sin(time * 10) * 0.35;
+    // Organic Firefly Flight Paths (Sine wave drifting)
+    const fPos = fireflyGeo.attributes.position.array;
+    for (let i = 0; i < fireflyCount; i++) {
+      fPos[i * 3 + 1] = fireflyOriginalY[i] + Math.sin(time * 3 + i) * 0.8;
+      fPos[i * 3] += Math.cos(time * 2 + i) * 0.01;
+    }
+    fireflyGeo.attributes.position.needsUpdate = true;
 
-    bokeh.rotation.y = -time * 10;
-    bokeh.position.y = Math.cos(time * 8) * 0.45;
+    // Rising Sandalwood Embers
+    const ePos = emberGeo.attributes.position.array;
+    for (let i = 0; i < emberCount; i++) {
+      ePos[i * 3 + 1] += emberSpeed[i];
+      if (ePos[i * 3 + 1] > 16) {
+        ePos[i * 3 + 1] = -16;
+      }
+    }
+    emberGeo.attributes.position.needsUpdate = true;
 
-    ring.rotation.z = time * 8;
+    embers.rotation.y = time * 8;
+    ring.rotation.z = time * 6;
 
     targetX += (mouseX - targetX) * 0.04;
     targetY += (mouseY - targetY) * 0.04;
 
-    camera.position.x = targetX * 1.5;
-    camera.position.y = -targetY * 1.0;
+    camera.position.x = targetX * 1.6;
+    camera.position.y = -targetY * 1.1;
     camera.lookAt(scene.position);
 
     renderer.render(scene, camera);

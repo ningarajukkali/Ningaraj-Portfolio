@@ -88,6 +88,30 @@ body {
   pointer-events: none;
 }
 
+.bg-hoysala-tapestry {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.085;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='1.2'%3E%3Ccircle cx='60' cy='60' r='52' stroke-dasharray='3 3'/%3E%3Ccircle cx='60' cy='60' r='40'/%3E%3Ccircle cx='60' cy='60' r='24' stroke-width='0.8'/%3E%3Cpath d='M60 8 L60 112 M8 60 L112 60' stroke-width='0.9'/%3E%3Cpath d='M23 23 L97 97 M97 23 L23 97' stroke-width='0.7'/%3E%3Cpath d='M60 20 C68 36 76 44 92 44 C76 52 68 60 60 76 C52 60 44 52 28 44 C44 44 52 36 60 20 Z' fill='%23D4AF37' fill-opacity='0.12'/%3E%3Cpath d='M60 44 C65 52 70 57 80 57 C70 62 65 67 60 76 C55 67 50 62 40 57 C50 57 55 52 60 44 Z' fill='%237A0C0C' fill-opacity='0.18'/%3E%3Ccircle cx='60' cy='60' r='6' fill='%23D4AF37' fill-opacity='0.3'/%3E%3Ccircle cx='0' cy='0' r='20'/%3E%3Ccircle cx='120' cy='0' r='20'/%3E%3Ccircle cx='0' cy='120' r='20'/%3E%3Ccircle cx='120' cy='120' r='20'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+.bg-sahyadri-ridge {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 380px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.14;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 380' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 380 L0 260 C120 220 220 250 360 210 C500 170 620 230 780 180 C940 130 1060 210 1200 160 C1320 120 1380 150 1440 140 L1440 380 Z' fill='%230A1410'/%3E%3Cpath d='M0 380 L0 300 C160 260 280 290 440 250 C600 210 740 270 900 220 C1060 170 1180 240 1320 200 C1380 180 1410 190 1440 195 L1440 380 Z' fill='%23050807' fill-opacity='0.8'/%3E%3Cpath d='M0 380 L0 330 C200 310 320 340 520 300 C720 260 880 320 1080 280 C1240 250 1360 300 1440 275 L1440 380 Z' fill='%23030403'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: bottom center;
+}
+
 .bg-vignette {
   position: fixed;
   inset: 0;
@@ -110,16 +134,6 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.bg-pattern {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='1'%3E%3Cpath d='M40 10 L50 40 L40 70 L30 40 Z'/%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3Ccircle cx='0' cy='0' r='2'/%3E%3Ccircle cx='80' cy='0' r='2'/%3E%3Ccircle cx='0' cy='80' r='2'/%3E%3Ccircle cx='80' cy='80' r='2'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 80px 80px;
-}
-
 .light-orb {
   position: fixed;
   border-radius: 50%;
@@ -131,7 +145,7 @@ body {
 .orb-gold {
   width: 550px;
   height: 550px;
-  background: radial-gradient(circle, rgba(212,175,55,0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(234, 179, 8, 0.18) 0%, transparent 70%);
   top: -120px;
   right: -120px;
   animation: orbFloat 14s ease-in-out infinite;
@@ -139,10 +153,18 @@ body {
 .orb-red {
   width: 650px;
   height: 650px;
-  background: radial-gradient(circle, rgba(122,12,12,0.28) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.25) 0%, transparent 70%);
   bottom: -180px;
   left: -140px;
   animation: orbFloat 16s ease-in-out infinite reverse;
+}
+.orb-emerald {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, transparent 70%);
+  top: 45%;
+  right: 15%;
+  animation: orbFloat 20s ease-in-out infinite;
 }
 @keyframes orbFloat {
   0%, 100% { transform: translate(0, 0) scale(1); }
@@ -185,21 +207,30 @@ body {
 .intro-radial-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(250, 204, 21, 0.18) 0%, rgba(220, 38, 38, 0.15) 40%, transparent 75%);
+  background: radial-gradient(circle at 50% 45%, rgba(250, 204, 21, 0.22) 0%, rgba(220, 38, 38, 0.16) 42%, transparent 75%);
   pointer-events: none;
   z-index: 11;
 }
 
-.intro-grid-overlay {
+.intro-temple-pattern {
   position: absolute;
   inset: 0;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 60px 60px;
-  background-position: center center;
-  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='1'%3E%3Cpath d='M50 5 L95 50 L50 95 L5 50 Z' stroke-dasharray='2 2'/%3E%3Ccircle cx='50' cy='50' r='24'/%3E%3Cpath d='M50 26 C56 38 62 44 74 50 C62 56 56 62 50 74 C44 62 38 56 26 50 C38 44 44 38 50 26 Z' fill='%23D4AF37' fill-opacity='0.15'/%3E%3Ccircle cx='50' cy='50' r='5' fill='%23D4AF37'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100px 100px;
+  opacity: 0.08;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+  pointer-events: none;
+  z-index: 11;
+}
+
+.intro-sahyadri-mist {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 240px;
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 20, 16, 0.6) 70%, rgba(5, 8, 7, 0.95) 100%);
   pointer-events: none;
   z-index: 11;
 }
@@ -210,6 +241,43 @@ body {
   background: radial-gradient(circle at center, transparent 35%, rgba(5, 4, 6, 0.88) 90%);
   pointer-events: none;
   z-index: 12;
+}
+
+/* Heritage Carousel Selector Tabs */
+.heritage-tab {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(250, 204, 21, 0.25);
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(10px);
+}
+.heritage-tab:hover {
+  border-color: rgba(250, 204, 21, 0.7);
+  color: #FFF;
+  background: rgba(250, 204, 21, 0.12);
+  transform: translateY(-2px);
+}
+.heritage-tab.active {
+  background: linear-gradient(135deg, rgba(250, 204, 21, 0.25) 0%, rgba(220, 38, 38, 0.25) 100%);
+  border-color: #FACC15;
+  color: #FFF;
+  box-shadow: 0 4px 20px rgba(234, 179, 8, 0.35);
+  transform: translateY(-2px);
+}
+
+.heritage-card {
+  background: linear-gradient(135deg, rgba(20, 14, 10, 0.82) 0%, rgba(10, 8, 8, 0.9) 100%);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+}
+.heritage-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #FACC15 30%, #DC2626 70%, transparent);
 }
 
 /* Audio EQ Visualizer Bars */
