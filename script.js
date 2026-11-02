@@ -15,7 +15,6 @@ const projects = [
     key: 'craftcycle',
     cat: 'fullstack',
     title: 'CraftCycle — AI Circular Economy Marketplace',
-    kannada: 'ಕ್ರಾಫ್ಟ್‌ಸೈಕಲ್',
     badge: 'Featured AI & MERN',
     img: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=900&auto=format&fit=crop',
     tags: ['Python', 'Flask', 'Supabase', 'Gemini Vision AI', 'JavaScript'],
@@ -36,7 +35,6 @@ const projects = [
     key: 'pulsesim',
     cat: 'backend',
     title: 'PulseSim — Real-Time Medical Simulation Platform',
-    kannada: 'ಮೆಡಿಕಲ್ ಸಿಮ್ಯುಲೇಟರ್',
     badge: 'Real-Time Backend',
     img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=900&auto=format&fit=crop',
     tags: ['FastAPI', 'WebSockets', 'Redis Pub/Sub', 'Docker', 'PostgreSQL'],
@@ -57,7 +55,6 @@ const projects = [
     key: 'restrocafe',
     cat: 'client',
     title: 'RestroCafe — Restaurant & Cafe Management Suite',
-    kannada: 'ರೆಸ್ಟ್ರೋಕೆಫೆ',
     badge: 'Client Project',
     img: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=900&auto=format&fit=crop',
     tags: ['PHP 8', 'MySQL', 'Bootstrap 5', 'jQuery', 'XAMPP'],
@@ -78,7 +75,6 @@ const projects = [
     key: 'community-help',
     cat: 'client',
     title: 'Community-Help — Assistance & Volunteer Dispatch',
-    kannada: 'ಸಮುದಾಯ ಸೇವೆ',
     badge: 'Client Project',
     img: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=900&auto=format&fit=crop',
     tags: ['React.js', 'Vite', 'Tailwind CSS', 'Node.js', 'MongoDB'],
@@ -99,7 +95,6 @@ const projects = [
     key: 'brahmx-ai',
     cat: 'ai',
     title: 'BrahmX AI — Intelligent Automation & Workflow Platform',
-    kannada: 'ಬ್ರಹ್ಮಕ್ಸ್ ಎಐ',
     badge: 'AI & Automation',
     img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=900&auto=format&fit=crop',
     tags: ['React.js', 'Vite', 'Node.js', 'Express', 'OpenAI API'],
@@ -120,7 +115,6 @@ const projects = [
     key: 'careerforge-ai',
     cat: 'ai',
     title: 'CareerForge AI — Adaptive Career Pathing System',
-    kannada: 'ಕೆರಿಯರ್ ಫೋರ್ಜ್',
     badge: 'Startup AI Project',
     img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=900&auto=format&fit=crop',
     tags: ['MongoDB', 'Express', 'React.js', 'Node.js', 'AI APIs'],
@@ -141,7 +135,6 @@ const projects = [
     key: 'e-agri',
     cat: 'fullstack',
     title: 'E-agri-Digitaly — Digital Agriculture Management',
-    kannada: 'ಡಿಜಿಟಲ್ ಕೃಷಿ',
     badge: 'AgriTech Platform',
     img: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=900&auto=format&fit=crop',
     tags: ['PHP 8', 'MySQL', 'Bootstrap 5', 'HTML5', 'CSS3'],
@@ -162,7 +155,6 @@ const projects = [
     key: 'nexus-assistant',
     cat: 'ai',
     title: 'Nexus Assistant — Voice-Activated AI Personal Agent',
-    kannada: 'ನೆಕ್ಸಸ್ ಅಸಿಸ್ಟೆಂಟ್',
     badge: 'Desktop AI Agent',
     img: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=900&auto=format&fit=crop',
     tags: ['Python 3', 'SQLite', 'SpeechRecognition', 'pyttsx3', 'Docker'],
@@ -295,7 +287,7 @@ const testimonials = [
   const fireflies = new THREE.Points(fireflyGeo, fireflyMat);
   scene.add(fireflies);
 
-  // 2. Rising Sandalwood Embers (ಶ್ರೀಗಂಧ ಧೂಪ ಕಿಡಿಗಳು)
+  // 2. Rising Sandalwood Embers
   const emberCount = isMobile ? 500 : 1200;
   const emberGeo = new THREE.BufferGeometry();
   const emberPos = new Float32Array(emberCount * 3);
@@ -412,9 +404,7 @@ function createProjectCardHtml(p) {
             ${p.badge}
           </span>
         </div>
-        <div class="absolute top-4 right-4 font-kannada text-gold-300/90 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs border border-gold-500/20">
-          ${p.kannada}
-        </div>
+        
         <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between">
           <div class="flex gap-4 text-[12px] text-white/70">
             <span><i class="fas fa-microchip text-gold-500 mr-1.5"></i>${p.stats.stack}</span>
@@ -621,9 +611,7 @@ function renderTestimonials() {
           <div class="font-bold text-base text-white">${t.name}</div>
           <div class="text-xs text-gold-300/80">${t.role}</div>
         </div>
-        <div class="ml-auto font-kannada text-2xl text-gold-500/25 select-none hidden sm:block">
-          ಧನ್ಯವಾದ
-        </div>
+
       </div>
     </div>
   `).join('');
@@ -933,7 +921,7 @@ window.openProjectModal = function(id) {
             <span class="text-[10px] tracking-widest uppercase bg-gold-500/20 text-gold-300 border border-gold-500/30 px-3 py-1 rounded-full font-bold">
               ${p.badge}
             </span>
-            <span class="font-kannada text-gold-300 text-sm font-semibold">${p.kannada}</span>
+            
           </div>
           <h3 class="font-playfair text-2xl md:text-3xl font-bold text-white drop-shadow-md">${p.title}</h3>
         </div>
@@ -1131,7 +1119,7 @@ if (contactForm) {
         c.style.color = '';
         c.style.borderColor = '';
       });
-      showToast(`ಧನ್ಯವಾದ (Thank you) ${name.split(' ')[0]}! Message received — I'll get back to you shortly.`);
+      showToast(`Thank you, ${name.split(' ')[0]}! Message received — I'll get back to you shortly.`);
     }, 1200);
   });
 }

@@ -59,7 +59,7 @@
         <circle cx="100" cy="110" r="3.5" fill="#D4AF37"/>
       </svg>
     </div>
-    <div class="mt-5 font-kannada text-2xl gold-gradient-text font-bold tracking-widest">ಕನ್ನಡಿಗ • ನಿಂಗರಾಜ್</div>
+    <div class="mt-5 font-kannada text-2xl gold-gradient-text font-bold tracking-widest">ಕನ್ನಡಿಗ • NINGARAJ</div>
     <div class="mt-1 text-[11px] tracking-[0.35em] text-white/55 uppercase font-medium">Ningaraj R Ukkali • Software Engineer</div>
     <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
     <div class="mt-3 text-xs text-white/40 font-mono tracking-wider" id="loaderPct">0%</div>
@@ -98,10 +98,10 @@
         <a href="#home" class="flex items-center gap-3.5 group">
           <div class="relative w-11 h-11 flex-shrink-0">
             <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_14px_rgba(212,175,55,0.55)]">
-              <path d="M30 15 L70 12 L82 28 L78 55 L68 75 L50 90 L35 75 L22 55 L20 30 Z" fill="none" stroke="url(#navGoldGrad)" stroke-width="3"/>
-              <text x="50" y="58" text-anchor="middle" font-size="28" fill="#D4AF37" font-family="Noto Serif Kannada" font-weight="900">ಕ</text>
+              <polygon points="50,12 85,30 85,70 50,88 15,70 15,30" fill="rgba(6,6,7,0.85)" stroke="url(#navGoldGrad)" stroke-width="2.5"/>
+              <text x="50" y="60" text-anchor="middle" font-size="30" fill="#FACC15" font-family="Space Grotesk, sans-serif" font-weight="800">N</text>
               <defs>
-                <linearGradient id="navGoldGrad" x1="0" y1="0" x2="1" y2="1">
+                <linearGradient id="navGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#FFF8E1"/>
                   <stop offset="50%" stop-color="#D4AF37"/>
                   <stop offset="100%" stop-color="#8A6F1F"/>
@@ -111,9 +111,9 @@
           </div>
           <div class="leading-tight">
             <div class="font-bold tracking-widest text-[15px] text-white group-hover:text-gold-200 transition">
-              NINGARAJ <span class="text-gold-400 font-kannada text-sm">ನಿಂಗರಾಜ್</span>
+              NINGARAJ R UKKALI
             </div>
-            <div class="text-[10px] tracking-[0.3em] text-white/45 uppercase font-medium">Full Stack & AI • ಕನ್ನಡಿಗ</div>
+            <div class="text-[10px] tracking-[0.25em] text-white/50 uppercase font-medium">Software Engineer • <span class="font-kannada text-yellow-400 font-bold">ಕನ್ನಡಿಗ</span></div>
           </div>
         </a>
 
@@ -149,27 +149,13 @@
     <!-- Mobile Drawer Menu -->
     <div id="mobileMenu" class="lg:hidden hidden border-t border-gold-500/15 bg-[#060607]/95 backdrop-blur-2xl">
       <div class="px-6 py-6 flex flex-col gap-3.5 text-white/80 font-medium">
-        <a href="#home" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
-          <span>Home</span> <span class="font-kannada text-gold-500/70 text-sm">ಮುಖಪುಟ</span>
-        </a>
-        <a href="#about" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
-          <span>About</span> <span class="font-kannada text-gold-500/70 text-sm">ನನ್ನ ಬಗ್ಗೆ</span>
-        </a>
-        <a href="#skills" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
-          <span>Skills</span> <span class="font-kannada text-gold-500/70 text-sm">ಕೌಶಲ್ಯ</span>
-        </a>
-        <a href="#projects" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
-          <span>Projects</span> <span class="font-kannada text-gold-500/70 text-sm">ಯೋಜನೆಗಳು</span>
-        </a>
-        <a href="#journey" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
-          <span>Journey</span> <span class="font-kannada text-gold-500/70 text-sm">ಅನುಭವ</span>
-        </a>
-        <a href="#resume" class="mob-link flex items-center justify-between py-2 border-b border-white/5">
-          <span>Resume</span> <span class="font-kannada text-gold-500/70 text-sm">ರೆಸ್ಯೂಮೆ</span>
-        </a>
-        <a href="#contact" class="mob-link flex items-center justify-between py-2">
-          <span>Contact</span> <span class="font-kannada text-gold-500/70 text-sm">ಸಂಪರ್ಕ</span>
-        </a>
+        <a href="#home" class="mob-link py-2 border-b border-white/5">Home</a>
+        <a href="#about" class="mob-link py-2 border-b border-white/5">About</a>
+        <a href="#skills" class="mob-link py-2 border-b border-white/5">Skills</a>
+        <a href="#projects" class="mob-link py-2 border-b border-white/5">Projects</a>
+        <a href="#journey" class="mob-link py-2 border-b border-white/5">Journey</a>
+        <a href="#resume" class="mob-link py-2 border-b border-white/5">Resume</a>
+        <a href="#contact" class="mob-link py-2">Contact</a>
         <div class="grid grid-cols-2 gap-3 mt-3">
           <button onclick="downloadResumePdf(event)" class="btn-gold rounded-full py-3 font-bold text-xs flex items-center justify-center gap-2">
             <i class="fas fa-download"></i> Download CV
@@ -184,12 +170,7 @@
 
   <!-- ================= HERO SECTION ================= -->
   <header id="home" class="relative min-h-screen flex items-center overflow-hidden pt-[110px] pb-16" style="perspective:1400px;">
-    <!-- Parallax Kannada Typography on Borders -->
-    <div class="hk-glow font-kannada" data-depth="0.015">ಕ</div>
-    <div class="hero-kannada hk-top kannada-outline" data-depth="0.05">ಕನ್ನಡಿಗ</div>
-    <div class="hero-kannada hk-bottom kannada-outline" data-depth="0.03">ಕನ್ನಡಿಗ</div>
-    <div class="hero-kannada hk-left kannada-outline-red font-kannada" data-depth="0.07">ಕನ್ನಡ • ಕರ್ನಾಟಕ • ಕನ್ನಡಿಗ</div>
-    <div class="hero-kannada hk-right font-kannada" data-depth="0.07" style="color:transparent; -webkit-text-stroke:1.2px rgba(212,175,55,0.35);">ಜೈ ಕರ್ನಾಟಕ • ಜೈ ಕನ್ನಡ</div>
+
 
     <!-- Soft Ambient Spotlights -->
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[320px] pointer-events-none"
@@ -199,39 +180,22 @@
       
       <!-- Hero Left: Content -->
       <div class="lg:col-span-7" id="heroContent">
-        <!-- Live Location Badge -->
-        <div class="hero-anim inline-flex items-center gap-3 glass rounded-full pl-2 pr-5 py-1.5 mb-6">
-          <span class="bg-gradient-to-r from-deepred-700 to-gold-600 text-[11px] font-bold px-3 py-1 rounded-full tracking-widest uppercase text-white shadow-md">
-            ● Live
-          </span>
-          <span class="text-[12.5px] tracking-wider text-white/80">
-            Mangalore & Bengaluru — <span class="font-kannada text-gold-300 font-semibold">ನಮ್ಮ ಕರ್ನಾಟಕ</span>
-          </span>
-        </div>
-
         <!-- Heritage Greeting -->
-        <p class="hero-anim label-kannada text-gold-400/90 text-xs md:text-sm uppercase mb-3 font-semibold">
+        <p class="hero-anim text-gold-400/90 text-xs md:text-sm uppercase mb-4 font-semibold tracking-widest font-mono">
           || ನಮಸ್ಕಾರ • HELLO, I'M ||
         </p>
 
         <!-- Main Title -->
         <h1 class="hero-anim font-playfair font-extrabold leading-[0.95] text-[clamp(2.8rem,7.5vw,5.6rem)]">
           <span class="block text-white drop-shadow-[0_10px_35px_rgba(0,0,0,0.9)]">Ningaraj R Ukkali</span>
-          <span class="block gold-gradient-text italic font-cormorant font-bold">Full Stack & AI Developer</span>
+          <span class="block gold-gradient-text italic font-cormorant font-bold mt-1.5">Full Stack & AI Developer</span>
         </h1>
 
-        <!-- Typing Rotator -->
-        <div class="hero-anim mt-4 text-xl md:text-2xl font-medium text-white/90 h-[38px] flex items-center">
-          <span class="text-white/50 font-light mr-2">Specializing in</span>
-          <span id="typed" class="text-gold-300 font-semibold"></span>
-          <span class="typing-caret"></span>
-        </div>
-
         <!-- Description -->
-        <p class="hero-anim mt-5 max-w-xl text-white/70 leading-relaxed text-[15px] md:text-base">
+        <p class="hero-anim mt-6 max-w-xl text-white/75 leading-relaxed text-[15px] md:text-base">
           21-year-old <span class="text-white font-medium">BCA Graduate (8.1 CGPA)</span> & Software Engineer crafting high-performance, real-time web applications and intelligent AI platforms with
           <span class="text-white font-medium">Python, FastAPI, React, Node.js & modern cloud tooling</span>.
-          Rooted in <span class="font-kannada text-gold-300 font-semibold">ಕರ್ನಾಟಕ</span> with deep pride in Kannada identity, shipping scalable systems with speed, precision, and soul.
+          Rooted in Karnataka with deep pride as a <span class="font-kannada text-yellow-400 font-semibold">ಕನ್ನಡಿಗ</span>, shipping scalable systems with speed, precision, and soul.
         </p>
 
         <!-- Action CTAs -->
@@ -361,22 +325,22 @@
       <div class="reveal glass glass-gold-top glass-hover stat-glow rounded-2xl p-6 text-center">
         <div class="font-playfair text-4xl md:text-5xl font-bold gold-gradient-text"><span class="counter" data-target="21">0</span></div>
         <div class="mt-1 text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-white/55 font-medium">Years Age</div>
-        <div class="font-kannada text-gold-500/60 text-xs mt-1">ಯುವ ಪ್ರತಿಭೆ</div>
+        
       </div>
       <div class="reveal glass glass-gold-top glass-hover stat-glow rounded-2xl p-6 text-center">
         <div class="font-playfair text-4xl md:text-5xl font-bold gold-gradient-text"><span class="counter" data-target="8.1">0</span></div>
         <div class="mt-1 text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-white/55 font-medium">CGPA (BCA Graduate)</div>
-        <div class="font-kannada text-gold-500/60 text-xs mt-1">ಪದವಿ ಶ್ರೇಷ್ಠತೆ</div>
+        
       </div>
       <div class="reveal glass glass-gold-top glass-hover stat-glow rounded-2xl p-6 text-center">
         <div class="font-playfair text-4xl md:text-5xl font-bold gold-gradient-text"><span class="counter" data-target="8">0</span>+</div>
         <div class="mt-1 text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-white/55 font-medium">Real Projects Built</div>
-        <div class="font-kannada text-gold-500/60 text-xs mt-1">ಯಶಸ್ವಿ ಯೋಜನೆಗಳು</div>
+        
       </div>
       <div class="reveal glass glass-gold-top glass-hover stat-glow rounded-2xl p-6 text-center">
         <div class="font-playfair text-4xl md:text-5xl font-bold gold-gradient-text"><span class="counter" data-target="15">0</span>+</div>
         <div class="mt-1 text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-white/55 font-medium">Technologies Mastered</div>
-        <div class="font-kannada text-gold-500/60 text-xs mt-1">ತಂತ್ರಜ್ಞಾನ ಪರಿಣತಿ</div>
+        
       </div>
     </div>
   </section>
@@ -385,14 +349,14 @@
   <section id="about" class="relative z-20 max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
     <!-- Header -->
     <div class="reveal text-center mb-14">
-      <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ನನ್ನ ಬಗ್ಗೆ • About Me</p>
+      <p class="text-gold-500 text-xs uppercase font-semibold tracking-widest font-mono">ABOUT ME</p>
       <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2">
         Driven by Curiosity, <span class="gold-gradient-text italic font-cormorant">Defined by Code</span>
       </h2>
       <div class="ornament-divider mt-4">
         <div class="ornament-line"></div>
         <div class="ornament-diamond"></div>
-        <span class="font-kannada text-gold-500/70 text-sm">ಕಲೆ & ವಿಜ್ಞಾನ</span>
+        <span class="text-gold-500/70 text-xs tracking-widest uppercase font-mono">Philosophy & Background</span>
         <div class="ornament-diamond"></div>
         <div class="ornament-line r"></div>
       </div>
@@ -418,7 +382,7 @@
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> BCA Grad
                 </div>
               </div>
-              <div class="absolute top-4 right-4 font-kannada text-3xl text-gold-400/40 select-none z-10">ಕ</div>
+              
             </div>
 
             <!-- Photo Switcher Thumbnails -->
@@ -448,7 +412,7 @@
                 <div class="text-[10px] tracking-widest uppercase text-white/45 mt-0.5">India</div>
               </div>
               <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
-                <div class="font-bold text-gold-300 text-base">EN / ಕನ್ನಡ</div>
+                <div class="font-bold text-gold-300 text-base">English & Kannada</div>
                 <div class="text-[10px] tracking-widest uppercase text-white/45 mt-0.5">Languages</div>
               </div>
             </div>
@@ -459,7 +423,7 @@
       <!-- Right: Detailed Biography & Pillars -->
       <div class="lg:col-span-7 flex flex-col gap-6">
         <div class="reveal glass glass-gold-top rounded-3xl p-7 md:p-9 relative overflow-hidden">
-          <div class="absolute -right-8 -top-8 font-kannada text-[10rem] leading-none text-gold-500/[0.05] select-none pointer-events-none">ನ</div>
+          
           <h3 class="font-playfair text-2xl md:text-3xl font-bold leading-snug text-white">
             Hello! I'm Ningaraj R Ukkali — an aspiring <span class="gold-gradient-text">Software Engineer</span> from Karnataka.
           </h3>
@@ -470,7 +434,7 @@
             From architecting low-latency medical streaming platforms with <span class="text-gold-300 font-medium">FastAPI, WebSockets, and Redis</span> to developing AI-integrated marketplaces with <span class="text-gold-300 font-medium">Python, Supabase, and Google Gemini Vision</span>, I take pride in crafting software that solves real-world challenges.
           </p>
           <p class="mt-3 text-white/70 leading-relaxed text-[15px]">
-            Deeply inspired by <span class="font-kannada text-gold-300 font-medium">ಕನ್ನಡ ನಾಡು ಮತ್ತು ಸಂಸ್ಕೃತಿ</span>, I bring the same dedication, rhythm, and attention to detail into every codebase and UI I build.
+            Deeply inspired by Karnataka's vibrant culture as a proud <span class="font-kannada text-yellow-400 font-medium">ಕನ್ನಡಿಗ</span>, I bring the same dedication, rhythm, and attention to detail into every codebase and UI I build.
           </p>
 
           <div class="mt-6 grid sm:grid-cols-2 gap-3.5 text-[14px]">
@@ -541,18 +505,18 @@
 
   <!-- ================= SKILLS SECTION ================= -->
   <section id="skills" class="relative z-20 py-16 md:py-24 border-y border-gold-500/10 bg-black/30 backdrop-blur-sm overflow-hidden">
-    <div class="absolute left-1/2 top-0 -translate-x-1/2 font-kannada text-[16rem] leading-none text-gold-500/[0.03] select-none pointer-events-none whitespace-nowrap">ಕೌಶಲ್ಯ</div>
+    
     
     <div class="max-w-7xl mx-auto px-5 md:px-8 relative">
       <div class="reveal text-center mb-12">
-        <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ಕೌಶಲ್ಯಗಳು • Technical Arsenal</p>
+        <p class="text-gold-500 text-xs uppercase font-semibold tracking-widest font-mono">TECHNICAL ARSENAL</p>
         <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2">
           Engineering & <span class="gold-gradient-text italic font-cormorant">Architecture Stack</span>
         </h2>
         <div class="ornament-divider mt-4">
           <div class="ornament-line"></div>
           <div class="ornament-diamond"></div>
-          <span class="font-kannada text-gold-500/70 text-sm">ಪರಿಣತಿ</span>
+          <span class="text-gold-500/70 text-xs tracking-widest uppercase font-mono">Core Competencies</span>
           <div class="ornament-diamond"></div>
           <div class="ornament-line r"></div>
         </div>
@@ -692,7 +656,7 @@
         <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">Git & GitHub</span>
         <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">Postman</span>
         <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">Three.js</span>
-        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200 font-kannada">ಕನ್ನಡ ಯುಐ</span>
+        <span class="chip px-4 py-1.5 rounded-full text-[13px] text-gold-200">Creative & UI</span>
       </div>
     </div>
   </section>
@@ -700,14 +664,14 @@
   <!-- ================= FEATURED PROJECTS SECTION ================= -->
   <section id="projects" class="relative z-20 max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
     <div class="reveal text-center mb-10">
-      <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ಯೋಜನೆಗಳು • Selected Work</p>
+      <p class="text-gold-500 text-xs uppercase font-semibold tracking-widest font-mono">SELECTED WORK</p>
       <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2 text-white">
         Featured <span class="gold-gradient-text italic font-cormorant">Engineering Projects</span>
       </h2>
       <div class="ornament-divider mt-4">
         <div class="ornament-line"></div>
         <div class="ornament-diamond"></div>
-        <span class="font-kannada text-gold-500/70 text-sm">ಸೃಷ್ಟಿ</span>
+        <span class="text-gold-500/70 text-xs tracking-widest uppercase font-mono">Innovations</span>
         <div class="ornament-diamond"></div>
         <div class="ornament-line r"></div>
       </div>
@@ -742,18 +706,18 @@
 
   <!-- ================= EXPERIENCE & JOURNEY ================= -->
   <section id="journey" class="relative z-20 py-16 md:py-24 border-y border-gold-500/10 bg-black/30 backdrop-blur-sm overflow-hidden">
-    <div class="absolute right-0 top-1/2 -translate-y-1/2 font-kannada text-[14rem] leading-none text-deepred-700/[0.06] select-none pointer-events-none hidden lg:block" style="writing-mode:vertical-rl;">ಅನುಭವ</div>
+    
 
     <div class="max-w-5xl mx-auto px-5 md:px-8 relative">
       <div class="reveal text-center mb-14">
-        <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ಅನುಭವ • Academic & Work Journey</p>
+        <p class="text-gold-500 text-xs uppercase font-semibold tracking-widest font-mono">ACADEMIC & WORK JOURNEY</p>
         <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2 text-white">
           Education & <span class="gold-gradient-text italic font-cormorant">Professional Experience</span>
         </h2>
         <div class="ornament-divider mt-4">
           <div class="ornament-line"></div>
           <div class="ornament-diamond"></div>
-          <span class="font-kannada text-gold-500/70 text-sm">ಪಯಣ</span>
+          <span class="text-gold-500/70 text-xs tracking-widest uppercase font-mono">Milestones</span>
           <div class="ornament-diamond"></div>
           <div class="ornament-line r"></div>
         </div>
@@ -782,12 +746,12 @@
               </div>
             </div>
             <div class="absolute left-[13px] md:left-1/2 md:-translate-x-1/2 top-6 w-4 h-4 rounded-full bg-gold-500 timeline-dot order-1"></div>
-            <div class="hidden md:block order-2 font-kannada text-5xl text-gold-500/15 select-none font-bold">೨೦೨೬</div>
+            <div class="hidden md:block order-2 font-mono text-5xl text-gold-500/15 select-none font-bold">2026</div>
           </div>
 
           <!-- Item 2: BCA Degree -->
           <div class="reveal relative grid md:grid-cols-2 gap-6 items-center">
-            <div class="hidden md:block text-right font-kannada text-5xl text-gold-500/15 select-none font-bold">೨೦೨೩</div>
+            <div class="hidden md:block text-right font-mono text-5xl text-gold-500/15 select-none font-bold">2023</div>
             <div class="absolute left-[13px] md:left-1/2 md:-translate-x-1/2 top-6 w-4 h-4 rounded-full bg-deepred-700 timeline-dot border-2 border-gold-500"></div>
             <div class="pl-12 md:pl-12">
               <div class="glass glass-hover rounded-2xl p-6 border-gold-500/25">
@@ -825,12 +789,12 @@
               </div>
             </div>
             <div class="absolute left-[13px] md:left-1/2 md:-translate-x-1/2 top-6 w-4 h-4 rounded-full bg-charcoal-600 border-2 border-gold-500 timeline-dot order-1"></div>
-            <div class="hidden md:block order-2 font-kannada text-5xl text-gold-500/15 select-none font-bold">ಸಾಧನೆ</div>
+            <div class="hidden md:block order-2 font-mono text-5xl text-gold-500/15 select-none font-bold">HONORS</div>
           </div>
 
           <!-- Item 4: Hackathons & University Symposia -->
           <div class="reveal relative grid md:grid-cols-2 gap-6 items-center">
-            <div class="hidden md:block text-right font-kannada text-5xl text-gold-500/15 select-none font-bold">ಸ್ಪರ್ಧೆ</div>
+            <div class="hidden md:block text-right font-mono text-5xl text-gold-500/15 select-none font-bold">EVENTS</div>
             <div class="absolute left-[13px] md:left-1/2 md:-translate-x-1/2 top-6 w-4 h-4 rounded-full bg-charcoal-600 border-2 border-deepred-700 timeline-dot"></div>
             <div class="pl-12 md:pl-12">
               <div class="glass glass-hover rounded-2xl p-6 border-dashed">
@@ -852,14 +816,14 @@
   <!-- ================= RESUME EXECUTIVE SECTION ================= -->
   <section id="resume" class="relative z-20 max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
     <div class="reveal text-center mb-12">
-      <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ರೆಸ್ಯೂಮೆ • Official Credentials</p>
+      <p class="text-gold-500 text-xs uppercase font-semibold tracking-widest font-mono">OFFICIAL CREDENTIALS</p>
       <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2 text-white">
         Official <span class="gold-gradient-text italic font-cormorant">Curriculum Vitae</span>
       </h2>
       <div class="ornament-divider mt-4">
         <div class="ornament-line"></div>
         <div class="ornament-diamond"></div>
-        <span class="font-kannada text-gold-500/70 text-sm">ದಾಖಲೆ</span>
+        <span class="text-gold-500/70 text-xs tracking-widest uppercase font-mono">Curriculum Vitae</span>
         <div class="ornament-diamond"></div>
         <div class="ornament-line r"></div>
       </div>
@@ -895,14 +859,14 @@
   <!-- ================= TESTIMONIALS SLIDER ================= -->
   <section id="testimonials" class="relative z-20 max-w-6xl mx-auto px-5 md:px-8 py-14">
     <div class="reveal text-center mb-10">
-      <p class="label-kannada text-gold-500 text-xs uppercase font-semibold">ಗ್ರಾಹಕರ ಅನಿಸಿಕೆ • Client Reviews</p>
+      <p class="text-gold-500 text-xs uppercase font-semibold tracking-widest font-mono">CLIENT ENDORSEMENTS</p>
       <h2 class="font-playfair text-4xl md:text-5xl font-bold mt-2 text-white">
         Client <span class="gold-gradient-text italic font-cormorant">Feedback & Endorsements</span>
       </h2>
       <div class="ornament-divider mt-4">
         <div class="ornament-line"></div>
         <div class="ornament-diamond"></div>
-        <span class="font-kannada text-gold-500/70 text-sm">ವಿಶ್ವಾಸ</span>
+        <span class="text-gold-500/70 text-xs tracking-widest uppercase font-mono">Endorsements</span>
         <div class="ornament-diamond"></div>
         <div class="ornament-line r"></div>
       </div>
@@ -933,7 +897,7 @@
 
   <!-- ================= CONTACT SECTION (KARNATAKA YELLOW & RED THEME) ================= -->
   <section id="contact" class="contact-section-glow relative z-20 py-16 md:py-24 border-t border-yellow-500/25 bg-[#070505] overflow-hidden">
-    <div class="absolute left-0 bottom-0 font-kannada text-[12rem] leading-none text-yellow-500/[0.04] select-none pointer-events-none">ಸಂಪರ್ಕ</div>
+    
 
     <div class="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
       
@@ -941,7 +905,7 @@
       <div class="reveal text-center mb-14">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-yellow-500/15 via-red-600/15 to-yellow-500/15 border border-yellow-500/35 mb-3 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
           <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-          <span class="label-kannada text-xs font-bold text-yellow-300 uppercase tracking-widest">|| ಸಂಪರ್ಕ • GET IN TOUCH ||</span>
+          <span class="text-xs font-bold text-yellow-300 uppercase tracking-widest font-mono">|| GET IN TOUCH ||</span>
         </div>
         <h2 class="font-playfair text-4xl md:text-5xl font-extrabold mt-1 text-white">
           Let's Build Something <span class="bg-gradient-to-r from-yellow-300 via-gold-400 to-red-500 bg-clip-text text-transparent italic font-cormorant font-bold drop-shadow-[0_4px_15px_rgba(234,179,8,0.3)]">Extraordinary</span>
@@ -949,13 +913,13 @@
         <div class="ornament-divider mt-4">
           <div class="h-px w-24 bg-gradient-to-r from-transparent to-yellow-400"></div>
           <div class="w-2.5 h-2.5 bg-yellow-400 rotate-45 shadow-[0_0_10px_#facc15]"></div>
-          <span class="font-kannada text-yellow-300 font-bold text-sm px-2">ಬನ್ನಿ</span>
+          <span class="text-yellow-300 font-bold text-xs uppercase font-mono px-2">Connect</span>
           <div class="w-2.5 h-2.5 bg-red-600 rotate-45 shadow-[0_0_10px_#dc2626]"></div>
           <div class="h-px w-24 bg-gradient-to-l from-transparent to-red-500"></div>
         </div>
         <p class="text-white/60 mt-4 max-w-xl mx-auto text-sm md:text-base">
           Have an engineering opportunity, freelance collaboration, or exciting project?
-          <span class="font-kannada text-yellow-300 font-semibold">ಬನ್ನಿ, ಮಾತನಾಡೋಣ!</span> I respond within 12 hours.
+          <span class="text-yellow-300 font-semibold">Let's discuss opportunities!</span> I respond within 12 hours.
         </p>
       </div>
 
@@ -994,7 +958,7 @@
             </span>
             <div>
               <div class="text-[11px] tracking-[0.25em] uppercase text-yellow-400/80 font-bold">Location & Base</div>
-              <div class="font-bold text-white">Mangalore & Bengaluru, Karnataka <span class="font-kannada text-red-400 text-sm font-bold">• ಕರ್ನಾಟಕ</span></div>
+              <div class="font-bold text-white">Mangalore & Bengaluru, Karnataka, India</div>
             </div>
           </div>
 
@@ -1021,7 +985,7 @@
             <!-- Geographic Karnataka Emblem -->
             <div class="mt-5 rounded-xl overflow-hidden border border-yellow-500/35 relative h-[125px] bg-gradient-to-br from-yellow-950/40 via-[#140808] to-red-950/50 flex items-center justify-center shadow-lg">
               <div class="text-center relative z-10">
-                <div class="font-kannada text-yellow-300 text-2xl font-black drop-shadow-[0_2px_12px_rgba(234,179,8,0.5)]">ನಮ್ಮ ಕರ್ನಾಟಕ</div>
+                <div class="font-bold text-yellow-300 text-lg font-playfair tracking-wider">Karnataka, India</div>
                 <div class="text-[11px] tracking-[0.3em] uppercase text-white/60 mt-1 font-mono">12.91° N • 74.85° E</div>
               </div>
               <div class="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 border border-yellow-500/30">
@@ -1095,7 +1059,7 @@
               <label class="text-xs tracking-wider uppercase font-bold text-yellow-300 flex items-center mb-2">
                 <i class="fas fa-comment-dots text-[11px] text-yellow-400 mr-2"></i> Message <span class="text-red-500 font-black ml-1 text-base">*</span>
               </label>
-              <textarea required name="message" rows="5" placeholder="Share project details or job description... (ನಿಮ್ಮ ಯೋಜನೆಯ ಬಗ್ಗೆ ತಿಳಿಸಿ)" class="field-ka w-full px-4 py-3.5 text-sm resize-none"></textarea>
+              <textarea required name="message" rows="5" placeholder="Share project details or job description..." class="field-ka w-full px-4 py-3.5 text-sm resize-none"></textarea>
             </div>
 
             <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -1124,29 +1088,38 @@
         
         <div class="md:col-span-2">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-500/20 to-deepred-700/30 border border-gold-500/25 flex items-center justify-center font-kannada font-black text-gold-300 text-xl">
-              ಕ
+            <div class="w-10 h-10 flex-shrink-0">
+              <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_10px_rgba(212,175,55,0.5)]">
+                <polygon points="50,12 85,30 85,70 50,88 15,70 15,30" fill="rgba(6,6,7,0.85)" stroke="url(#footGoldGrad)" stroke-width="2.5"/>
+                <text x="50" y="60" text-anchor="middle" font-size="30" fill="#FACC15" font-family="Space Grotesk, sans-serif" font-weight="800">N</text>
+                <defs>
+                  <linearGradient id="footGoldGrad" x1="0%" y1="0%" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#FFF8E1"/>
+                    <stop offset="50%" stop-color="#D4AF37"/>
+                    <stop offset="100%" stop-color="#8A6F1F"/>
+                  </linearGradient>
+                </defs>
+              </svg>
             </div>
             <div>
               <div class="font-bold tracking-widest text-white">NINGARAJ R UKKALI</div>
-              <div class="font-kannada text-gold-500/80 text-xs font-semibold">ಕನ್ನಡಿಗ • ಸಾಫ್ಟ್‌ವೇರ್ ಡೆವಲಪರ್</div>
+              <div class="text-xs text-white/50">Software Engineer • <span class="font-kannada text-yellow-400 font-bold">ಕನ್ನಡಿಗ</span></div>
             </div>
           </div>
           <p class="text-white/50 text-sm mt-4 max-w-md leading-relaxed">
-            Full Stack & AI Software Engineer from Karnataka building resilient, high-speed applications for the globe. Proud of Kannada heritage, passionate about engineering scalable systems.
-            <span class="block mt-2 font-kannada text-gold-400 font-semibold">ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ, ಸಿರಿಗನ್ನಡಂ ಬಾಳ್ಗೆ!</span>
+            Full Stack & AI Software Engineer from Karnataka building resilient, high-speed applications for the globe. Passionate about engineering scalable, performant systems.
           </p>
         </div>
 
         <div>
           <div class="text-[12px] tracking-[0.25em] uppercase text-gold-500 mb-4 font-bold">Quick Navigation</div>
           <div class="flex flex-col gap-2.5 text-sm text-white/60">
-            <a href="#home" class="hover:text-gold-300 transition">Home (ಮುಖಪುಟ)</a>
-            <a href="#about" class="hover:text-gold-300 transition">About (ನನ್ನ ಬಗ್ಗೆ)</a>
-            <a href="#skills" class="hover:text-gold-300 transition">Technical Skills (ಕೌಶಲ್ಯ)</a>
-            <a href="#projects" class="hover:text-gold-300 transition">Featured Projects (ಯೋಜನೆಗಳು)</a>
-            <a href="#journey" class="hover:text-gold-300 transition">Journey & Education (ಅನುಭವ)</a>
-            <a href="#contact" class="hover:text-gold-300 transition">Contact (ಸಂಪರ್ಕ)</a>
+            <a href="#home" class="hover:text-gold-300 transition">Home</a>
+            <a href="#about" class="hover:text-gold-300 transition">About</a>
+            <a href="#skills" class="hover:text-gold-300 transition">Technical Skills</a>
+            <a href="#projects" class="hover:text-gold-300 transition">Featured Projects</a>
+            <a href="#journey" class="hover:text-gold-300 transition">Journey & Education</a>
+            <a href="#contact" class="hover:text-gold-300 transition">Contact</a>
           </div>
         </div>
 
@@ -1172,7 +1145,7 @@
 
       <div class="mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-white/40">
         <span>© 2026 Ningaraj R Ukkali • Crafted with passion in Karnataka, India</span>
-        <span class="font-kannada text-gold-500/60 font-semibold">ಜೈ ಕರ್ನಾಟಕ ಮಾತೆ • ಜೈ ಹಿಂದ್</span>
+        <span class="text-white/40 text-xs font-mono">Engineered for Performance & Scale</span>
       </div>
     </div>
   </footer>
