@@ -205,567 +205,37 @@ const testimonials = [
 ];
 
 /* ==========================================================================
-   3. PROFESSIONAL 3D CINEMATIC INTRO & KARNATAKA HERITAGE ODYSSEY
+   3. FORMAL PROFESSIONAL PRELOADER
    ========================================================================== */
-(function initProfessional3DIntro() {
-  const introCanvas = document.getElementById('intro-3d-canvas');
+(function initPreloader(){
+  const fill = document.getElementById('loaderFill');
+  const pct = document.getElementById('loaderPct');
   const preloader = document.getElementById('preloader');
-  const progressCircle = document.getElementById('introProgressCircle');
-  const pctEl = document.getElementById('loaderPct');
-  const statusEl = document.getElementById('introStatusText');
-  const loaderWrap = document.getElementById('introLoaderWrap');
-  const enterBtn = document.getElementById('introEnterBtn');
-  const skipBtn = document.getElementById('skipIntroBtn');
-
-  // Heritage Elements
-  const heritageTabs = document.querySelectorAll('.heritage-tab');
-  const heritageTitle = document.getElementById('heritageTitle');
-  const heritageDesc = document.getElementById('heritageDesc');
-  const heritageQuote = document.getElementById('heritageQuote');
-  const heritageTag = document.getElementById('heritageTag');
-  const heritageIndex = document.getElementById('heritageIndex');
-  const heritageIcon = document.getElementById('heritageIcon');
-
-  let hasLaunched = false;
-  let animId = null;
-  let autoTimer = null;
-  let activePillarIdx = 0;
-
-  const heritagePillars = [
-    {
-      index: '01',
-      tag: 'ಕರಾವಳಿಯ ಗಂಡುಕಲೆ • TRADITIONAL FOLK ART',
-      title: 'Yakshagana & Coastal Mangalore Heritage',
-      desc: 'ರಂಗಸ್ಥಳದ ರಂಗು, ಕಿರೀಟದ ರಾಜಗಾಂಭೀರ್ಯ, ಕಡಲ ತೀರದ ಮಂಗಳೂರಿನ ದೈವಿಕ ಪರಂಪರೆ. ಚಂಡೆಯ ಗಂಭೀರ ನಾದದಲ್ಲಿ ಮೈನೆರೆವ ಪೌರಾಣಿಕ ಕಲೆ.',
-      quote: '"ಕರಾವಳಿಯ ಕಲೆ, ನಾಡಿನ ದೈವಿಕ ಸಿರಿಯ ಸಂಕೇತ."',
-      icon: 'fa-crown',
-      goldLight: 0xFACC15,
-      redLight: 0xDC2626
-    },
-    {
-      index: '02',
-      tag: 'ವಿಶ್ವ ಪಾರಂಪರಿಕ ಶಿಲ್ಪಕಲೆ • UNESCO HERITAGE',
-      title: 'Hampi Stone Chariot & Hoysala Architecture',
-      desc: 'ಕಲ್ಲಿನಲಿ ಕಾವ್ಯ ಬರೆದ ಅಮರಶಿಲ್ಪಿ ಜಕಣಾಚಾರಿಯ ನಾಡು. ವಿಜಯನಗರ ಸಾಮ್ರಾಜ್ಯದ ವಿಶ್ವವಿಖ್ಯಾತ ಕಲ್ಲಿನ ರಥ ಹಾಗೂ ಬೇಲೂರು-ಹಳೇಬೀಡು ಸೂಕ್ಷ್ಮ ಶಿಲ್ಪಕಲೆ.',
-      quote: '"ಕಲ್ಲಿನಲ್ಲೂ ಜೀವದುಂಬಿದ ಅಮರ ಶಿಲ್ಪಿಗಳ ಪುಣ್ಯಭೂಮಿ."',
-      icon: 'fa-landmark',
-      goldLight: 0xFDE047,
-      redLight: 0xB8860B
-    },
-    {
-      index: '03',
-      tag: 'ಪಶ್ಚಿಮ ಘಟ್ಟಗಳು • WESTERN GHATS NATURE',
-      title: 'Sahyadri Rainforests & Jog Falls Nature',
-      desc: 'ಹಾಲಿನಂತೆ ಧುಮ್ಮಿಕ್ಕುವ ಜೋಗದ ಜಲಧಾರೆ, ನಿತ್ಯಹರಿದ್ವರ್ಣದ ಅಗುಂಬೆ-ಕುದುರೆಮುಖ ವನರಾಶಿ, ಶ್ರೀಗಂಧದ ಕಂಪಿನ ಕಾವೇರಿ ನದಿ ತೀರದ ಪ್ರಕೃತಿ ಸೌಂದರ್ಯ.',
-      quote: '"ಹಸಿರ ಹೊದಿಕೆಯ ಸಹ್ಯಾದ್ರಿ, ಧುಮ್ಮಿಕ್ಕುವ ಜಲಪಾತದ ನಾದ."',
-      icon: 'fa-mountain-sun',
-      goldLight: 0x34D399,
-      redLight: 0x059669
-    },
-    {
-      index: '04',
-      tag: 'ಭಾರತದ ತಂತ್ರಜ್ಞಾನ ನಗರಿ • SILICON GATEWAY',
-      title: 'Silicon Innovation Rooted in Kannada Pride',
-      desc: 'ಪ್ರಾಚೀನತೆಯ ಬೇರು, ಜಾಗತಿಕ ತಂತ್ರಜ್ಞಾನದ ರೆಕ್ಕೆ. ಬೆಂಗಳೂರಿನಿಂದ ವಿಶ್ವಕ್ಕೆ ಎಐ ಮತ್ತು ಪೂರ್ಣ-ಸ್ಟಾಕ್ ತಂತ್ರಜ್ಞಾನವನ್ನು ನಿರ್ಮಿಸುವ ಯುವ ಕನ್ನಡಿಗ.',
-      quote: '"ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ, ಸಿರಿಗನ್ನಡಂ ಬಾಳ್ಗೆ — ತಂತ್ರಜ್ಞಾನದ ತುತ್ತತುದಿ."',
-      icon: 'fa-laptop-code',
-      goldLight: 0xFACC15,
-      redLight: 0x22D3EE
-    }
-  ];
-
-  function setPillar(idx) {
-    if (idx < 0 || idx >= heritagePillars.length) return;
-    activePillarIdx = idx;
-    const p = heritagePillars[idx];
-
-    heritageTabs.forEach((tab, i) => {
-      tab.classList.toggle('active', i === idx);
-    });
-
-    if (window.gsap) {
-      gsap.to('#heritageCard', {
-        opacity: 0.6,
-        y: 4,
-        duration: 0.18,
-        onComplete: () => {
-          if (heritageTitle) heritageTitle.textContent = p.title;
-          if (heritageDesc) heritageDesc.textContent = p.desc;
-          if (heritageQuote) heritageQuote.innerHTML = `<i class="fas fa-quote-left text-[9px] text-yellow-500 mr-2"></i><span>${p.quote}</span>`;
-          if (heritageTag) heritageTag.textContent = p.tag;
-          if (heritageIndex) heritageIndex.textContent = p.index;
-          if (heritageIcon) heritageIcon.className = `fas ${p.icon}`;
-
-          gsap.to('#heritageCard', { opacity: 1, y: 0, duration: 0.28 });
-        }
-      });
-    } else {
-      if (heritageTitle) heritageTitle.textContent = p.title;
-      if (heritageDesc) heritageDesc.textContent = p.desc;
-      if (heritageQuote) heritageQuote.innerHTML = `<i class="fas fa-quote-left text-[9px] text-yellow-500 mr-2"></i><span>${p.quote}</span>`;
-      if (heritageTag) heritageTag.textContent = p.tag;
-      if (heritageIndex) heritageIndex.textContent = p.index;
-      if (heritageIcon) heritageIcon.className = `fas ${p.icon}`;
-    }
-
-    if (window._introLights) {
-      window._introLights.gold.color.setHex(p.goldLight);
-      window._introLights.red.color.setHex(p.redLight);
-    }
-  }
-
-  heritageTabs.forEach((tab) => {
-    tab.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const idx = parseInt(tab.dataset.pillar, 10);
-      setPillar(idx);
-    });
-  });
-
-  function endIntroInstantly() {
-    if (hasLaunched) return;
-    hasLaunched = true;
-    if (autoTimer) clearTimeout(autoTimer);
-    if (animId) cancelAnimationFrame(animId);
-
-    if (window.gsap) {
-      gsap.to('#preloader', {
-        opacity: 0,
-        scale: 1.05,
-        filter: 'blur(12px)',
-        duration: 0.45,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          if (preloader) {
-            preloader.classList.add('done');
-            preloader.style.display = 'none';
-          }
-          triggerHeroEntrance();
-        }
-      });
-    } else {
-      if (preloader) {
-        preloader.classList.add('done');
-        preloader.style.display = 'none';
-      }
-      triggerHeroEntrance();
-    }
-  }
-
-  if (skipBtn) {
-    skipBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      endIntroInstantly();
-    });
-  }
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !hasLaunched) {
-      endIntroInstantly();
-    }
-  });
-
-  // Fast fallback for reduced motion or missing WebGL
-  if (prefersReduced || !window.THREE || !introCanvas) {
-    let p = 0;
-    const fallbackInterval = setInterval(() => {
-      p += 25;
-      if (pctEl) pctEl.textContent = `${Math.min(p, 100)}%`;
-      if (p >= 100) {
-        clearInterval(fallbackInterval);
-        setTimeout(endIntroInstantly, 250);
-      }
-    }, 80);
+  if (prefersReduced || !fill || !pct) {
+    if (preloader) preloader.style.display = 'none';
+    triggerHeroEntrance();
     return;
   }
-
-  /* ---------- 3D Sacred Karnataka Temple & Gandaberunda Shrine ---------- */
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x050406, 0.035);
-
-  const camera = new THREE.PerspectiveCamera(54, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.set(0, 0, 7.5);
-
-  let renderer;
-  try {
-    renderer = new THREE.WebGLRenderer({
-      canvas: introCanvas,
-      alpha: true,
-      antialias: true,
-      powerPreference: 'high-performance'
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  } catch (err) {
-    console.warn('WebGL init fallback:', err);
-    endIntroInstantly();
-    return;
-  }
-
-  // Dynamic Karnataka Sacred Lights
-  const ambientLight = new THREE.AmbientLight(0xfff8e1, 0.75);
-  scene.add(ambientLight);
-
-  const goldKeyLight = new THREE.PointLight(0xFACC15, 4.0, 24);
-  goldKeyLight.position.set(4.5, 4.0, 5.5);
-  scene.add(goldKeyLight);
-
-  const redFillLight = new THREE.PointLight(0xDC2626, 3.4, 22);
-  redFillLight.position.set(-4.5, -3.5, 5.0);
-  scene.add(redFillLight);
-
-  const shrineCoreLight = new THREE.PointLight(0xFDE047, 3.0, 9);
-  shrineCoreLight.position.set(0, 0, 0);
-  scene.add(shrineCoreLight);
-
-  window._introLights = { gold: goldKeyLight, red: redFillLight };
-
-  // 3D Master Sacred Shrine Group
-  const masterShrineGroup = new THREE.Group();
-  scene.add(masterShrineGroup);
-
-  // 1. Carved Hoysala Lotus Pedestal (Base)
-  const pedestalGeo = new THREE.CylinderGeometry(2.1, 2.3, 0.35, 32);
-  const pedestalMat = new THREE.MeshStandardMaterial({
-    color: 0x1a1208,
-    metalness: 0.85,
-    roughness: 0.25,
-    emissive: 0x3d2806,
-    emissiveIntensity: 0.3
-  });
-  const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
-  pedestal.position.y = -1.6;
-  masterShrineGroup.add(pedestal);
-
-  // Gold Ring around Pedestal Base
-  const pedestalRingGeo = new THREE.TorusGeometry(2.2, 0.03, 16, 64);
-  const goldRingMat = new THREE.MeshBasicMaterial({ color: 0xFACC15 });
-  const pedestalRing = new THREE.Mesh(pedestalRingGeo, goldRingMat);
-  pedestalRing.rotation.x = Math.PI / 2;
-  pedestalRing.position.y = -1.45;
-  masterShrineGroup.add(pedestalRing);
-
-  // 2. Central Sculpted Gandaberunda / Yakshagana Kireeta Core
-  const coreGroup = new THREE.Group();
-  masterShrineGroup.add(coreGroup);
-
-  // Inner Faceted Ruby-Gold Crystal
-  const crystalGeo = new THREE.IcosahedronGeometry(1.35, 0);
-  const crystalMat = new THREE.MeshStandardMaterial({
-    color: 0x1a0a0a,
-    metalness: 0.95,
-    roughness: 0.15,
-    emissive: 0x5a0c0c,
-    emissiveIntensity: 0.45,
-    flatShading: true
-  });
-  const crystalMesh = new THREE.Mesh(crystalGeo, crystalMat);
-  coreGroup.add(crystalMesh);
-
-  // Outer Royal Gold Lattice Shell
-  const latticeGeo = new THREE.IcosahedronGeometry(1.42, 0);
-  const latticeMat = new THREE.MeshBasicMaterial({
-    color: 0xFACC15,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.85
-  });
-  const latticeMesh = new THREE.Mesh(latticeGeo, latticeMat);
-  coreGroup.add(latticeMesh);
-
-  // Yakshagana Kireeta Sun-Ray Halo Prongs
-  const haloGroup = new THREE.Group();
-  const spokeCount = 18;
-  for (let i = 0; i < spokeCount; i++) {
-    const angle = (i / spokeCount) * Math.PI * 2;
-    const spokeGeo = new THREE.ConeGeometry(0.04, 0.75, 4);
-    const spokeMat = new THREE.MeshBasicMaterial({ color: i % 2 === 0 ? 0xFACC15 : 0xEF4444 });
-    const spoke = new THREE.Mesh(spokeGeo, spokeMat);
-    spoke.position.x = Math.cos(angle) * 1.85;
-    spoke.position.y = Math.sin(angle) * 1.85;
-    spoke.rotation.z = angle - Math.PI / 2;
-    haloGroup.add(spoke);
-  }
-  coreGroup.add(haloGroup);
-
-  // 3. Concentric Celestial Karnataka Gyroscope Rings
-  const ring1Geo = new THREE.TorusGeometry(2.35, 0.026, 16, 120);
-  const ring1Mat = new THREE.MeshStandardMaterial({
-    color: 0xFACC15,
-    emissive: 0xEAB308,
-    emissiveIntensity: 0.6,
-    metalness: 0.9,
-    roughness: 0.2
-  });
-  const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-  ring1.rotation.x = Math.PI / 3.6;
-  coreGroup.add(ring1);
-
-  const ring2Geo = new THREE.TorusGeometry(2.7, 0.022, 16, 120);
-  const ring2Mat = new THREE.MeshStandardMaterial({
-    color: 0xDC2626,
-    emissive: 0x991B1B,
-    emissiveIntensity: 0.7,
-    metalness: 0.9,
-    roughness: 0.2
-  });
-  const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-  ring2.rotation.y = Math.PI / 2.6;
-  coreGroup.add(ring2);
-
-  const ring3Geo = new THREE.TorusGeometry(3.05, 0.015, 12, 120);
-  const ring3Mat = new THREE.MeshBasicMaterial({ color: 0xFDE047, transparent: true, opacity: 0.4 });
-  const ring3 = new THREE.Mesh(ring3Geo, ring3Mat);
-  ring3.rotation.z = Math.PI / 5;
-  coreGroup.add(ring3);
-
-  // 4. Bioluminescent Agumbe Rainforest Fireflies & Sandalwood Embers
-  const isMobile = window.innerWidth < 768;
-  const partCount = isMobile ? 500 : 1100;
-  const partGeo = new THREE.BufferGeometry();
-  const partPos = new Float32Array(partCount * 3);
-  const partCols = new Float32Array(partCount * 3);
-
-  const cGold = new THREE.Color(0xFACC15);
-  const cRed = new THREE.Color(0xDC2626);
-  const cEmerald = new THREE.Color(0x34D399);
-  const cWhite = new THREE.Color(0xFFF8E1);
-
-  for (let i = 0; i < partCount; i++) {
-    const angle = Math.random() * Math.PI * 2;
-    const radius = 1.9 + Math.random() * 4.8;
-    const spreadY = (Math.random() - 0.5) * 4.5;
-
-    partPos[i * 3] = Math.cos(angle) * radius;
-    partPos[i * 3 + 1] = spreadY;
-    partPos[i * 3 + 2] = Math.sin(angle) * radius;
-
-    const r = Math.random();
-    const col = r < 0.5 ? cGold : (r < 0.75 ? cRed : (r < 0.9 ? cEmerald : cWhite));
-    partCols[i * 3] = col.r;
-    partCols[i * 3 + 1] = col.g;
-    partCols[i * 3 + 2] = col.b;
-  }
-
-  partGeo.setAttribute('position', new THREE.BufferAttribute(partPos, 3));
-  partGeo.setAttribute('color', new THREE.BufferAttribute(partCols, 3));
-
-  const partMat = new THREE.PointsMaterial({
-    size: isMobile ? 0.048 : 0.058,
-    vertexColors: true,
-    transparent: true,
-    opacity: 0.88,
-    blending: THREE.AdditiveBlending
-  });
-  const fireflies = new THREE.Points(partGeo, partMat);
-  scene.add(fireflies);
-
-  // Mouse & Touch Tracking with Smooth Inertia Damping
-  let mouseX = 0, mouseY = 0;
-  let targetRotX = 0, targetRotY = 0;
-
-  function onPointerMove(e) {
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    mouseX = (clientX / window.innerWidth - 0.5) * 2;
-    mouseY = (clientY / window.innerHeight - 0.5) * 2;
-    targetRotY = mouseX * 0.75;
-    targetRotX = -mouseY * 0.5;
-  }
-  window.addEventListener('mousemove', onPointerMove, { passive: true });
-  window.addEventListener('touchmove', onPointerMove, { passive: true });
-
-  // Render Loop
-  let clockTime = 0;
-  function renderIntroFrame() {
-    animId = requestAnimationFrame(renderIntroFrame);
-    clockTime += 0.016;
-
-    // Smooth inertia tilt
-    masterShrineGroup.rotation.y += (targetRotY - masterShrineGroup.rotation.y) * 0.055;
-    masterShrineGroup.rotation.x += (targetRotX - masterShrineGroup.rotation.x) * 0.055;
-
-    // Sacred Core & Kireeta Halo Continuous Rotations
-    crystalMesh.rotation.y += 0.007;
-    crystalMesh.rotation.x += 0.004;
-    latticeMesh.rotation.y += 0.007;
-    latticeMesh.rotation.x += 0.004;
-
-    haloGroup.rotation.z += 0.006;
-
-    ring1.rotation.x += 0.011;
-    ring1.rotation.y += 0.007;
-
-    ring2.rotation.y += 0.008;
-    ring2.rotation.z += 0.010;
-
-    ring3.rotation.z += 0.005;
-
-    fireflies.rotation.y = clockTime * 0.065;
-    fireflies.rotation.x = Math.sin(clockTime * 0.3) * 0.035;
-
-    // Orbiting light sources
-    goldKeyLight.position.x = Math.sin(clockTime * 0.7) * 4.8;
-    goldKeyLight.position.z = Math.cos(clockTime * 0.7) * 4.8;
-    redFillLight.position.x = -Math.sin(clockTime * 0.5) * 4.8;
-    redFillLight.position.z = -Math.cos(clockTime * 0.5) * 4.8;
-
-    renderer.render(scene, camera);
-  }
-  renderIntroFrame();
-
-  window.addEventListener('resize', () => {
-    if (hasLaunched) return;
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-
-  /* ---------- Launch Warp Animation Choreography ---------- */
-  function launchExperience() {
-    if (hasLaunched) return;
-    hasLaunched = true;
-    if (autoTimer) clearTimeout(autoTimer);
-
-    if (window.gsap) {
-      // 1. Camera Hyper-Speed Zoom Through Sacred Shrine
-      gsap.to(camera.position, {
-        z: -1.5,
-        duration: 1.4,
-        ease: 'power3.inOut'
-      });
-
-      // 2. Camera Field of View Distortion (Hyperspace warp)
-      gsap.to(camera, {
-        fov: 95,
-        duration: 1.4,
-        ease: 'power3.inOut',
-        onUpdate: () => camera.updateProjectionMatrix()
-      });
-
-      // 3. Sacred Shrine Expands in Glory
-      gsap.to(masterShrineGroup.scale, {
-        x: 3.4,
-        y: 3.4,
-        z: 3.4,
-        duration: 1.4,
-        ease: 'power3.in'
-      });
-      gsap.to(masterShrineGroup.rotation, {
-        y: '+=7',
-        x: '+=4',
-        duration: 1.4,
-        ease: 'power3.in'
-      });
-
-      // 4. Fireflies Streak Outward
-      gsap.to(fireflies.scale, {
-        x: 5.0,
-        y: 5.0,
-        z: 5.0,
-        duration: 1.4,
-        ease: 'power3.in'
-      });
-
-      // 5. Preloader Fade & Blur Transition into Hero
-      gsap.to('#preloader', {
-        opacity: 0,
-        scale: 1.1,
-        filter: 'blur(22px)',
-        duration: 0.95,
-        delay: 0.55,
-        ease: 'power3.inOut',
-        onComplete: () => {
-          cancelAnimationFrame(animId);
-          if (preloader) {
-            preloader.classList.add('done');
-            preloader.style.display = 'none';
-          }
-          triggerHeroEntrance();
-        }
-      });
-    } else {
-      endIntroInstantly();
-    }
-  }
-
-  if (enterBtn) {
-    enterBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      launchExperience();
-    });
-  }
-
-  /* ---------- Simulated 0% -> 100% Heritage Progress ---------- */
-  let progress = 0;
-  let pillarCycleTimer = 0;
-
-  const telemetrySteps = [
-    { threshold: 0, text: '[01/04] ೧. ಕರಾವಳಿ & ಯಕ್ಷಗಾನ ಸಂಸ್ಕೃತಿ • YAKSHAGANA' },
-    { threshold: 28, text: '[02/04] ೨. ಹಂಪಿ & ಹೊಯ್ಸಳ ಶಿಲ್ಪಕಲೆ • HAMPI HERITAGE' },
-    { threshold: 58, text: '[03/04] ೩. ಸಹ್ಯಾದ್ರಿ & ಜೋಗ ಜಲಪಾತ • SAHYADRI NATURE' },
-    { threshold: 85, text: '[04/04] ೪. ಕನ್ನಡ ತಂತ್ರಜ್ಞಾನ ನಗರಿ • SILICON GATEWAY' }
-  ];
-
-  const progressInterval = setInterval(() => {
-    progress += Math.random() * 10 + 3.5;
-    pillarCycleTimer++;
-
-    // Auto-advance through the 4 cultural chapters
-    if (pillarCycleTimer % 7 === 0 && !hasLaunched) {
-      const nextIdx = (activePillarIdx + 1) % heritagePillars.length;
-      setPillar(nextIdx);
-    }
-
-    if (progress >= 100) {
-      progress = 100;
-      clearInterval(progressInterval);
-
-      if (pctEl) pctEl.textContent = '100%';
-      if (progressCircle) progressCircle.style.strokeDashoffset = '0';
-      if (statusEl) statusEl.textContent = '[೦೪/೦೪] ಸಂಪೂರ್ಣ ಸಿದ್ಧವಾಗಿದೆ • READY TO ENTER';
-
+  let p = 0;
+  const interval = setInterval(() => {
+    p += Math.random() * 20 + 7;
+    if (p >= 100) {
+      p = 100;
+      clearInterval(interval);
+      fill.style.width = '100%';
+      pct.textContent = '100%';
       setTimeout(() => {
-        if (hasLaunched) return;
-        if (loaderWrap) {
-          loaderWrap.style.opacity = '0';
-          loaderWrap.style.transform = 'scale(0.9)';
-          loaderWrap.style.pointerEvents = 'none';
-          setTimeout(() => loaderWrap.style.display = 'none', 300);
+        if (preloader) {
+          preloader.classList.add('done');
+          setTimeout(() => preloader.style.display = 'none', 700);
         }
-
-        if (enterBtn) {
-          enterBtn.classList.remove('hidden');
-          if (window.gsap) {
-            gsap.fromTo(enterBtn,
-              { opacity: 0, scale: 0.85, y: 15 },
-              { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: 'back.out(1.8)' }
-            );
-          }
-        }
-
-        autoTimer = setTimeout(() => {
-          if (!hasLaunched) launchExperience();
-        }, 2600);
-      }, 400);
-
+        triggerHeroEntrance();
+      }, 350);
     } else {
-      const pInt = Math.floor(progress);
-      if (pctEl) pctEl.textContent = `${pInt}%`;
-      if (progressCircle) {
-        const offset = 264 * (1 - pInt / 100);
-        progressCircle.style.strokeDashoffset = offset;
-      }
-      for (let s = telemetrySteps.length - 1; s >= 0; s--) {
-        if (progress >= telemetrySteps[s].threshold) {
-          if (statusEl && statusEl.textContent !== telemetrySteps[s].text) {
-            statusEl.textContent = telemetrySteps[s].text;
-          }
-          break;
-        }
-      }
+      fill.style.width = Math.floor(p) + '%';
+      pct.textContent = Math.floor(p) + '%';
     }
-  }, 95);
-
+  }, 80);
 })();
 
 /* ==========================================================================
@@ -1590,11 +1060,24 @@ window.switchAboutPhoto = function(src, btn) {
   img.style.opacity = '0.3';
   setTimeout(() => {
     img.src = src;
+    if (src.includes('photo.jpg')) {
+      img.style.objectPosition = 'center 35%';
+    } else if (src.includes('raj_ru.jpeg')) {
+      img.style.objectPosition = 'center 20%';
+    } else {
+      img.style.objectPosition = 'center center';
+    }
     img.style.opacity = '1';
   }, 200);
 
-  document.querySelectorAll('.photo-thumb-btn').forEach(b => b.classList.remove('ring-2', 'ring-gold-400'));
-  if (btn) btn.classList.add('ring-2', 'ring-gold-400');
+  document.querySelectorAll('.photo-thumb-btn').forEach(b => {
+    b.classList.remove('ring-2', 'ring-gold-400');
+    b.classList.add('opacity-70');
+  });
+  if (btn) {
+    btn.classList.add('ring-2', 'ring-gold-400');
+    btn.classList.remove('opacity-70');
+  }
 };
 
 /* ==========================================================================
