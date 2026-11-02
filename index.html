@@ -438,7 +438,7 @@
           <div class="art-glow"></div>
           
           <!-- Floating Interactive Badges (Placed safely outside frame to never overlap the portrait) -->
-          <div class="absolute -top-6 -left-4 lg:-left-8 z-20 glass rounded-2xl px-4 py-2.5 float-slow hidden md:block border-yellow-500/40 shadow-xl" data-depth="0.08" style="animation-delay:-2s;">
+          <div class="absolute -top-14 -left-3 lg:-left-6 z-20 glass rounded-2xl px-4 py-2.5 float-slow hidden md:block border-yellow-500/40 shadow-xl" data-depth="0.08" style="animation-delay:-2s;">
             <div class="text-[10px] tracking-[0.2em] text-yellow-300 uppercase font-bold flex items-center gap-1.5"><i class="fas fa-code text-xs text-yellow-400"></i> Python • FastAPI • React</div>
             <div class="font-bold text-xs mt-0.5 text-white">Full Stack & Systems</div>
           </div>
@@ -451,36 +451,36 @@
           <!-- Main 3D Framed Artwork Showcase Plane -->
           <div class="artwork-plane" id="artworkPlane">
             <div class="metal-frame">
-              <div class="frame-corner fc-tl"></div>
-              <div class="frame-corner fc-tr"></div>
-              <div class="frame-corner fc-bl"></div>
-              <div class="frame-corner fc-br"></div>
-              
               <div class="art-inner">
                 <!-- Frame Inscription Header -->
-                <div class="px-5 pt-3.5 pb-2 flex items-center justify-between">
+                <div class="px-5 pt-3.5 pb-2.5 flex items-center justify-between">
                   <span class="font-kannada text-xs text-yellow-300 tracking-widest font-bold">|| ಕನ್ನಡಾಂಬೆ ||</span>
-                  <div class="flex-1 mx-3 h-px bg-gradient-to-r from-transparent via-yellow-400/60 to-transparent"></div>
+                  <div class="flex-1 mx-3 h-px bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
                   <span class="font-kannada text-xs text-yellow-300 tracking-widest font-bold">ಕರ್ನಾಟಕ</span>
                 </div>
 
-                <!-- Showcase Picture Container (Clean, zero overlap, full aspect ratio, comfortable padding) -->
-                <div class="px-3 pt-1 pb-1">
-                  <div class="relative rounded-xl overflow-hidden border border-yellow-500/35 shadow-2xl bg-[#060607] p-1.5">
-                    <img src="img/portrait.jpg" alt="Ningaraj R Ukkali — ಕನ್ನಡಿಗ Portrait" class="portrait-hero-img"/>
+                <!-- Seamless Portrait Image Container (Clean, zero borders, seamless bottom gradient identity overlay) -->
+                <div class="relative overflow-hidden bg-[#060607]">
+                  <img src="img/portrait.jpg" alt="Ningaraj R Ukkali — ಕನ್ನಡಿಗ Portrait" class="portrait-hero-img w-full block"/>
+                  <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#060607] via-[#060607]/85 to-transparent pt-12 pb-3.5 px-5 flex items-end justify-between">
+                    <div>
+                      <div class="font-bold text-white text-base md:text-lg leading-tight font-playfair tracking-wide">Ningaraj R Ukkali</div>
+                      <div class="font-kannada text-yellow-400 text-xs font-semibold mt-0.5">ಕನ್ನಡಿಗ ಡೆವಲಪರ್ • 21 Years</div>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> BCA GRAD
+                    </span>
                   </div>
                 </div>
 
-                <!-- Caption Plate -->
-                <div class="px-5 pt-3 pb-2 text-center">
-                  <h3 class="font-bold tracking-[0.22em] text-[15px] text-white font-playfair">NINGARAJ R UKKALI</h3>
-                  <p class="font-kannada text-yellow-400 text-xs mt-0.5 tracking-wider font-semibold">ಕನ್ನಡಿಗ • ಸಾಫ್ಟ್‌ವೇರ್ ಡೆವಲಪರ್ • ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ</p>
-                </div>
-                <div class="temple-border mx-5 mb-2.5"></div>
-                <div class="px-5 pb-3 flex items-center justify-between text-[11px] tracking-[0.2em] text-white/50 uppercase font-mono">
-                  <span class="text-yellow-300 font-semibold">MANGALORE UNIV</span>
-                  <span class="text-yellow-500">✦ ✦ ✦</span>
-                  <span class="text-yellow-300 font-semibold">BCA 2026</span>
+                <!-- Frame Baseplate -->
+                <div class="pt-2.5 pb-3 px-5">
+                  <div class="temple-border mb-2.5"></div>
+                  <div class="flex items-center justify-between text-[11px] tracking-[0.2em] text-white/50 uppercase font-mono">
+                    <span class="text-yellow-300 font-semibold">MANGALORE UNIV</span>
+                    <span class="text-yellow-500">✦ ✦ ✦</span>
+                    <span class="text-yellow-300 font-semibold">BCA 2026</span>
+                  </div>
                 </div>
               </div>
             </div>
