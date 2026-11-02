@@ -205,30 +205,434 @@ const testimonials = [
 ];
 
 /* ==========================================================================
-   3. PRELOADER ANIMATION
+   3. PROFESSIONAL 3D CINEMATIC INTRO & OPENING SCENE (THREE.JS + GSAP)
    ========================================================================== */
-(function initPreloader(){
-  const fill = document.getElementById('loaderFill');
-  const pct = document.getElementById('loaderPct');
-  if (!fill || !pct) return;
-  let p = 0;
-  const interval = setInterval(() => {
-    p += Math.random() * 18 + 5;
-    if (p >= 100) {
-      p = 100;
-      clearInterval(interval);
-      fill.style.width = '100%';
-      pct.textContent = '100%';
-      setTimeout(() => {
-        const preloader = document.getElementById('preloader');
-        if (preloader) preloader.classList.add('done');
-        triggerHeroEntrance();
-      }, 450);
+(function initProfessional3DIntro() {
+  const introCanvas = document.getElementById('intro-3d-canvas');
+  const preloader = document.getElementById('preloader');
+  const progressCircle = document.getElementById('introProgressCircle');
+  const pctEl = document.getElementById('loaderPct');
+  const statusEl = document.getElementById('introStatusText');
+  const loaderWrap = document.getElementById('introLoaderWrap');
+  const enterBtn = document.getElementById('introEnterBtn');
+  const skipBtn = document.getElementById('skipIntroBtn');
+
+  let hasLaunched = false;
+  let animId = null;
+  let autoTimer = null;
+
+  function endIntroInstantly() {
+    if (hasLaunched) return;
+    hasLaunched = true;
+    if (autoTimer) clearTimeout(autoTimer);
+    if (animId) cancelAnimationFrame(animId);
+
+    if (window.gsap) {
+      gsap.to('#preloader', {
+        opacity: 0,
+        scale: 1.05,
+        filter: 'blur(12px)',
+        duration: 0.45,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          if (preloader) {
+            preloader.classList.add('done');
+            preloader.style.display = 'none';
+          }
+          triggerHeroEntrance();
+        }
+      });
     } else {
-      fill.style.width = Math.floor(p) + '%';
-      pct.textContent = Math.floor(p) + '%';
+      if (preloader) {
+        preloader.classList.add('done');
+        preloader.style.display = 'none';
+      }
+      triggerHeroEntrance();
     }
-  }, 120);
+  }
+
+  // Skip handlers
+  if (skipBtn) {
+    skipBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      endIntroInstantly();
+    });
+  }
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !hasLaunched) {
+      endIntroInstantly();
+    }
+  });
+
+  // Fast fallback for reduced motion or missing WebGL/Three.js
+  if (prefersReduced || !window.THREE || !introCanvas) {
+    let p = 0;
+    const fallbackInterval = setInterval(() => {
+      p += 25;
+      if (pctEl) pctEl.textContent = `${Math.min(p, 100)}%`;
+      if (p >= 100) {
+        clearInterval(fallbackInterval);
+        setTimeout(endIntroInstantly, 250);
+      }
+    }, 80);
+    return;
+  }
+
+  /* ---------- Three.js 3D Interactive Opening Scene ---------- */
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x050406, 0.032);
+
+  const camera = new THREE.PerspectiveCamera(54, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(0, 0, 7.6);
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      canvas: introCanvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  } catch (err) {
+    console.warn('WebGL init fallback:', err);
+    endIntroInstantly();
+    return;
+  }
+
+  // Ambient & Dynamic Point Lights (Karnataka Royal Gold & Crimson)
+  const ambientLight = new THREE.AmbientLight(0xfff8e1, 0.7);
+  scene.add(ambientLight);
+
+  const goldKeyLight = new THREE.PointLight(0xFACC15, 3.8, 22);
+  goldKeyLight.position.set(4.5, 4.0, 5.5);
+  scene.add(goldKeyLight);
+
+  const redFillLight = new THREE.PointLight(0xDC2626, 3.2, 20);
+  redFillLight.position.set(-4.5, -3.5, 5.0);
+  scene.add(redFillLight);
+
+  const coreGlowLight = new THREE.PointLight(0xFDE047, 2.8, 8);
+  coreGlowLight.position.set(0, 0, 0);
+  scene.add(coreGlowLight);
+
+  // 3D Master Celestial Group
+  const masterGroup = new THREE.Group();
+  scene.add(masterGroup);
+
+  // 1. Inner Faceted Crystal Octahedron / Icosahedron
+  const crystalGeo = new THREE.IcosahedronGeometry(1.4, 0);
+  const crystalMat = new THREE.MeshStandardMaterial({
+    color: 0x140a0a,
+    metalness: 0.95,
+    roughness: 0.18,
+    emissive: 0x3d0606,
+    emissiveIntensity: 0.35,
+    flatShading: true
+  });
+  const crystalMesh = new THREE.Mesh(crystalGeo, crystalMat);
+  masterGroup.add(crystalMesh);
+
+  // 2. Outer Golden Wireframe Shell
+  const wireGeo = new THREE.IcosahedronGeometry(1.45, 0);
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0xFACC15,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.75
+  });
+  const wireMesh = new THREE.Mesh(wireGeo, wireMat);
+  masterGroup.add(wireMesh);
+
+  // 3. Golden Vertex Light Nodes
+  const nodeGeo = new THREE.SphereGeometry(0.045, 8, 8);
+  const nodeMat = new THREE.MeshBasicMaterial({ color: 0xFFF8E1 });
+  const posAttr = wireGeo.attributes.position;
+  for (let i = 0; i < posAttr.count; i++) {
+    const node = new THREE.Mesh(nodeGeo, nodeMat);
+    node.position.set(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i));
+    masterGroup.add(node);
+  }
+
+  // 4. Concentric Celestial Gimbal Rings
+  // Ring 1: Karnataka Sun Gold Torus
+  const ring1Geo = new THREE.TorusGeometry(2.35, 0.026, 16, 120);
+  const ring1Mat = new THREE.MeshStandardMaterial({
+    color: 0xFACC15,
+    emissive: 0xEAB308,
+    emissiveIntensity: 0.55,
+    metalness: 0.9,
+    roughness: 0.2
+  });
+  const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
+  ring1.rotation.x = Math.PI / 3.8;
+  masterGroup.add(ring1);
+
+  // Ring 2: Crimson Heritage Torus
+  const ring2Geo = new THREE.TorusGeometry(2.7, 0.022, 16, 120);
+  const ring2Mat = new THREE.MeshStandardMaterial({
+    color: 0xDC2626,
+    emissive: 0x991B1B,
+    emissiveIntensity: 0.65,
+    metalness: 0.9,
+    roughness: 0.2
+  });
+  const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+  ring2.rotation.y = Math.PI / 2.8;
+  masterGroup.add(ring2);
+
+  // Ring 3: Fine Stardust Meridian Ring
+  const ring3Geo = new THREE.TorusGeometry(3.05, 0.014, 12, 120);
+  const ring3Mat = new THREE.MeshBasicMaterial({
+    color: 0xFDE047,
+    transparent: true,
+    opacity: 0.35
+  });
+  const ring3 = new THREE.Mesh(ring3Geo, ring3Mat);
+  ring3.rotation.z = Math.PI / 5;
+  masterGroup.add(ring3);
+
+  // 5. 3D Cosmic Particle Vortex (Gold, Crimson & Starlight)
+  const isMobile = window.innerWidth < 768;
+  const partCount = isMobile ? 450 : 1000;
+  const partGeo = new THREE.BufferGeometry();
+  const partPos = new Float32Array(partCount * 3);
+  const partCols = new Float32Array(partCount * 3);
+
+  const cGold = new THREE.Color(0xFACC15);
+  const cRed = new THREE.Color(0xDC2626);
+  const cWhite = new THREE.Color(0xFFF8E1);
+
+  for (let i = 0; i < partCount; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 1.9 + Math.random() * 4.6;
+    const spreadY = (Math.random() - 0.5) * 4.2;
+
+    partPos[i * 3] = Math.cos(angle) * radius;
+    partPos[i * 3 + 1] = spreadY;
+    partPos[i * 3 + 2] = Math.sin(angle) * radius;
+
+    const r = Math.random();
+    const col = r < 0.6 ? cGold : (r < 0.85 ? cRed : cWhite);
+    partCols[i * 3] = col.r;
+    partCols[i * 3 + 1] = col.g;
+    partCols[i * 3 + 2] = col.b;
+  }
+
+  partGeo.setAttribute('position', new THREE.BufferAttribute(partPos, 3));
+  partGeo.setAttribute('color', new THREE.BufferAttribute(partCols, 3));
+
+  const partMat = new THREE.PointsMaterial({
+    size: isMobile ? 0.045 : 0.055,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.85,
+    blending: THREE.AdditiveBlending
+  });
+  const stardust = new THREE.Points(partGeo, partMat);
+  scene.add(stardust);
+
+  // Mouse & Touch Tracking with Smooth Inertia Damping
+  let mouseX = 0, mouseY = 0;
+  let targetRotX = 0, targetRotY = 0;
+
+  function onPointerMove(e) {
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    mouseX = (clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (clientY / window.innerHeight - 0.5) * 2;
+    targetRotY = mouseX * 0.75;
+    targetRotX = -mouseY * 0.55;
+  }
+  window.addEventListener('mousemove', onPointerMove, { passive: true });
+  window.addEventListener('touchmove', onPointerMove, { passive: true });
+
+  // Animation Loop
+  let clockTime = 0;
+  function renderIntroFrame() {
+    animId = requestAnimationFrame(renderIntroFrame);
+    clockTime += 0.016;
+
+    // Smooth inertia tilt towards cursor
+    masterGroup.rotation.y += (targetRotY - masterGroup.rotation.y) * 0.055;
+    masterGroup.rotation.x += (targetRotX - masterGroup.rotation.x) * 0.055;
+
+    // Continuous celestial gyroscope rotation
+    crystalMesh.rotation.y += 0.007;
+    crystalMesh.rotation.x += 0.004;
+    wireMesh.rotation.y += 0.007;
+    wireMesh.rotation.x += 0.004;
+
+    ring1.rotation.x += 0.011;
+    ring1.rotation.y += 0.007;
+
+    ring2.rotation.y += 0.008;
+    ring2.rotation.z += 0.010;
+
+    ring3.rotation.z += 0.005;
+
+    stardust.rotation.y = clockTime * 0.07;
+    stardust.rotation.x = Math.sin(clockTime * 0.3) * 0.035;
+
+    // Dynamic orbital light sweeps
+    goldKeyLight.position.x = Math.sin(clockTime * 0.7) * 4.8;
+    goldKeyLight.position.z = Math.cos(clockTime * 0.7) * 4.8;
+    redFillLight.position.x = -Math.sin(clockTime * 0.5) * 4.8;
+    redFillLight.position.z = -Math.cos(clockTime * 0.5) * 4.8;
+
+    renderer.render(scene, camera);
+  }
+  renderIntroFrame();
+
+  // Resize listener
+  window.addEventListener('resize', () => {
+    if (hasLaunched) return;
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  /* ---------- Launch Warp Animation Choreography ---------- */
+  function launchExperience() {
+    if (hasLaunched) return;
+    hasLaunched = true;
+    if (autoTimer) clearTimeout(autoTimer);
+
+    if (window.gsap) {
+      // 1. Camera Hyper-Speed Zoom Through 3D Crystal Core
+      gsap.to(camera.position, {
+        z: -1.4,
+        duration: 1.35,
+        ease: 'power3.inOut'
+      });
+
+      // 2. Camera Field of View Distortion (Hyperspace warp effect)
+      gsap.to(camera, {
+        fov: 92,
+        duration: 1.35,
+        ease: 'power3.inOut',
+        onUpdate: () => camera.updateProjectionMatrix()
+      });
+
+      // 3. Celestial Core Accelerates & Expands in Glory
+      gsap.to(masterGroup.scale, {
+        x: 3.2,
+        y: 3.2,
+        z: 3.2,
+        duration: 1.35,
+        ease: 'power3.in'
+      });
+      gsap.to(masterGroup.rotation, {
+        y: '+=7',
+        x: '+=4',
+        duration: 1.35,
+        ease: 'power3.in'
+      });
+
+      // 4. Stardust Streaks Outward
+      gsap.to(stardust.scale, {
+        x: 4.5,
+        y: 4.5,
+        z: 4.5,
+        duration: 1.35,
+        ease: 'power3.in'
+      });
+
+      // 5. Preloader Fade & Blur Transition into Hero
+      gsap.to('#preloader', {
+        opacity: 0,
+        scale: 1.1,
+        filter: 'blur(20px)',
+        duration: 0.95,
+        delay: 0.55,
+        ease: 'power3.inOut',
+        onComplete: () => {
+          cancelAnimationFrame(animId);
+          if (preloader) {
+            preloader.classList.add('done');
+            preloader.style.display = 'none';
+          }
+          triggerHeroEntrance();
+        }
+      });
+    } else {
+      endIntroInstantly();
+    }
+  }
+
+  // Interactive Enter Button Handler
+  if (enterBtn) {
+    enterBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      launchExperience();
+    });
+  }
+
+  /* ---------- Simulated 0% -> 100% Telemetry Progress ---------- */
+  let progress = 0;
+  const telemetrySteps = [
+    { threshold: 0, text: '[01/04] INITIALIZING THREE.JS 3D ENGINE...' },
+    { threshold: 30, text: '[02/04] COMPILING SHADERS & GEOMETRY...' },
+    { threshold: 65, text: '[03/04] CALIBRATING KARNATAKA IDENTITY AURA...' },
+    { threshold: 95, text: '[04/04] SYSTEMS OPTIMAL • READY TO LAUNCH' }
+  ];
+
+  const progressInterval = setInterval(() => {
+    progress += Math.random() * 12 + 4;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(progressInterval);
+
+      // Finalize progress display
+      if (pctEl) pctEl.textContent = '100%';
+      if (progressCircle) progressCircle.style.strokeDashoffset = '0';
+      if (statusEl) statusEl.textContent = '[04/04] SYSTEMS OPTIMAL • READY TO LAUNCH';
+
+      // Transition from HUD loader gauge to Enter Experience Button
+      setTimeout(() => {
+        if (hasLaunched) return;
+        if (loaderWrap) {
+          loaderWrap.style.opacity = '0';
+          loaderWrap.style.transform = 'scale(0.9)';
+          loaderWrap.style.pointerEvents = 'none';
+          setTimeout(() => loaderWrap.style.display = 'none', 300);
+        }
+
+        if (enterBtn) {
+          enterBtn.classList.remove('hidden');
+          if (window.gsap) {
+            gsap.fromTo(enterBtn,
+              { opacity: 0, scale: 0.85, y: 15 },
+              { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: 'back.out(1.8)' }
+            );
+          }
+        }
+
+        // Auto-launch countdown if user doesn't click
+        autoTimer = setTimeout(() => {
+          if (!hasLaunched) launchExperience();
+        }, 2200);
+      }, 400);
+
+    } else {
+      const pInt = Math.floor(progress);
+      if (pctEl) pctEl.textContent = `${pInt}%`;
+      if (progressCircle) {
+        const offset = 264 * (1 - pInt / 100);
+        progressCircle.style.strokeDashoffset = offset;
+      }
+      for (let s = telemetrySteps.length - 1; s >= 0; s--) {
+        if (progress >= telemetrySteps[s].threshold) {
+          if (statusEl && statusEl.textContent !== telemetrySteps[s].text) {
+            statusEl.textContent = telemetrySteps[s].text;
+          }
+          break;
+        }
+      }
+    }
+  }, 90);
+
 })();
 
 /* ==========================================================================
@@ -636,22 +1040,42 @@ if (skillTabs) {
 function triggerHeroEntrance() {
   if (prefersReduced || !window.gsap) {
     document.querySelectorAll('.hero-anim').forEach(e => e.style.opacity = '1');
+    const artwork = document.getElementById('artworkPlane');
+    if (artwork) artwork.style.opacity = '1';
     return;
   }
+
+  // 1. Navbar Drops Smoothly into View
+  gsap.fromTo('#navbar',
+    { y: -50, opacity: 0 },
+    { y: 0, opacity: 1, duration: 1.1, ease: 'power3.out' }
+  );
+
+  // 2. Hero Left Content Cascades Upward
   gsap.fromTo('.hero-anim',
-    { y: 44, opacity: 0 },
-    { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: 'power3.out' }
+    { y: 48, opacity: 0 },
+    { y: 0, opacity: 1, duration: 1.1, stagger: 0.09, ease: 'power3.out' }
   );
+
+  // 3. Hero Right 3D Framed Artwork Flips into Dimensional Alignment
   gsap.fromTo('#artworkPlane',
-    { y: 80, opacity: 0, rotateY: -18, scale: 0.94 },
-    { y: 0, opacity: 1, rotateY: 0, scale: 1, duration: 1.5, ease: 'power3.out', delay: 0.2 }
+    { y: 70, opacity: 0, rotateY: -25, rotateX: 14, scale: 0.88 },
+    { y: 0, opacity: 1, rotateY: 0, rotateX: 0, scale: 1, duration: 1.6, ease: 'power4.out', delay: 0.15 }
   );
+
+  // 4. Floating Heritage Badges Pop In with Elastic Bounce
+  gsap.fromTo('#artworkStage .glass',
+    { opacity: 0, scale: 0.8, y: 15 },
+    { opacity: 1, scale: 1, y: 0, duration: 0.9, stagger: 0.14, delay: 0.55, ease: 'back.out(1.7)' }
+  );
+
+  // 5. Parallax Kannada Background Watermarks
   gsap.fromTo('.hero-kannada',
     { opacity: 0 },
     {
       opacity: (i, el) => el.classList.contains('hk-bottom') ? 0.08 : (el.classList.contains('hk-top') ? 0.22 : 0.15),
       duration: 2,
-      delay: 0.4
+      delay: 0.35
     }
   );
 }

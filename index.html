@@ -50,22 +50,130 @@
 </head>
 <body class="antialiased">
 
-  <!-- ================= PRELOADER ================= -->
-  <div id="preloader">
-    <div class="loader-map">
-      <svg viewBox="0 0 200 220" fill="none">
-        <path d="M 60 35 C 100 20 150 18 190 28 C 220 35 245 50 238 85 C 232 110 220 130 215 150 C 208 175 200 195 185 220 C 170 245 150 275 138 305 C 130 295 118 280 105 265 C 85 240 65 220 55 195 C 40 165 32 120 38 85 C 42 60 48 42 60 35 Z"
-              stroke="#D4AF37" stroke-width="2.5" transform="translate(-20,-10) scale(0.95)"/>
-        <circle cx="100" cy="110" r="3.5" fill="#D4AF37"/>
-      </svg>
-      <div class="absolute inset-0 flex items-center justify-center">
-        <span class="font-kannada text-gold-400 text-3xl font-bold drop-shadow-[0_0_12px_rgba(212,175,55,0.8)]">ಕ</span>
+  <!-- ================= PROFESSIONAL 3D CINEMATIC INTRO & OPENING SCENE ================= -->
+  <div id="preloader" class="intro-scene fixed inset-0 z-[9999] bg-[#050406] overflow-hidden flex flex-col justify-between select-none">
+    
+    <!-- Dedicated Three.js 3D Interactive WebGL Canvas -->
+    <canvas id="intro-3d-canvas" class="absolute inset-0 w-full h-full pointer-events-auto"></canvas>
+
+    <!-- Ambient 3D Depth Overlays & Vignette -->
+    <div class="intro-radial-glow"></div>
+    <div class="intro-grid-overlay"></div>
+    <div class="intro-vignette"></div>
+
+    <!-- Top HUD Navigation & Quick Skip Bar -->
+    <header class="relative z-20 px-6 py-5 md:px-10 md:py-6 flex items-center justify-between text-xs tracking-widest text-white/60 font-mono">
+      <div class="flex items-center gap-3">
+        <div class="flex items-end gap-1 h-3.5 intro-audio-bars">
+          <span class="bar b1"></span>
+          <span class="bar b2"></span>
+          <span class="bar b3"></span>
+          <span class="bar b4"></span>
+        </div>
+        <span class="text-yellow-400 font-semibold tracking-wider hidden sm:inline">SYS // NINGARAJ.UKKALI</span>
+        <span class="text-white/20 hidden sm:inline">•</span>
+        <span class="text-white/50 hidden md:inline">12.91°N 74.85°E • KA</span>
       </div>
-    </div>
-    <div class="mt-5 font-kannada text-2xl gold-gradient-text font-bold tracking-widest">ಕನ್ನಡಿಗ • ನಿಂಗರಾಜ್</div>
-    <div class="mt-1 text-[11px] tracking-[0.4em] text-white/45 uppercase font-medium">Ningaraj R Ukkali • Software Engineer</div>
-    <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
-    <div class="mt-3 text-xs text-white/40 font-mono" id="loaderPct">0%</div>
+
+      <div class="font-kannada text-yellow-300 text-xs md:text-sm font-semibold tracking-wider drop-shadow-[0_0_10px_rgba(234,179,8,0.5)]">
+        || ಸಿರಿಗನ್ನಡಂ ಗೆಲ್ಗೆ • ಸಿರಿಗನ್ನಡಂ ಬಾಳ್ಗೆ ||
+      </div>
+
+      <button id="skipIntroBtn" type="button" class="intro-skip-btn group flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-yellow-500/40 bg-black/60 hover:bg-yellow-500/20 text-white/80 hover:text-yellow-300 transition-all font-mono text-[11px] shadow-lg">
+        <span>SKIP INTRO</span>
+        <span class="text-[9px] px-1.5 py-0.5 rounded bg-white/10 text-white/60 group-hover:bg-yellow-500/30 group-hover:text-yellow-200">ESC</span>
+      </button>
+    </header>
+
+    <!-- Center Content / Telemetry Overlay (Aligned with 3D Core) -->
+    <main class="relative z-20 my-auto text-center px-4 max-w-3xl mx-auto flex flex-col items-center pointer-events-none">
+      
+      <!-- Cultural Insignia Badge -->
+      <div class="intro-badge inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-red-600/25 via-yellow-500/20 to-red-600/25 border border-yellow-500/35 mb-4 backdrop-blur-md shadow-[0_0_25px_rgba(234,179,8,0.25)]">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_#ef4444]"></span>
+        <span class="font-kannada text-xs font-bold text-yellow-300 uppercase tracking-widest">ಕರ್ನಾಟಕ • ಸಾಗರೋತ್ತರ ಸಾಫ್ಟ್‌ವೇರ್ ತಂತ್ರಜ್ಞ</span>
+        <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse shadow-[0_0_8px_#facc15]"></span>
+      </div>
+
+      <!-- Main Cinematic Title -->
+      <h1 class="intro-title font-playfair text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white mb-2 drop-shadow-[0_10px_35px_rgba(0,0,0,0.95)]">
+        NINGARAJ R UKKALI
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="intro-subtitle text-xs sm:text-sm md:text-base font-semibold tracking-[0.28em] uppercase text-white/80 font-grotesk">
+        <span class="gold-gradient-text font-black">FULL STACK & AI SYSTEMS ARCHITECT</span>
+      </p>
+
+      <!-- Kannada Identity Seal -->
+      <p class="font-kannada text-sm md:text-base text-yellow-300/90 font-semibold mt-1.5 tracking-wider drop-shadow-sm">
+        ಕನ್ನಡಿಗ • ಸಾಫ್ಟ್‌ವೇರ್ ಡೆವಲಪರ್
+      </p>
+
+      <!-- 3D Progress Circular HUD & Ready Button Container -->
+      <div class="mt-8 relative flex flex-col items-center min-h-[140px] justify-center">
+        
+        <!-- Loading Progress HUD (Active during 0-100% calibration) -->
+        <div id="introLoaderWrap" class="flex flex-col items-center transition-all duration-500 pointer-events-auto">
+          <div class="relative w-24 h-24 flex items-center justify-center">
+            <!-- Rotating HUD Circles -->
+            <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.08)" stroke-width="3" fill="none"/>
+              <circle id="introProgressCircle" cx="50" cy="50" r="42" stroke="url(#introGoldGrad)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264"/>
+              <defs>
+                <linearGradient id="introGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#EF4444"/>
+                  <stop offset="45%" stop-color="#FACC15"/>
+                  <stop offset="100%" stop-color="#FFF8E1"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center font-mono">
+              <span id="loaderPct" class="text-xl font-bold text-white tracking-wider">0%</span>
+              <span class="text-[8px] uppercase tracking-widest text-yellow-400 font-bold">LOADING</span>
+            </div>
+            <!-- Outer spinning dashed ring -->
+            <div class="absolute inset-[-6px] rounded-full border border-dashed border-yellow-500/35 intro-spin-slow"></div>
+          </div>
+
+          <!-- Status Telemetry Ticker -->
+          <div class="mt-4 font-mono text-[11px] text-white/60 tracking-widest flex items-center gap-2">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-yellow-400 animate-ping"></span>
+            <span id="introStatusText">INITIALIZING 3D ENGINE...</span>
+          </div>
+
+          <!-- Hidden compatibility elements for existing hooks -->
+          <div class="hidden"><div id="loaderFill"></div></div>
+        </div>
+
+        <!-- Interactive Launch Button (Reveals at 100% calibration) -->
+        <button id="introEnterBtn" type="button" class="intro-enter-btn hidden pointer-events-auto group relative">
+          <div class="intro-btn-glow"></div>
+          <div class="relative z-10 flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-yellow-400 via-amber-400 to-red-600 text-charcoal-950 font-black text-sm tracking-wider uppercase shadow-[0_0_35px_rgba(234,179,8,0.55)] group-hover:scale-105 group-hover:shadow-[0_0_55px_rgba(234,179,8,0.85)] transition-all duration-300">
+            <span>ENTER EXPERIENCE</span>
+            <span class="font-kannada text-xs font-black">✦ ಪ್ರವೇಶಿಸಿ ✦</span>
+            <i class="fas fa-arrow-right text-xs group-hover:translate-x-1.5 transition-transform duration-300"></i>
+          </div>
+        </button>
+
+      </div>
+
+    </main>
+
+    <!-- Bottom HUD Footer: Interactive Orbit Cue & Diagnostics -->
+    <footer class="relative z-20 px-6 py-4 md:px-10 md:py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] font-mono text-white/45 border-t border-white/5">
+      <div class="flex items-center gap-3">
+        <i class="fas fa-cube text-yellow-400 text-xs"></i>
+        <span>INTERACTIVE 3D CORE</span>
+        <span class="hidden sm:inline text-white/20">•</span>
+        <span class="text-yellow-300/80 hidden sm:inline">HOVER / DRAG TO ROTATE SCENE</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
+        <span class="text-white/70">WEBGL 2.0 • 60 FPS • PRODUCTION READY</span>
+      </div>
+    </footer>
+
   </div>
 
   <!-- Scroll Progress Bar -->

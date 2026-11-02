@@ -149,55 +149,127 @@ body {
   50% { transform: translate(45px, -45px) scale(1.1); }
 }
 
-/* ---------- Preloader ---------- */
-#preloader {
+/* ---------- 3D Cinematic Opening Scene & Intro ---------- */
+#preloader.intro-scene {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: #060607;
+  background: #050406;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.8s ease, visibility 0.8s;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s ease;
 }
-#preloader.done {
+
+#preloader.intro-scene.done {
   opacity: 0;
-  visibility: hidden;
+  transform: scale(1.08);
+  filter: blur(16px);
   pointer-events: none;
+  visibility: hidden;
 }
-.loader-map {
-  width: 120px;
-  height: 120px;
-  position: relative;
-}
-.loader-map svg {
+
+#intro-3d-canvas {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 25px rgba(212,175,55,0.6));
+  z-index: 10;
+  cursor: grab;
 }
-.loader-map path {
-  stroke-dasharray: 600;
-  stroke-dashoffset: 600;
-  animation: drawMap 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+#intro-3d-canvas:active {
+  cursor: grabbing;
 }
-@keyframes drawMap {
-  to { stroke-dashoffset: 0; }
+
+.intro-radial-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(250, 204, 21, 0.18) 0%, rgba(220, 38, 38, 0.15) 40%, transparent 75%);
+  pointer-events: none;
+  z-index: 11;
 }
-.loader-bar {
-  width: 240px;
-  height: 3px;
-  background: #1A1A1E;
-  margin-top: 26px;
-  border-radius: 99px;
-  overflow: hidden;
+
+.intro-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: center center;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  pointer-events: none;
+  z-index: 11;
 }
-.loader-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #7A0C0C, #D4AF37, #FFF8E1);
-  box-shadow: 0 0 14px rgba(212,175,55,0.9);
-  transition: width 0.3s ease;
+
+.intro-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 35%, rgba(5, 4, 6, 0.88) 90%);
+  pointer-events: none;
+  z-index: 12;
+}
+
+/* Audio EQ Visualizer Bars */
+.intro-audio-bars .bar {
+  width: 2.5px;
+  background: linear-gradient(180deg, #FACC15, #DC2626);
+  border-radius: 2px;
+  animation: audioPulse 1.2s ease-in-out infinite alternate;
+}
+.intro-audio-bars .b1 { height: 6px; animation-delay: 0.1s; }
+.intro-audio-bars .b2 { height: 14px; animation-delay: 0.3s; }
+.intro-audio-bars .b3 { height: 9px; animation-delay: 0.2s; }
+.intro-audio-bars .b4 { height: 12px; animation-delay: 0.4s; }
+
+@keyframes audioPulse {
+  0% { transform: scaleY(0.25); opacity: 0.4; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+/* Skip Intro Button */
+.intro-skip-btn {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.intro-skip-btn:hover {
+  border-color: #FACC15;
+  box-shadow: 0 0 18px rgba(234, 179, 8, 0.4);
+  transform: translateY(-1.5px);
+}
+
+/* Dashed rotating ring */
+.intro-spin-slow {
+  animation: introSpin 20s linear infinite;
+}
+@keyframes introSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Enter Experience Launch Button */
+.intro-enter-btn {
+  animation: enterPulse 1.8s ease-in-out infinite alternate;
+}
+.intro-btn-glow {
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(135deg, #FDE047, #DC2626);
+  border-radius: 9999px;
+  filter: blur(14px);
+  opacity: 0.65;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.98); }
+  50% { opacity: 0.85; transform: scale(1.03); }
+}
+@keyframes enterPulse {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-3px); }
 }
 
 /* ---------- Typography Helpers ---------- */
