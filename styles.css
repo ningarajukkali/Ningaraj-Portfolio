@@ -1492,3 +1492,24 @@ section .reveal { will-change: transform, opacity; }
 @media(prefers-reduced-motion:reduce) {
   .depth-mandala,.depth-ring,.depth-shard,.depth-kannada,.depth-light { animation:none!important; }
 }
+
+/* Dedicated hero WebGL layer: real 3D scene behind text and portrait. */
+#home { position: relative; isolation: isolate; }
+#home > .karnataka-float-layer { z-index: 0; }
+#home > #hero-3d-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  opacity: .92;
+}
+#home > .relative.z-20 { z-index: 20; }
+@media (max-width: 767px) {
+  #home > #hero-3d-canvas { opacity: .58; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #home > #hero-3d-canvas { display: none; }
+}
