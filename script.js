@@ -419,7 +419,10 @@ const projects = [
   scene.add(rubyRim);
 
   const diorama = new THREE.Group();
-  diorama.position.set(4.15, -0.15, -1.1);
+  // Keep the architectural diorama behind the right-hand portrait, not under the hero copy.
+  const isMobileLayout = window.matchMedia('(max-width: 767px)').matches;
+  diorama.position.set(isMobileLayout ? 4.15 : 7.15, -0.15, -1.1);
+  diorama.scale.setScalar(isMobileLayout ? 0.78 : 1);
   scene.add(diorama);
 
   const stone = new THREE.MeshStandardMaterial({
@@ -647,6 +650,9 @@ const projects = [
     camera.updateProjectionMatrix();
     camera.position.z=width<768?19.5:15.5;
     target.x=width<768?2.8:4.2;
+    diorama.position.x=width<768?4.15:7.15;
+    diorama.scale.setScalar(width<768?0.78:1);
+    particles.position.copy(diorama.position);
     camera.lookAt(target);
   }
   resize();
@@ -666,13 +672,15 @@ const projects = [
     elapsed+=delta;
     pointer.x+=(pointer.tx-pointer.x)*0.035;
     pointer.y+=(pointer.ty-pointer.y)*0.035;
-    diorama.rotation.y=Math.sin(elapsed*0.16)*0.055+pointer.x*0.045;
-    diorama.rotation.x=pointer.y*-0.018;
-    pillars.forEach((pillar,i)=>{pillar.rotation.y=Math.sin(elapsed*0.45+i)*0.008;});
-    warmRim.intensity=20+Math.sin(elapsed*1.1)*4;
-    rubyRim.intensity=11+Math.sin(elapsed*0.8+1.4)*3;
-    particles.rotation.y=elapsed*0.11;
-    particles.rotation.x=Math.sin(elapsed*0.2)*0.04;
+    // Slow architectural turntable plus a restrained camera parallax gives real depth cues.
+    diorama.rotation.y=Math.sin(elapsed*0.16)*0.10+pointer.x*0.075;
+    diorama.rotation.x=pointer.y*-0.032;
+    diorama.position.y=-0.15+Math.sin(elapsed*0.55)*0.055;
+    pillars.forEach((pillar,i)=>{pillar.rotation.y=Math.sin(elapsed*0.45+i)*0.012;});
+    warmRim.intensity=22+Math.sin(elapsed*1.1)*7;
+    rubyRim.intensity=13+Math.sin(elapsed*0.8+1.4)*4;
+    particles.rotation.y=elapsed*0.16;
+    particles.rotation.x=Math.sin(elapsed*0.2)*0.065;
     camera.position.x+=(target.x+pointer.x*0.42-camera.position.x)*0.025;
     camera.position.y+=(2.0-pointer.y*0.24-camera.position.y)*0.025;
     camera.lookAt(target.x,-0.1,0);
