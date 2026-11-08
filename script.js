@@ -15,7 +15,7 @@ const projects = [
     key: 'craftcycle',
     cat: 'fullstack',
     title: 'CraftCycle — AI Circular Economy Marketplace',
-    badge: 'Featured AI & MERN',
+    badge: 'Featured AI Project',
     img: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=900&auto=format&fit=crop',
     tags: ['Python', 'Flask', 'Supabase', 'Gemini Vision AI', 'JavaScript'],
     desc: 'Full-stack marketplace connecting creators, recyclers, and buyers with Google Gemini Vision AI for waste classification and description generation.',
@@ -28,7 +28,7 @@ const projects = [
     ],
     demo: 'https://craftcycle.pages.dev',
     code: 'https://github.com/ningarajukkali/CraftCycle',
-    stats: { users: 'Live MVP', perf: '98/100', stack: 'Flask + AI' }
+    stats: { stack: 'Flask + AI' }
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ const projects = [
     img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=900&auto=format&fit=crop',
     tags: ['FastAPI', 'WebSockets', 'Redis Pub/Sub', 'Docker', 'PostgreSQL'],
     desc: 'Backend-driven medical simulation platform with bidirectional real-time patient telemetry and clinical intervention workflows.',
-    long: 'PulseSim is an event-driven medical simulation platform engineered for high-throughput, low-latency telemetry streaming. Using FastAPI, WebSockets, and Redis Pub/Sub, it broadcasts dynamic patient physiological responses to simulated clinical drug administrations and shocks with sub-50ms latency.',
+    long: 'PulseSim is an event-driven medical simulation platform engineered for high-throughput, low-latency telemetry streaming. Using FastAPI, WebSockets, and Redis Pub/Sub, it broadcasts dynamic patient physiological responses to simulated clinical drug administrations and shocks in real time.',
     features: [
       'Bidirectional WebSockets streaming with Redis Pub/Sub broadcast architecture',
       'Dynamic physiological state evaluation engine adapting patient vitals in real time',
@@ -48,7 +48,7 @@ const projects = [
     ],
     demo: '#',
     code: 'https://github.com/ningarajukkali/PulseSimulator',
-    stats: { users: '<50ms latency', perf: '99%', stack: 'FastAPI' }
+    stats: { stack: 'FastAPI' }
   },
   {
     id: 3,
@@ -68,7 +68,7 @@ const projects = [
     ],
     demo: 'https://restrocafe.onrender.com',
     code: 'https://github.com/ningarajukkali/RestroCafe',
-    stats: { users: 'Production', perf: '96%', stack: 'PHP & MySQL' }
+    stats: { stack: 'PHP & MySQL' }
   },
   {
     id: 4,
@@ -88,7 +88,7 @@ const projects = [
     ],
     demo: 'https://community-help-alpha.vercel.app/',
     code: 'https://github.com/ningarajukkali/Community-Help',
-    stats: { users: '200+ Volunteers', perf: '97%', stack: 'MERN Stack' }
+    stats: { stack: 'MERN Stack' }
   },
   {
     id: 5,
@@ -108,7 +108,7 @@ const projects = [
     ],
     demo: '#',
     code: 'https://github.com/ningarajukkali/BrahmX-AI',
-    stats: { users: '3x Faster', perf: '98%', stack: 'React + AI' }
+    stats: { stack: 'React + AI' }
   },
   {
     id: 6,
@@ -128,7 +128,7 @@ const projects = [
     ],
     demo: '#',
     code: 'https://github.com/ningarajukkali/CareerForge-AI',
-    stats: { users: '94% Match Acc', perf: '96%', stack: 'MERN + AI' }
+    stats: { stack: 'MERN + AI' }
   },
   {
     id: 7,
@@ -148,7 +148,7 @@ const projects = [
     ],
     demo: '#',
     code: 'https://github.com/ningarajukkali/E-agri-Digitaly',
-    stats: { users: 'Farmer Focus', perf: '95%', stack: 'PHP & MySQL' }
+    stats: { stack: 'PHP & MySQL' }
   },
   {
     id: 8,
@@ -168,33 +168,14 @@ const projects = [
     ],
     demo: '#',
     code: 'https://github.com/ningarajukkali/Nexus-Assistant',
-    stats: { users: 'Offline Ready', perf: '94%', stack: 'Python' }
+    stats: { stack: 'Python' }
   }
 ];
 
 /* ==========================================================================
    2. CLIENT TESTIMONIALS & REVIEWS
    ========================================================================== */
-const testimonials = [
-  {
-    name: 'Vigneshwara',
-    role: 'College Client & Peer • Custom Project Client',
-    initial: 'V',
-    bg: 'bg-gradient-to-br from-gold-500/25 to-deepred-700/35 border-gold-500/60 text-gold-300',
-    tag: 'College Client',
-    text: 'Ningaraj developed our management system with outstanding quality, speed, and clean code. The database architecture, responsive interface, and seamless workflows made the entire project a huge success. An exceptionally talented and trustworthy developer!',
-    stars: 5
-  },
-  {
-    name: 'Elma',
-    role: 'Student Client • St. Joseph\'s College',
-    initial: 'E',
-    bg: 'bg-gradient-to-br from-cyan-500/20 to-gold-500/25 border-cyan-400/50 text-cyan-200',
-    tag: "St. Joseph's College",
-    text: 'Working with Ningaraj was an amazing experience! He understood our exact requirements right away, delivered a clean and responsive full-stack platform ahead of schedule, and provided great support throughout. Highly recommend him for any software project!',
-    stars: 5
-  }
-];
+
 
 /* ==========================================================================
    3. FORMAL PROFESSIONAL PRELOADER
@@ -406,9 +387,8 @@ function createProjectCardHtml(p) {
         </div>
         
         <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-          <div class="flex gap-4 text-[12px] text-white/70">
-            <span><i class="fas fa-microchip text-gold-500 mr-1.5"></i>${p.stats.stack}</span>
-            <span><i class="fas fa-gauge-high text-gold-500 mr-1.5"></i>${p.stats.perf}</span>
+          <div class="flex gap-2 text-[12px] text-white/75">
+            <span class="rounded-full border border-gold-500/25 bg-black/55 px-3 py-1"><i class="fas fa-microchip text-gold-500 mr-1.5"></i>${p.stats.stack}</span>
           </div>
           <span class="w-10 h-10 rounded-full btn-gold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400 translate-y-2 group-hover:translate-y-0 shadow-lg">
             <i class="fas fa-arrow-up-right-from-square text-xs text-charcoal-950"></i>
@@ -528,13 +508,7 @@ attach3DTilt(document.querySelectorAll('[data-tilt]'));
         const x = targetX * depth * 600;
         const y = targetY * depth * 600;
 
-        if (layer.classList.contains('hk-top') || layer.classList.contains('hk-bottom')) {
-          layer.style.transform = `translate(calc(-50% + ${x}px), ${y}px)`;
-        } else if (layer.classList.contains('hk-left') || layer.classList.contains('hk-right')) {
-          layer.style.transform = `translate(${x}px, calc(-50% + ${y}px))`;
-        } else {
-          layer.style.transform = `translate(${x}px, ${y}px)`;
-        }
+        layer.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       });
     });
   }, { passive: true });
@@ -579,75 +553,7 @@ attach3DTilt(document.querySelectorAll('[data-tilt]'));
   typeTick();
 })();
 
-/* ==========================================================================
-   9. TESTIMONIALS SLIDER
-   ========================================================================== */
-let currentTestiIdx = 0;
-let testiTimer = null;
-
-function renderTestimonials() {
-  const track = document.getElementById('testiTrack');
-  const dots = document.getElementById('testiDots');
-  if (!track || !dots) return;
-
-  track.innerHTML = testimonials.map(t => `
-    <div class="min-w-full px-2 testimonial-slide">
-      <div class="flex items-center justify-between mb-4">
-        <div class="flex gap-1 text-gold-400 text-base">
-          ${'★'.repeat(t.stars)}<span class="ml-2 text-white/40 text-xs font-semibold">${t.stars}.0 / 5.0</span>
-        </div>
-        <span class="text-[11px] tracking-wider uppercase px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gold-300 font-medium">
-          <i class="fas fa-graduation-cap text-gold-400 mr-1.5"></i>${t.tag}
-        </span>
-      </div>
-      <p class="font-cormorant italic text-xl md:text-2xl leading-relaxed text-white/90">
-        “${t.text}”
-      </p>
-      <div class="flex items-center gap-4 mt-6 pt-5 border-t border-white/5">
-        <div class="w-13 h-13 min-w-[50px] min-h-[50px] rounded-2xl ${t.bg} border-2 flex items-center justify-center font-bold text-xl shadow-[0_0_20px_rgba(212,175,55,0.25)] select-none font-playfair">
-          ${t.initial}
-        </div>
-        <div>
-          <div class="font-bold text-base text-white">${t.name}</div>
-          <div class="text-xs text-gold-300/80">${t.role}</div>
-        </div>
-
-      </div>
-    </div>
-  `).join('');
-
-  dots.innerHTML = testimonials.map((_, i) => `
-    <button onclick="goToTestimonial(${i})"
-            class="tdot h-2 rounded-full transition-all duration-500 ${i === 0 ? 'w-8 bg-gold-500' : 'w-2 bg-white/20'}"
-            aria-label="Testimonial slide ${i + 1}">
-    </button>
-  `).join('');
-
-  startAutoTestimonials();
-}
-
-window.goToTestimonial = function(idx) {
-  currentTestiIdx = (idx + testimonials.length) % testimonials.length;
-  const track = document.getElementById('testiTrack');
-  if (track) track.style.transform = `translateX(-${currentTestiIdx * 100}%)`;
-
-  document.querySelectorAll('.tdot').forEach((dot, j) => {
-    dot.className = `tdot h-2 rounded-full transition-all duration-500 ${j === currentTestiIdx ? 'w-8 bg-gold-500 shadow-[0_0_10px_rgba(212,175,55,0.6)]' : 'w-2 bg-white/20'}`;
-  });
-  startAutoTestimonials();
-};
-
-window.moveTestimonial = function(dir) {
-  window.goToTestimonial(currentTestiIdx + dir);
-};
-
-function startAutoTestimonials() {
-  clearInterval(testiTimer);
-  if (!prefersReduced) {
-    testiTimer = setInterval(() => window.goToTestimonial(currentTestiIdx + 1), 6500);
-  }
-}
-renderTestimonials();
+/* Testimonials removed: add only genuine, approved client feedback. */
 
 /* ==========================================================================
    10. SKILL TABS & PROFICIENCY BARS
@@ -929,7 +835,7 @@ window.openProjectModal = function(id) {
     </div>
     <div class="p-6 md:p-8">
       <div class="flex flex-wrap gap-2 mb-5">
-        ${p.tech.map(t => `<span class="chip px-3 py-1 rounded-full text-[12px] text-gold-200">${t}</span>`).join('')}
+        ${p.tags.map(t => `<span class="chip px-3 py-1 rounded-full text-[12px] text-gold-200">${t}</span>`).join('')}
       </div>
       
       <h4 class="text-sm tracking-wider uppercase text-gold-400 font-bold mb-2">Overview</h4>
@@ -945,19 +851,9 @@ window.openProjectModal = function(id) {
         `).join('')}
       </ul>
 
-      <div class="grid grid-cols-3 gap-3 mb-6 text-center">
-        <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
-          <div class="font-bold text-gold-300 text-sm md:text-base">${p.stats.users}</div>
-          <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Deployment</div>
-        </div>
-        <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
-          <div class="font-bold text-gold-300 text-sm md:text-base">${p.stats.perf}</div>
-          <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Performance</div>
-        </div>
-        <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
-          <div class="font-bold text-gold-300 text-sm md:text-base">${p.stats.stack}</div>
-          <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Core Tech</div>
-        </div>
+      <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3 px-4 mb-6">
+        <div class="font-bold text-gold-300 text-sm">${p.stats.stack}</div>
+        <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Core Technologies</div>
       </div>
 
       <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
@@ -966,9 +862,9 @@ window.openProjectModal = function(id) {
             <i class="fas fa-arrow-up-right-from-square text-xs"></i> Live Demo
           </a>
         ` : `
-          <button onclick="showToast('Live demo launching soon')" class="btn-ghost flex-1 text-center px-6 py-3.5 rounded-full text-sm font-semibold opacity-60">
-            <i class="fas fa-globe mr-2"></i> Demo Available on Request
-          </button>
+          <span class="flex-1 text-center px-6 py-3.5 rounded-full text-sm text-white/45 border border-white/10">
+            <i class="fas fa-circle-info mr-2"></i> No public demo available
+          </span>
         `}
         <a href="${p.code}" target="_blank" class="btn-ghost flex-1 text-center px-6 py-3.5 rounded-full text-sm font-semibold flex items-center justify-center gap-2">
           <i class="fab fa-github text-sm"></i> GitHub Repository
@@ -1092,6 +988,7 @@ if (contactForm) {
     const fd = new FormData(this);
     const name = fd.get('name');
     const email = fd.get('email');
+    const opportunity = fd.get('subject') || '';
     const message = fd.get('message');
 
     if (!name || !email || !message) {
@@ -1108,19 +1005,14 @@ if (contactForm) {
     if (sendBtn) sendBtn.disabled = true;
     if (sendLabel) sendLabel.textContent = 'Sending Message...';
 
-    setTimeout(() => {
-      if (sendBtn) sendBtn.disabled = false;
-      if (sendLabel) sendLabel.textContent = 'Send Message';
-      this.reset();
-      selectedBudget = '';
-      document.querySelectorAll('.budget-chip-ka, .budget-chip').forEach((c) => {
-        c.classList.remove('active');
-        c.style.background = '';
-        c.style.color = '';
-        c.style.borderColor = '';
-      });
-      showToast(`Thank you, ${name.split(' ')[0]}! Message received — I'll get back to you shortly.`);
-    }, 1200);
+    const scope = selectedBudget ? `\nSelected opportunity: ${selectedBudget}` : '';
+    const mailSubject = encodeURIComponent(opportunity ? `${opportunity} | ${name}` : `Portfolio enquiry from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nOpportunity: ${opportunity || 'Not specified'}\n\n${message}${scope}`);
+    const mailto = `mailto:ningarajukkali@gmail.com?subject=${mailSubject}&body=${body}`;
+    if (sendBtn) sendBtn.disabled = false;
+    if (sendLabel) sendLabel.textContent = 'Send Message';
+    showToast('Your email app is opening. Send the message there to complete delivery.');
+    window.location.href = mailto;
   });
 }
 
