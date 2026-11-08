@@ -841,7 +841,7 @@ window.openProjectModal = function(id) {
     </div>
     <div class="p-6 md:p-8">
       <div class="flex flex-wrap gap-2 mb-5">
-        ${p.tech.map(t => `<span class="chip px-3 py-1 rounded-full text-[12px] text-gold-200">${t}</span>`).join('')}
+        ${p.tags.map(t => `<span class="chip px-3 py-1 rounded-full text-[12px] text-gold-200">${t}</span>`).join('')}
       </div>
       
       <h4 class="text-sm tracking-wider uppercase text-gold-400 font-bold mb-2">Overview</h4>
@@ -868,9 +868,9 @@ window.openProjectModal = function(id) {
             <i class="fas fa-arrow-up-right-from-square text-xs"></i> Live Demo
           </a>
         ` : `
-          <button onclick="showToast('Live demo launching soon')" class="btn-ghost flex-1 text-center px-6 py-3.5 rounded-full text-sm font-semibold opacity-60">
-            <i class="fas fa-globe mr-2"></i> Demo Available on Request
-          </button>
+          <span class="flex-1 text-center px-6 py-3.5 rounded-full text-sm text-white/45 border border-white/10">
+            <i class="fas fa-circle-info mr-2"></i> No public demo available
+          </span>
         `}
         <a href="${p.code}" target="_blank" class="btn-ghost flex-1 text-center px-6 py-3.5 rounded-full text-sm font-semibold flex items-center justify-center gap-2">
           <i class="fab fa-github text-sm"></i> GitHub Repository
