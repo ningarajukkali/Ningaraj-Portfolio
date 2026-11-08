@@ -1080,3 +1080,236 @@ body {
   .heritage-orbit { animation: none !important; }
   .hero-kannada, .heritage-orbit { will-change: auto; }
 }
+
+
+/* ==========================================================================
+   CINEMATIC KARNATAKA POSTER UPDATE
+   One professional portrait across the site. No metallic frame or thumbnail gallery.
+   ========================================================================== */
+#home > .karnataka-float-layer { z-index: 0; }
+#heroContent { position: relative; z-index: 3; }
+#heroArt { position: relative; z-index: 2; }
+.portrait-poster-stage {
+  min-height: 590px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  isolation: isolate;
+}
+.poster-aura {
+  position: absolute;
+  width: 115%;
+  height: 88%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(212,175,55,.22) 0%, rgba(122,12,12,.15) 42%, transparent 72%);
+  filter: blur(42px);
+  animation: posterAura 8s ease-in-out infinite;
+  z-index: -2;
+}
+.portrait-poster {
+  position: relative;
+  width: min(100%, 510px);
+  height: clamp(500px, 66vw, 650px);
+  overflow: hidden;
+  border: 0;
+  border-radius: 3px;
+  background: #090909;
+  box-shadow: 0 35px 100px rgba(0,0,0,.62), 0 0 75px rgba(212,175,55,.10);
+  transform: translateZ(35px);
+  animation: posterHover 8s ease-in-out infinite;
+  isolation: isolate;
+}
+.portrait-poster::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(5,5,6,.38) 0%, transparent 24%, transparent 52%, rgba(5,5,6,.92) 100%),
+    linear-gradient(110deg, rgba(212,175,55,.10), transparent 32%, transparent 68%, rgba(122,12,12,.14));
+}
+.portrait-poster-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  display: block;
+  transform: scale(1.035);
+  filter: saturate(.88) contrast(1.04);
+  animation: posterImageDrift 18s ease-in-out infinite alternate;
+}
+.poster-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: .14;
+  background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.07) 4px);
+  mix-blend-mode: soft-light;
+}
+.poster-topline {
+  position: absolute;
+  top: 25px;
+  left: 28px;
+  right: 28px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(255,248,225,.82);
+  font-size: 9px;
+  letter-spacing: .22em;
+}
+.poster-topline .font-kannada { color: #F9DD7A; font-size: 15px; letter-spacing: .08em; }
+.poster-caption {
+  position: absolute;
+  z-index: 3;
+  left: clamp(22px, 4vw, 38px);
+  right: 22px;
+  bottom: 36px;
+}
+.poster-kannada {
+  display: block;
+  color: #F9DD7A;
+  font-size: clamp(2.4rem, 5vw, 4.3rem);
+  line-height: 1;
+  text-shadow: 0 4px 30px rgba(0,0,0,.5);
+}
+.poster-name {
+  margin-top: 13px;
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: -.025em;
+  text-shadow: 0 4px 22px rgba(0,0,0,.55);
+}
+.poster-role {
+  margin-top: 7px;
+  color: rgba(249,221,122,.88);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .28em;
+}
+.poster-side-note {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  right: 13px;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,.58);
+  font-size: 8px;
+  letter-spacing: .28em;
+}
+.poster-glyph {
+  position: absolute;
+  z-index: -1;
+  color: rgba(249,221,122,.15);
+  font-size: clamp(5rem, 11vw, 9rem);
+  line-height: 1;
+  text-shadow: 0 0 45px rgba(212,175,55,.13);
+  pointer-events: none;
+  animation: glyphDrift 9s ease-in-out infinite;
+}
+.poster-glyph-one { top: 5%; left: -7%; }
+.poster-glyph-two { bottom: 5%; right: -9%; font-size: clamp(2.4rem, 5vw, 4rem); animation-delay: -4s; }
+.poster-orbit {
+  position: absolute;
+  z-index: -1;
+  width: 82%;
+  height: 90%;
+  border: 1px solid rgba(212,175,55,.18);
+  border-radius: 48% 52% 45% 55%;
+  transform: rotate(-18deg) translateZ(-30px);
+  pointer-events: none;
+}
+.poster-orbit-a { animation: orbitTurn 28s linear infinite; }
+.poster-orbit-b {
+  width: 96%;
+  height: 76%;
+  border-color: rgba(220,38,38,.17);
+  transform: rotate(25deg) translateZ(-55px);
+  animation: orbitTurn 36s linear infinite reverse;
+}
+@keyframes posterHover {
+  0%,100% { translate: 0 0; }
+  50% { translate: 0 -13px; }
+}
+@keyframes posterImageDrift {
+  from { transform: scale(1.035) translate3d(0,0,0); }
+  to { transform: scale(1.10) translate3d(0,-7px,0); }
+}
+@keyframes posterAura {
+  0%,100% { opacity: .65; transform: scale(.94); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@keyframes glyphDrift {
+  0%,100% { translate: 0 0; rotate: -7deg; }
+  50% { translate: 0 -20px; rotate: 5deg; }
+}
+@keyframes orbitTurn { to { rotate: 342deg; } }
+
+/* About: cultural editorial panel replaces the duplicate portrait gallery. */
+.about-heritage-panel {
+  min-height: 100%;
+  background:
+    radial-gradient(ellipse at 78% 12%, rgba(212,175,55,.13), transparent 45%),
+    linear-gradient(145deg, rgba(28,22,14,.96), rgba(9,9,11,.98) 68%);
+  border: 1px solid rgba(212,175,55,.17);
+  box-shadow: 0 24px 65px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.045);
+}
+.about-heritage-glow {
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  top: 20%;
+  right: -80px;
+  border-radius: 50%;
+  background: rgba(212,175,55,.10);
+  filter: blur(65px);
+  pointer-events: none;
+}
+.about-kannada-mark {
+  margin-top: 34px;
+  color: rgba(249,221,122,.88);
+  font-size: clamp(8rem, 15vw, 12rem);
+  line-height: .95;
+  text-shadow: 0 12px 55px rgba(212,175,55,.16);
+  animation: glyphDrift 10s ease-in-out infinite;
+}
+.about-panel-rule {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(212,175,55,.7), rgba(220,38,38,.35), transparent);
+}
+.about-panel-watermark {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  color: rgba(249,221,122,.055);
+  font-size: 2rem;
+  pointer-events: none;
+}
+@media (max-width: 1023px) {
+  .portrait-poster-stage { min-height: 520px; margin-top: 10px; }
+  .portrait-poster { height: clamp(480px, 95vw, 620px); }
+}
+@media (max-width: 640px) {
+  .portrait-poster-stage { min-height: 470px; }
+  .portrait-poster { height: min(126vw, 560px); width: 88%; }
+  .poster-topline { left: 17px; right: 17px; top: 18px; font-size: 7px; }
+  .poster-caption { left: 19px; bottom: 25px; }
+  .poster-side-note { right: 8px; font-size: 7px; }
+  .poster-glyph-one { left: -10%; top: 3%; }
+  .poster-glyph-two { right: -10%; bottom: 3%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-poster, .portrait-poster-img, .poster-aura, .poster-glyph,
+  .poster-orbit, .about-kannada-mark { animation: none !important; }
+}
