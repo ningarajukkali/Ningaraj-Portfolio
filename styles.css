@@ -1313,3 +1313,84 @@ body {
   .portrait-poster, .portrait-poster-img, .poster-aura, .poster-glyph,
   .poster-orbit, .about-kannada-mark { animation: none !important; }
 }
+
+
+/* Global motion details: elegant, low-noise, and performance-conscious. */
+.reading-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 2px;
+  z-index: 1000;
+  pointer-events: none;
+  background: rgba(255,255,255,.035);
+}
+.reading-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #8A0F16, #D4AF37, #F9DD7A);
+  box-shadow: 0 0 12px rgba(212,175,55,.55);
+  transform-origin: left;
+}
+.karnataka-float-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 1000px;
+}
+.hero-kannada {
+  position: absolute;
+  color: rgba(249,221,122,.10);
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 800;
+  line-height: 1;
+  text-shadow: 0 0 45px rgba(212,175,55,.12);
+  animation: heritageGlyph 12s ease-in-out infinite;
+}
+.hero-kannada.hk-top { top: 10%; left: 4%; }
+.hero-kannada.hk-left { top: 58%; left: 1%; color: rgba(180,35,35,.11); animation-delay: -5s; }
+.hero-kannada.hk-right { top: 20%; right: 3%; font-size: clamp(6rem, 12vw, 10rem); animation-delay: -8s; }
+.hero-kannada.hk-bottom { bottom: 8%; left: 30%; font-size: clamp(1rem, 2vw, 1.5rem); letter-spacing: .24em; opacity: .8; }
+.heritage-orbit {
+  position: absolute;
+  width: clamp(140px, 19vw, 250px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(212,175,55,.12);
+  border-radius: 42% 58% 62% 38%;
+  transform: rotate(25deg);
+  animation: heritageOrbit 25s linear infinite;
+}
+.heritage-orbit::before, .heritage-orbit::after {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border: 1px solid rgba(220,38,38,.12);
+  border-radius: 50%;
+  transform: scaleY(.72) rotate(40deg);
+}
+.heritage-orbit::after { inset: 27%; border-color: rgba(249,221,122,.18); transform: scaleY(.72) rotate(-40deg); }
+.orbit-one { top: 20%; left: 37%; }
+.orbit-two { bottom: 12%; right: 11%; width: clamp(90px, 12vw, 160px); animation-direction: reverse; }
+@keyframes heritageGlyph { 0%,100% { translate: 0 0; rotate: -5deg; } 50% { translate: 0 -17px; rotate: 4deg; } }
+@keyframes heritageOrbit { to { rotate: 385deg; } }
+section { scroll-margin-top: 92px; }
+section .reveal { will-change: transform, opacity; }
+.project-card, .skill-card, .journey-card, .glass-hover {
+  transition: transform .45s cubic-bezier(.2,.75,.25,1), box-shadow .45s ease, border-color .45s ease;
+}
+.project-card:hover, .skill-card:hover, .journey-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 24px 60px rgba(0,0,0,.38), 0 0 26px rgba(212,175,55,.08);
+}
+@media (max-width: 640px) {
+  .hero-kannada.hk-top { left: -3%; top: 6%; }
+  .hero-kannada.hk-left { left: -5%; }
+  .hero-kannada.hk-right { right: -4%; }
+  .hero-kannada.hk-bottom { left: 12%; bottom: 5%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-kannada, .heritage-orbit { animation: none !important; }
+  .project-card, .skill-card, .journey-card { transition: none !important; }
+}
