@@ -28,7 +28,7 @@ const projects = [
     ],
     demo: 'https://craftcycle.pages.dev',
     code: 'https://github.com/ningarajukkali/CraftCycle',
-    stats: { users: 'Live MVP', perf: '98/100', stack: 'Flask + AI' }
+    stats: { stack: 'Flask + AI' }
   },
   {
     id: 2,
@@ -48,7 +48,7 @@ const projects = [
     ],
     demo: '#',
     code: 'https://github.com/ningarajukkali/PulseSimulator',
-    stats: { users: '<50ms latency', perf: '99%', stack: 'FastAPI' }
+    stats: { stack: 'FastAPI' }
   },
   {
     id: 3,
@@ -68,7 +68,7 @@ const projects = [
     ],
     demo: 'https://restrocafe.onrender.com',
     code: 'https://github.com/ningarajukkali/RestroCafe',
-    stats: { users: 'Production', perf: '96%', stack: 'PHP & MySQL' }
+    stats: { stack: 'PHP & MySQL' }
   },
   {
     id: 4,
@@ -88,7 +88,7 @@ const projects = [
     ],
     demo: 'https://community-help-alpha.vercel.app/',
     code: 'https://github.com/ningarajukkali/Community-Help',
-    stats: { users: '200+ Volunteers', perf: '97%', stack: 'MERN Stack' }
+    stats: { stack: 'MERN Stack' }
   },
   {
     id: 5,
@@ -108,7 +108,7 @@ const projects = [
     ],
     demo: '#',
     code: 'https://github.com/ningarajukkali/BrahmX-AI',
-    stats: { users: '3x Faster', perf: '98%', stack: 'React + AI' }
+    stats: { stack: 'React + AI' }
   },
   {
     id: 6,
@@ -128,7 +128,7 @@ const projects = [
     ],
     demo: '#',
     code: 'https://github.com/ningarajukkali/CareerForge-AI',
-    stats: { users: '94% Match Acc', perf: '96%', stack: 'MERN + AI' }
+    stats: { stack: 'MERN + AI' }
   },
   {
     id: 7,
@@ -148,7 +148,7 @@ const projects = [
     ],
     demo: '#',
     code: 'https://github.com/ningarajukkali/E-agri-Digitaly',
-    stats: { users: 'Farmer Focus', perf: '95%', stack: 'PHP & MySQL' }
+    stats: { stack: 'PHP & MySQL' }
   },
   {
     id: 8,
@@ -168,7 +168,7 @@ const projects = [
     ],
     demo: '#',
     code: 'https://github.com/ningarajukkali/Nexus-Assistant',
-    stats: { users: 'Offline Ready', perf: '94%', stack: 'Python' }
+    stats: { stack: 'Python' }
   }
 ];
 
