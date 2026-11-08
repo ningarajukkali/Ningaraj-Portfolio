@@ -1108,19 +1108,14 @@ if (contactForm) {
     if (sendBtn) sendBtn.disabled = true;
     if (sendLabel) sendLabel.textContent = 'Sending Message...';
 
-    setTimeout(() => {
-      if (sendBtn) sendBtn.disabled = false;
-      if (sendLabel) sendLabel.textContent = 'Send Message';
-      this.reset();
-      selectedBudget = '';
-      document.querySelectorAll('.budget-chip-ka, .budget-chip').forEach((c) => {
-        c.classList.remove('active');
-        c.style.background = '';
-        c.style.color = '';
-        c.style.borderColor = '';
-      });
-      showToast(`Thank you, ${name.split(' ')[0]}! Message received — I'll get back to you shortly.`);
-    }, 1200);
+    const budget = selectedBudget ? `\n\nProject budget: ${selectedBudget}` : '';
+    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}${budget}`);
+    const mailto = `mailto:ningarajukkali@gmail.com?subject=${subject}&body=${body}`;
+    if (sendBtn) sendBtn.disabled = false;
+    if (sendLabel) sendLabel.textContent = 'Send Message';
+    showToast('Your email app is opening. Send the message there to complete delivery.');
+    window.location.href = mailto;
   });
 }
 
