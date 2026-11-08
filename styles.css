@@ -1128,8 +1128,8 @@ body {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(5,5,6,.38) 0%, transparent 24%, transparent 52%, rgba(5,5,6,.92) 100%),
-    linear-gradient(110deg, rgba(212,175,55,.10), transparent 32%, transparent 68%, rgba(122,12,12,.14));
+    linear-gradient(115deg, rgba(212,175,55,.10), transparent 34%, transparent 68%, rgba(122,12,12,.12));
+  mix-blend-mode: screen;
 }
 .portrait-poster-img {
   position: absolute;
@@ -1167,47 +1167,6 @@ body {
   letter-spacing: .22em;
 }
 .poster-topline .font-kannada { color: #F9DD7A; font-size: 15px; letter-spacing: .08em; }
-.poster-caption {
-  position: absolute;
-  z-index: 3;
-  left: clamp(22px, 4vw, 38px);
-  right: 22px;
-  bottom: 36px;
-}
-.poster-kannada {
-  display: block;
-  color: #F9DD7A;
-  font-size: clamp(2.4rem, 5vw, 4.3rem);
-  line-height: 1;
-  text-shadow: 0 4px 30px rgba(0,0,0,.5);
-}
-.poster-name {
-  margin-top: 13px;
-  color: white;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.5rem, 3vw, 2.35rem);
-  font-weight: 700;
-  letter-spacing: -.025em;
-  text-shadow: 0 4px 22px rgba(0,0,0,.55);
-}
-.poster-role {
-  margin-top: 7px;
-  color: rgba(249,221,122,.88);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .28em;
-}
-.poster-side-note {
-  position: absolute;
-  z-index: 3;
-  top: 50%;
-  right: 13px;
-  writing-mode: vertical-rl;
-  transform: translateY(-50%);
-  color: rgba(255,255,255,.58);
-  font-size: 8px;
-  letter-spacing: .28em;
-}
 .poster-glyph {
   position: absolute;
   z-index: -1;
@@ -1440,4 +1399,96 @@ section .reveal { will-change: transform, opacity; }
 }
 @media (prefers-reduced-motion: reduce) {
   .about-photo-img { animation: none !important; }
+}
+
+
+/* Layered 3D Karnataka-inspired atmosphere */
+.hero-depth-scene {
+  position: absolute;
+  inset: -8% -4%;
+  z-index: 0;
+  overflow: hidden;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.depth-mandala {
+  position: absolute;
+  width: clamp(190px, 28vw, 390px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(212,175,55,.20);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  box-shadow: 0 0 55px rgba(212,175,55,.06), inset 0 0 45px rgba(212,175,55,.045);
+  animation: mandalaFloat 18s ease-in-out infinite;
+}
+.depth-mandala::before,.depth-mandala::after,
+.depth-mandala i,.depth-mandala b {
+  content:"";
+  position:absolute;
+  inset:9%;
+  border:1px dashed rgba(212,175,55,.24);
+  border-radius:34% 66% 42% 58%;
+  transform:rotate(45deg) rotateX(58deg);
+}
+.depth-mandala::after { inset:20%; transform:rotate(-35deg) rotateY(62deg); border-style:solid; border-color:rgba(150,24,24,.3); }
+.depth-mandala i { inset:30%; border-radius:50%; transform:rotateX(68deg) rotateY(24deg); }
+.depth-mandala b { inset:39%; border-style:solid; transform:rotate(45deg) rotateX(70deg); }
+.mandala-left { left:3%; top:12%; }
+.mandala-right { right:0%; bottom:4%; width:clamp(150px,22vw,300px); animation-delay:-9s; }
+.depth-ring {
+  position:absolute;
+  width:clamp(220px,34vw,460px);
+  height:clamp(90px,14vw,180px);
+  border:1px solid rgba(249,221,122,.22);
+  border-radius:50%;
+  transform-style:preserve-3d;
+  box-shadow:0 0 28px rgba(212,175,55,.09);
+}
+.ring-near { right:12%; top:22%; transform:rotateX(68deg) rotateZ(-22deg) translateZ(90px); animation:ringFloat 13s ease-in-out infinite; }
+.ring-far { left:18%; bottom:7%; border-color:rgba(122,12,12,.32); transform:rotateX(72deg) rotateZ(28deg) translateZ(-110px); animation:ringFloat 16s ease-in-out infinite reverse; }
+.depth-shard {
+  position:absolute;
+  width:26px; height:26px;
+  border:1px solid rgba(249,221,122,.55);
+  background:linear-gradient(135deg,rgba(212,175,55,.22),rgba(122,12,12,.10));
+  box-shadow:0 0 24px rgba(212,175,55,.22);
+  transform-style:preserve-3d;
+  animation:shardDrift 11s ease-in-out infinite;
+}
+.shard-one { top:20%; right:23%; transform:rotateX(48deg) rotateY(54deg) rotateZ(45deg) translateZ(90px); }
+.shard-two { bottom:19%; left:24%; width:15px;height:15px; animation-delay:-5s; transform:rotateX(60deg) rotateY(40deg) rotateZ(45deg) translateZ(45px); }
+.depth-kannada {
+  position:absolute;
+  color:rgba(249,221,122,.13);
+  text-shadow:0 0 35px rgba(212,175,55,.22);
+  font-size:clamp(5rem,10vw,9rem);
+  transform-style:preserve-3d;
+  animation:glyph3DFloat 10s ease-in-out infinite;
+}
+.depth-kannada-one { left:43%; top:8%; transform:rotateY(-28deg) rotateX(18deg) translateZ(130px); }
+.depth-kannada-two { right:8%; bottom:12%; font-size:clamp(2.5rem,5vw,4rem); animation-delay:-5s; transform:rotateY(28deg) rotateX(-16deg) translateZ(80px); }
+.depth-light {
+  position:absolute;
+  width:5px;height:5px;border-radius:50%;
+  background:#ffe28a;
+  box-shadow:0 0 8px 3px rgba(255,211,91,.55),0 0 35px 12px rgba(212,175,55,.18);
+  animation:lightPulse 3.5s ease-in-out infinite;
+}
+.light-one { top:28%;left:19%; }
+.light-two { right:17%;bottom:27%;animation-delay:-1.8s; }
+@keyframes mandalaFloat { 0%,100%{transform:rotateX(58deg) rotateZ(-8deg) translate3d(0,0,-30px)} 50%{transform:rotateX(68deg) rotateZ(8deg) translate3d(0,-18px,35px)} }
+@keyframes ringFloat { 0%,100%{translate:0 0} 50%{translate:0 -22px} }
+@keyframes shardDrift { 0%,100%{translate:0 0;rotate:0deg} 50%{translate:12px -24px;rotate:70deg} }
+@keyframes glyph3DFloat { 0%,100%{translate:0 0} 50%{translate:0 -24px} }
+@keyframes lightPulse { 0%,100%{opacity:.35;scale:.7} 50%{opacity:1;scale:1.5} }
+@media(max-width:767px) {
+  .hero-depth-scene { opacity:.58; }
+  .mandala-left { left:-18%; }
+  .mandala-right { right:-22%; }
+  .depth-kannada-one { left:30%; }
+  .ring-near { right:-28%; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .depth-mandala,.depth-ring,.depth-shard,.depth-kannada,.depth-light { animation:none!important; }
 }
