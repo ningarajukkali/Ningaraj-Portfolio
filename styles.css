@@ -1255,46 +1255,80 @@ body {
 }
 @keyframes orbitTurn { to { rotate: 342deg; } }
 
-/* About: cultural editorial panel replaces the duplicate portrait gallery. */
-.about-heritage-panel {
-  min-height: 100%;
-  background:
-    radial-gradient(ellipse at 78% 12%, rgba(212,175,55,.13), transparent 45%),
-    linear-gradient(145deg, rgba(28,22,14,.96), rgba(9,9,11,.98) 68%);
-  border: 1px solid rgba(212,175,55,.17);
-  box-shadow: 0 24px 65px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.045);
+/* About: retain the second portrait as a clean, borderless editorial image. */
+.about-photo-stage {
+  position: relative;
+  min-height: 620px;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  background: #090909;
+  transform-style: preserve-3d;
 }
-.about-heritage-glow {
+.about-photo-img {
   position: absolute;
-  width: 230px;
-  height: 230px;
-  top: 20%;
-  right: -80px;
-  border-radius: 50%;
-  background: rgba(212,175,55,.10);
-  filter: blur(65px);
-  pointer-events: none;
-}
-.about-kannada-mark {
-  margin-top: 34px;
-  color: rgba(249,221,122,.88);
-  font-size: clamp(8rem, 15vw, 12rem);
-  line-height: .95;
-  text-shadow: 0 12px 55px rgba(212,175,55,.16);
-  animation: glyphDrift 10s ease-in-out infinite;
-}
-.about-panel-rule {
-  height: 1px;
+  inset: 0;
   width: 100%;
-  background: linear-gradient(90deg, rgba(212,175,55,.7), rgba(220,38,38,.35), transparent);
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 18%;
+  border: 0;
+  transform: scale(1.025);
+  filter: saturate(.88) contrast(1.04);
+  animation: aboutPhotoDrift 17s ease-in-out infinite alternate;
 }
-.about-panel-watermark {
+.about-photo-shade {
   position: absolute;
-  right: 18px;
-  bottom: 14px;
-  color: rgba(249,221,122,.055);
-  font-size: 2rem;
+  inset: 0;
   pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(6,6,7,.08) 0%, transparent 36%, rgba(6,6,7,.24) 58%, rgba(6,6,7,.94) 100%),
+    linear-gradient(115deg, rgba(212,175,55,.12), transparent 38%, transparent 70%, rgba(122,12,12,.13));
+}
+.about-photo-caption {
+  position: absolute;
+  z-index: 2;
+  left: clamp(22px, 3vw, 34px);
+  right: 22px;
+  bottom: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.about-photo-kannada {
+  color: #F9DD7A;
+  font-size: 1.05rem;
+  letter-spacing: .08em;
+  text-shadow: 0 3px 20px rgba(0,0,0,.7);
+}
+.about-photo-name {
+  margin-top: 9px;
+  color: #fff;
+  font: 700 clamp(1.6rem, 2.8vw, 2.25rem)/1.1 'Playfair Display', serif;
+  text-shadow: 0 4px 24px rgba(0,0,0,.65);
+}
+.about-photo-role {
+  margin-top: 9px;
+  color: rgba(249,221,122,.88);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .24em;
+}
+.about-photo-mark {
+  position: absolute;
+  z-index: 2;
+  top: 24px;
+  right: 24px;
+  color: rgba(255,248,225,.76);
+  font-size: 1rem;
+  letter-spacing: .1em;
+  writing-mode: vertical-rl;
+  text-shadow: 0 2px 15px rgba(0,0,0,.7);
+}
+@keyframes aboutPhotoDrift {
+  from { transform: scale(1.025) translate3d(0,0,0); }
+  to { transform: scale(1.085) translate3d(0,-8px,0); }
 }
 @media (max-width: 1023px) {
   .portrait-poster-stage { min-height: 520px; margin-top: 10px; }
@@ -1393,4 +1427,16 @@ section .reveal { will-change: transform, opacity; }
 @media (prefers-reduced-motion: reduce) {
   .hero-kannada, .heritage-orbit { animation: none !important; }
   .project-card, .skill-card, .journey-card { transition: none !important; }
+}
+
+@media (max-width: 1023px) {
+  .about-photo-stage { min-height: 560px; }
+}
+@media (max-width: 640px) {
+  .about-photo-stage { min-height: 470px; }
+  .about-photo-caption { left: 20px; bottom: 24px; }
+  .about-photo-mark { top: 18px; right: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-photo-img { animation: none !important; }
 }
