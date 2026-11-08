@@ -406,9 +406,8 @@ function createProjectCardHtml(p) {
         </div>
         
         <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-          <div class="flex gap-4 text-[12px] text-white/70">
-            <span><i class="fas fa-microchip text-gold-500 mr-1.5"></i>${p.stats.stack}</span>
-            <span><i class="fas fa-gauge-high text-gold-500 mr-1.5"></i>${p.stats.perf}</span>
+          <div class="flex gap-2 text-[12px] text-white/75">
+            <span class="rounded-full border border-gold-500/25 bg-black/55 px-3 py-1"><i class="fas fa-microchip text-gold-500 mr-1.5"></i>${p.stats.stack}</span>
           </div>
           <span class="w-10 h-10 rounded-full btn-gold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400 translate-y-2 group-hover:translate-y-0 shadow-lg">
             <i class="fas fa-arrow-up-right-from-square text-xs text-charcoal-950"></i>
@@ -945,19 +944,9 @@ window.openProjectModal = function(id) {
         `).join('')}
       </ul>
 
-      <div class="grid grid-cols-3 gap-3 mb-6 text-center">
-        <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
-          <div class="font-bold text-gold-300 text-sm md:text-base">${p.stats.users}</div>
-          <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Deployment</div>
-        </div>
-        <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
-          <div class="font-bold text-gold-300 text-sm md:text-base">${p.stats.perf}</div>
-          <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Performance</div>
-        </div>
-        <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
-          <div class="font-bold text-gold-300 text-sm md:text-base">${p.stats.stack}</div>
-          <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Core Tech</div>
-        </div>
+      <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3 px-4 mb-6">
+        <div class="font-bold text-gold-300 text-sm">${p.stats.stack}</div>
+        <div class="text-[10px] tracking-widest uppercase text-white/40 mt-0.5">Core Technologies</div>
       </div>
 
       <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
