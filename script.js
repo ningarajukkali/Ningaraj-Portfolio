@@ -39,7 +39,7 @@ const projects = [
     img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=900&auto=format&fit=crop',
     tags: ['FastAPI', 'WebSockets', 'Redis Pub/Sub', 'Docker', 'PostgreSQL'],
     desc: 'Backend-driven medical simulation platform with bidirectional real-time patient telemetry and clinical intervention workflows.',
-    long: 'PulseSim is an event-driven medical simulation platform engineered for high-throughput, low-latency telemetry streaming. Using FastAPI, WebSockets, and Redis Pub/Sub, it broadcasts dynamic patient physiological responses to simulated clinical drug administrations and shocks with sub-50ms latency.',
+    long: 'PulseSim is an event-driven medical simulation platform engineered for high-throughput, low-latency telemetry streaming. Using FastAPI, WebSockets, and Redis Pub/Sub, it broadcasts dynamic patient physiological responses to simulated clinical drug administrations and shocks in real time.',
     features: [
       'Bidirectional WebSockets streaming with Redis Pub/Sub broadcast architecture',
       'Dynamic physiological state evaluation engine adapting patient vitals in real time',
@@ -175,26 +175,7 @@ const projects = [
 /* ==========================================================================
    2. CLIENT TESTIMONIALS & REVIEWS
    ========================================================================== */
-const testimonials = [
-  {
-    name: 'Vigneshwara',
-    role: 'College Client & Peer • Custom Project Client',
-    initial: 'V',
-    bg: 'bg-gradient-to-br from-gold-500/25 to-deepred-700/35 border-gold-500/60 text-gold-300',
-    tag: 'College Client',
-    text: 'Ningaraj developed our management system with outstanding quality, speed, and clean code. The database architecture, responsive interface, and seamless workflows made the entire project a huge success. An exceptionally talented and trustworthy developer!',
-    stars: 5
-  },
-  {
-    name: 'Elma',
-    role: 'Student Client • St. Joseph\'s College',
-    initial: 'E',
-    bg: 'bg-gradient-to-br from-cyan-500/20 to-gold-500/25 border-cyan-400/50 text-cyan-200',
-    tag: "St. Joseph's College",
-    text: 'Working with Ningaraj was an amazing experience! He understood our exact requirements right away, delivered a clean and responsive full-stack platform ahead of schedule, and provided great support throughout. Highly recommend him for any software project!',
-    stars: 5
-  }
-];
+
 
 /* ==========================================================================
    3. FORMAL PROFESSIONAL PRELOADER
@@ -578,75 +559,7 @@ attach3DTilt(document.querySelectorAll('[data-tilt]'));
   typeTick();
 })();
 
-/* ==========================================================================
-   9. TESTIMONIALS SLIDER
-   ========================================================================== */
-let currentTestiIdx = 0;
-let testiTimer = null;
-
-function renderTestimonials() {
-  const track = document.getElementById('testiTrack');
-  const dots = document.getElementById('testiDots');
-  if (!track || !dots) return;
-
-  track.innerHTML = testimonials.map(t => `
-    <div class="min-w-full px-2 testimonial-slide">
-      <div class="flex items-center justify-between mb-4">
-        <div class="flex gap-1 text-gold-400 text-base">
-          ${'★'.repeat(t.stars)}<span class="ml-2 text-white/40 text-xs font-semibold">${t.stars}.0 / 5.0</span>
-        </div>
-        <span class="text-[11px] tracking-wider uppercase px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gold-300 font-medium">
-          <i class="fas fa-graduation-cap text-gold-400 mr-1.5"></i>${t.tag}
-        </span>
-      </div>
-      <p class="font-cormorant italic text-xl md:text-2xl leading-relaxed text-white/90">
-        “${t.text}”
-      </p>
-      <div class="flex items-center gap-4 mt-6 pt-5 border-t border-white/5">
-        <div class="w-13 h-13 min-w-[50px] min-h-[50px] rounded-2xl ${t.bg} border-2 flex items-center justify-center font-bold text-xl shadow-[0_0_20px_rgba(212,175,55,0.25)] select-none font-playfair">
-          ${t.initial}
-        </div>
-        <div>
-          <div class="font-bold text-base text-white">${t.name}</div>
-          <div class="text-xs text-gold-300/80">${t.role}</div>
-        </div>
-
-      </div>
-    </div>
-  `).join('');
-
-  dots.innerHTML = testimonials.map((_, i) => `
-    <button onclick="goToTestimonial(${i})"
-            class="tdot h-2 rounded-full transition-all duration-500 ${i === 0 ? 'w-8 bg-gold-500' : 'w-2 bg-white/20'}"
-            aria-label="Testimonial slide ${i + 1}">
-    </button>
-  `).join('');
-
-  startAutoTestimonials();
-}
-
-window.goToTestimonial = function(idx) {
-  currentTestiIdx = (idx + testimonials.length) % testimonials.length;
-  const track = document.getElementById('testiTrack');
-  if (track) track.style.transform = `translateX(-${currentTestiIdx * 100}%)`;
-
-  document.querySelectorAll('.tdot').forEach((dot, j) => {
-    dot.className = `tdot h-2 rounded-full transition-all duration-500 ${j === currentTestiIdx ? 'w-8 bg-gold-500 shadow-[0_0_10px_rgba(212,175,55,0.6)]' : 'w-2 bg-white/20'}`;
-  });
-  startAutoTestimonials();
-};
-
-window.moveTestimonial = function(dir) {
-  window.goToTestimonial(currentTestiIdx + dir);
-};
-
-function startAutoTestimonials() {
-  clearInterval(testiTimer);
-  if (!prefersReduced) {
-    testiTimer = setInterval(() => window.goToTestimonial(currentTestiIdx + 1), 6500);
-  }
-}
-renderTestimonials();
+/* Testimonials removed: add only genuine, approved client feedback. */
 
 /* ==========================================================================
    10. SKILL TABS & PROFICIENCY BARS
@@ -1081,6 +994,7 @@ if (contactForm) {
     const fd = new FormData(this);
     const name = fd.get('name');
     const email = fd.get('email');
+    const opportunity = fd.get('subject') || '';
     const message = fd.get('message');
 
     if (!name || !email || !message) {
@@ -1097,10 +1011,10 @@ if (contactForm) {
     if (sendBtn) sendBtn.disabled = true;
     if (sendLabel) sendLabel.textContent = 'Sending Message...';
 
-    const budget = selectedBudget ? `\n\nProject budget: ${selectedBudget}` : '';
-    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}${budget}`);
-    const mailto = `mailto:ningarajukkali@gmail.com?subject=${subject}&body=${body}`;
+    const scope = selectedBudget ? `\nSelected opportunity: ${selectedBudget}` : '';
+    const mailSubject = encodeURIComponent(opportunity ? `${opportunity} | ${name}` : `Portfolio enquiry from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nOpportunity: ${opportunity || 'Not specified'}\n\n${message}${scope}`);
+    const mailto = `mailto:ningarajukkali@gmail.com?subject=${mailSubject}&body=${body}`;
     if (sendBtn) sendBtn.disabled = false;
     if (sendLabel) sendLabel.textContent = 'Send Message';
     showToast('Your email app is opening. Send the message there to complete delivery.');
