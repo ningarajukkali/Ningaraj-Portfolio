@@ -936,35 +936,6 @@ window.addEventListener('keydown', (e) => {
 });
 
 /* ==========================================================================
-   16. ABOUT PHOTO GALLERY SWITCHER
-   ========================================================================== */
-window.switchAboutPhoto = function(src, btn) {
-  const img = document.getElementById('aboutPhotoImg');
-  if (!img) return;
-  img.style.opacity = '0.3';
-  setTimeout(() => {
-    img.src = src;
-    if (src.includes('photo.jpg')) {
-      img.style.objectPosition = 'center 35%';
-    } else if (src.includes('raj_ru.jpeg')) {
-      img.style.objectPosition = 'center 20%';
-    } else {
-      img.style.objectPosition = 'center center';
-    }
-    img.style.opacity = '1';
-  }, 200);
-
-  document.querySelectorAll('.photo-thumb-btn').forEach(b => {
-    b.classList.remove('ring-2', 'ring-gold-400');
-    b.classList.add('opacity-70');
-  });
-  if (btn) {
-    btn.classList.add('ring-2', 'ring-gold-400');
-    btn.classList.remove('opacity-70');
-  }
-};
-
-/* ==========================================================================
    17. CONTACT FORM, TOAST & UTILITIES
    ========================================================================== */
 let selectedBudget = '';
@@ -1052,3 +1023,24 @@ window.copyEmail = function() {
     showToast(`Email: ${email}`);
   }
 };
+
+
+/* Reading progress indicator and small-screen-safe motion refinements. */
+(function initReadingProgress() {
+  const bar = document.getElementById('readingProgressBar');
+  if (!bar || prefersReduced) return;
+  let ticking = false;
+  const update = () => {
+    const root = document.documentElement;
+    const max = root.scrollHeight - window.innerHeight;
+    const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    bar.style.width = (progress * 100).toFixed(2) + '%';
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }, { passive: true });
+  update();
+})();
