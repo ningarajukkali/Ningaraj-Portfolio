@@ -1246,8 +1246,6 @@ body {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(0, -5px, 0); }
 }
-  to { transform: scale(1.10) translate3d(0,-7px,0); }
-}
 @keyframes posterAura {
   0%,100% { opacity: .65; transform: scale(.94); }
   50% { opacity: 1; transform: scale(1.06); }
