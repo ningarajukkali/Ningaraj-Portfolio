@@ -368,6 +368,181 @@ const projects = [
 })();
 
 /* ==========================================================================
+   4B. DEDICATED HERO WEBGL SCENE — REAL 3D GEOMETRY
+   ========================================================================= */
+(function initHeroWebGLScene() {
+  const canvas = document.getElementById('hero-3d-canvas');
+  const host = document.getElementById('home');
+  const THREE = window.THREE;
+  if (!canvas || !host || !THREE || prefersReduced) return;
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      canvas, alpha: true, antialias: window.innerWidth > 700,
+      powerPreference: 'low-power'
+    });
+  } catch (error) {
+    console.warn('Hero WebGL scene unavailable; retaining static backdrop.', error);
+    return;
+  }
+  renderer.setClearColor(0x000000, 0);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+  camera.position.set(0, 0, 12);
+  scene.add(new THREE.AmbientLight(0xffe8b0, 0.72));
+
+  const goldLight = new THREE.PointLight(0xf6c85f, 1.7, 24);
+  goldLight.position.set(4, 3, 6);
+  scene.add(goldLight);
+  const rubyLight = new THREE.PointLight(0x9d1727, 1.15, 22);
+  rubyLight.position.set(-5, -2, 3);
+  scene.add(rubyLight);
+
+  const forms = new THREE.Group();
+  scene.add(forms);
+  const goldWire = new THREE.MeshPhongMaterial({
+    color: 0xd8ad4d, emissive: 0x6d4810, transparent: true,
+    opacity: 0.44, wireframe: true, shininess: 90, depthWrite: false
+  });
+  const rubyWire = new THREE.MeshPhongMaterial({
+    color: 0x9f2630, emissive: 0x4b0912, transparent: true,
+    opacity: 0.42, wireframe: true, shininess: 80, depthWrite: false
+  });
+  const goldSolid = new THREE.MeshPhongMaterial({
+    color: 0x9b702b, emissive: 0x3b2608, transparent: true,
+    opacity: 0.20, shininess: 100, specular: 0xffdf91,
+    flatShading: true, depthWrite: false
+  });
+
+  const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(1.22, 0.018, 150, 12, 2, 5), goldWire);
+  knot.position.set(-5.1, 1.45, -2.2);
+  knot.rotation.set(0.55, 0.2, -0.35);
+  knot.scale.setScalar(1.12);
+  forms.add(knot);
+
+  const rubyOrbit = new THREE.Mesh(new THREE.TorusGeometry(2.25, 0.012, 8, 120), rubyWire);
+  rubyOrbit.position.set(4.35, -0.15, -2.8);
+  rubyOrbit.rotation.set(1.08, 0.35, -0.45);
+  forms.add(rubyOrbit);
+
+  const crownOrbit = new THREE.Mesh(new THREE.TorusGeometry(1.48, 0.014, 8, 100), goldWire);
+  crownOrbit.position.set(1.0, 3.0, -3.8);
+  crownOrbit.rotation.set(0.9, -0.45, 0.5);
+  forms.add(crownOrbit);
+
+  const yantra = new THREE.Mesh(new THREE.IcosahedronGeometry(0.78, 1), goldSolid);
+  yantra.position.set(-3.8, -2.2, -1.4);
+  yantra.rotation.set(0.3, 0.5, 0.1);
+  forms.add(yantra);
+
+  const rubyFacet = new THREE.Mesh(new THREE.OctahedronGeometry(0.52, 0), rubyWire);
+  rubyFacet.position.set(4.8, 2.1, -1.8);
+  forms.add(rubyFacet);
+
+  const mobile = window.matchMedia('(max-width: 767px)').matches;
+  const count = mobile ? 180 : 420;
+  const positions = new Float32Array(count * 3);
+  const colours = new Float32Array(count * 3);
+  const seeds = new Float32Array(count);
+  const gold = new THREE.Color(0xf4cf72);
+  const ruby = new THREE.Color(0x9f2630);
+  for (let i = 0; i < count; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 15;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
+    positions[i * 3 + 2] = -1 - Math.random() * 8;
+    const colour = Math.random() > 0.84 ? ruby : gold;
+    colours[i * 3] = colour.r;
+    colours[i * 3 + 1] = colour.g;
+    colours[i * 3 + 2] = colour.b;
+    seeds[i] = Math.random() * Math.PI * 2;
+  }
+  const particleGeometry = new THREE.BufferGeometry();
+  particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  particleGeometry.setAttribute('color', new THREE.BufferAttribute(colours, 3));
+  const particleMaterial = new THREE.PointsMaterial({
+    size: mobile ? 0.055 : 0.07, vertexColors: true,
+    transparent: true, opacity: 0.76, depthWrite: false,
+    blending: THREE.AdditiveBlending, sizeAttenuation: true
+  });
+  const dust = new THREE.Points(particleGeometry, particleMaterial);
+  scene.add(dust);
+
+  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+  const onPointerMove = (event) => {
+    const rect = host.getBoundingClientRect();
+    pointer.tx = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    pointer.ty = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+  };
+  const onPointerLeave = () => { pointer.tx = 0; pointer.ty = 0; };
+  host.addEventListener('pointermove', onPointerMove, { passive: true });
+  host.addEventListener('pointerleave', onPointerLeave, { passive: true });
+
+  let frame = 0, elapsed = 0, active = true;
+  const clock = new THREE.Clock();
+  const resize = () => {
+    const rect = host.getBoundingClientRect();
+    const width = Math.max(1, rect.width), height = Math.max(1, rect.height);
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    camera.position.z = width < 768 ? 15.5 : 12;
+  };
+  resize();
+  const observer = window.ResizeObserver ? new ResizeObserver(resize) : null;
+  if (observer) observer.observe(host);
+  else window.addEventListener('resize', resize);
+
+  const visibility = window.IntersectionObserver ? new IntersectionObserver((entries) => {
+    active = entries[0].isIntersecting;
+    if (active && !frame) animate();
+  }, { threshold: 0.01 }) : null;
+  if (visibility) visibility.observe(host);
+
+  function animate() {
+    if (!active || document.hidden) { frame = 0; return; }
+    frame = requestAnimationFrame(animate);
+    const delta = Math.min(clock.getDelta(), 0.04);
+    elapsed += delta;
+    pointer.x += (pointer.tx - pointer.x) * 0.035;
+    pointer.y += (pointer.ty - pointer.y) * 0.035;
+
+    knot.rotation.y += delta * 0.12;
+    knot.rotation.z = -0.35 + Math.sin(elapsed * 0.38) * 0.12;
+    rubyOrbit.rotation.z += delta * 0.08;
+    rubyOrbit.rotation.x = 1.08 + Math.sin(elapsed * 0.3) * 0.08;
+    crownOrbit.rotation.y -= delta * 0.1;
+    yantra.rotation.x += delta * 0.12;
+    yantra.rotation.y += delta * 0.16;
+    rubyFacet.rotation.x += delta * 0.18;
+    rubyFacet.rotation.y -= delta * 0.14;
+
+    forms.rotation.y = pointer.x * 0.055;
+    forms.rotation.x = -pointer.y * 0.035;
+    dust.rotation.y = elapsed * 0.018 + pointer.x * 0.025;
+    dust.rotation.x = pointer.y * 0.018;
+    const p = particleGeometry.attributes.position.array;
+    for (let i = 0; i < count; i++) {
+      p[i * 3 + 1] += Math.sin(elapsed * 0.55 + seeds[i]) * 0.0009;
+      p[i * 3] += Math.cos(elapsed * 0.32 + seeds[i]) * 0.0007;
+    }
+    particleGeometry.attributes.position.needsUpdate = true;
+
+    camera.position.x += (pointer.x * 0.28 - camera.position.x) * 0.025;
+    camera.position.y += (-pointer.y * 0.18 - camera.position.y) * 0.025;
+    camera.lookAt(0, 0, -1.4);
+    renderer.render(scene, camera);
+  }
+  const onVisibility = () => {
+    if (!document.hidden && active && !frame) animate();
+  };
+  document.addEventListener('visibilitychange', onVisibility);
+  animate();
+})();
+
+/* ==========================================================================
    5. RENDER PROJECTS & 3D TILT CARDS
    ========================================================================= */
 const projectsGrid = document.getElementById('projectsGrid');
