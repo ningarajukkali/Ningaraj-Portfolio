@@ -508,13 +508,7 @@ attach3DTilt(document.querySelectorAll('[data-tilt]'));
         const x = targetX * depth * 600;
         const y = targetY * depth * 600;
 
-        if (layer.classList.contains('hk-top') || layer.classList.contains('hk-bottom')) {
-          layer.style.transform = `translate(calc(-50% + ${x}px), ${y}px)`;
-        } else if (layer.classList.contains('hk-left') || layer.classList.contains('hk-right')) {
-          layer.style.transform = `translate(${x}px, calc(-50% + ${y}px))`;
-        } else {
-          layer.style.transform = `translate(${x}px, ${y}px)`;
-        }
+        layer.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       });
     });
   }, { passive: true });
