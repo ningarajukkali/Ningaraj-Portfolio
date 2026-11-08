@@ -1023,3 +1023,24 @@ window.copyEmail = function() {
     showToast(`Email: ${email}`);
   }
 };
+
+
+/* Reading progress indicator and small-screen-safe motion refinements. */
+(function initReadingProgress() {
+  const bar = document.getElementById('readingProgressBar');
+  if (!bar || prefersReduced) return;
+  let ticking = false;
+  const update = () => {
+    const root = document.documentElement;
+    const max = root.scrollHeight - window.innerHeight;
+    const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    bar.style.width = (progress * 100).toFixed(2) + '%';
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }, { passive: true });
+  update();
+})();
