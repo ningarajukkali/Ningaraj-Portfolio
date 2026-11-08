@@ -233,62 +233,28 @@
         </div>
       </div>
 
-      <!-- Hero Right: 3D Artwork Stage with Uploaded Portrait -->
-      <div class="lg:col-span-5 flex justify-center lg:justify-end" id="heroArt">
-        <div class="artwork-stage w-full max-w-[460px] md:max-w-[490px]" id="artworkStage">
-          <div class="art-glow"></div>
-          
-          <!-- Floating Interactive Badges (Placed safely outside frame to never overlap the portrait) -->
-          <div class="absolute -top-14 -left-3 lg:-left-6 z-20 glass rounded-2xl px-4 py-2.5 float-slow hidden md:block border-yellow-500/40 shadow-xl" data-depth="0.08" style="animation-delay:-2s;">
-            <div class="text-[10px] tracking-[0.2em] text-yellow-300 uppercase font-bold flex items-center gap-1.5"><i class="fas fa-code text-xs text-yellow-400"></i> Python • FastAPI • React</div>
-            <div class="font-bold text-xs mt-0.5 text-white">Full Stack & Systems</div>
-          </div>
-
-          <div class="absolute -bottom-5 -right-4 lg:-right-8 z-20 glass rounded-full px-4 py-2.5 flex items-center gap-2.5 float-slow hidden md:flex border-emerald-400/50 shadow-xl" data-depth="0.08" style="animation-delay:-4s;">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#34d399]"></span>
-            <span class="text-xs font-bold text-white tracking-wide">Open to SDE Roles</span>
-          </div>
-
-          <!-- Main 3D Framed Artwork Showcase Plane -->
-          <div class="artwork-plane" id="artworkPlane">
-            <div class="metal-frame">
-              <div class="art-inner">
-                <!-- Frame Inscription Header -->
-                <div class="px-5 pt-3.5 pb-2.5 flex items-center justify-between">
-                  <span class="font-kannada text-xs text-yellow-300 tracking-widest font-bold">|| ಕನ್ನಡಾಂಬೆ ||</span>
-                  <div class="flex-1 mx-3 h-px bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-                  <span class="font-kannada text-xs text-yellow-300 tracking-widest font-bold">ಕರ್ನಾಟಕ</span>
-                </div>
-
-                <!-- Seamless Portrait Image Container (Clean, zero borders, seamless bottom gradient identity overlay) -->
-                <div class="relative overflow-hidden bg-[#060607]">
-                  <img src="img/portrait.jpg" alt="Ningaraj R Ukkali — ಕನ್ನಡಿಗ Portrait" class="portrait-hero-img w-full block"/>
-                  <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#060607] via-[#060607]/85 to-transparent pt-12 pb-3.5 px-5 flex items-end justify-between">
-                    <div>
-                      <div class="font-bold text-white text-base md:text-lg leading-tight font-playfair tracking-wide">Ningaraj R Ukkali</div>
-                      <div class="font-kannada text-yellow-400 text-xs font-semibold mt-0.5">ಕನ್ನಡಿಗ ಡೆವಲಪರ್</div>
-                    </div>
-                    <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 text-xs font-bold flex items-center gap-1.5 shadow-sm">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> BCA GRAD
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Frame Baseplate -->
-                <div class="pt-2.5 pb-3 px-5">
-                  <div class="temple-border mb-2.5"></div>
-                  <div class="flex items-center justify-between text-[11px] tracking-[0.2em] text-white/50 uppercase font-mono">
-                    <span class="text-yellow-300 font-semibold">MANGALORE UNIV</span>
-                    <span class="text-yellow-500">✦ ✦ ✦</span>
-                    <span class="text-yellow-300 font-semibold">BCA 2026</span>
-                  </div>
-                </div>
-              </div>
+      <!-- Hero Right: cinematic portrait poster, no frame -->
+      <div class="lg:col-span-6 flex justify-center lg:justify-end" id="heroArt">
+        <div class="artwork-stage portrait-poster-stage w-full max-w-[540px]" id="artworkStage">
+          <div class="poster-aura" aria-hidden="true"></div>
+          <span class="poster-glyph poster-glyph-one font-kannada" aria-hidden="true">ಕ</span>
+          <span class="poster-glyph poster-glyph-two font-kannada" aria-hidden="true">ನಾಡು</span>
+          <div class="portrait-poster" id="artworkPlane">
+            <img src="img/portrait.jpg" alt="Ningaraj R Ukkali, software developer from Karnataka" class="portrait-poster-img"/>
+            <div class="poster-grain" aria-hidden="true"></div>
+            <div class="poster-topline">
+              <span class="font-kannada">ಕರ್ನಾಟಕ</span>
+              <span>SOFTWARE • CULTURE • CRAFT</span>
             </div>
-            
-            <div class="art-reflection"></div>
+            <div class="poster-caption">
+              <span class="poster-kannada font-kannada">ಕನ್ನಡಿಗ</span>
+              <p class="poster-name">Ningaraj R Ukkali</p>
+              <p class="poster-role">FULL STACK &amp; AI DEVELOPER</p>
+            </div>
+            <div class="poster-side-note">MANGALORE · INDIA</div>
           </div>
-          <div class="art-shadow"></div>
+          <div class="poster-orbit poster-orbit-a" aria-hidden="true"></div>
+          <div class="poster-orbit poster-orbit-b" aria-hidden="true"></div>
         </div>
       </div>
 
@@ -357,59 +323,26 @@
 
     <div class="grid lg:grid-cols-12 gap-8 items-stretch">
       
-      <!-- Left: Interactive Photo Showcase Card -->
+      <!-- Left: editorial identity panel, portrait stays in the hero only -->
       <div class="reveal lg:col-span-5">
-        <div class="glass glass-gold-top rounded-3xl p-6 h-full relative overflow-hidden tilt-card" data-tilt>
-          <div class="tilt-glare"></div>
-          <div class="tilt-inner">
-            <div class="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl bg-[#060607]">
-              <img id="aboutPhotoImg" src="img/portrait.jpg" alt="Ningaraj Ukkali Portrait" class="w-full h-[390px] md:h-[430px] object-cover object-center transition-all duration-300"/>
-              <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#060607] via-[#060607]/80 to-transparent pointer-events-none"></div>
-              
-              <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between z-10">
-                <div>
-                  <div class="font-bold text-lg text-white">Ningaraj R Ukkali</div>
-                  <div class="font-kannada text-gold-300 text-sm">ಕನ್ನಡಿಗ ಡೆವಲಪರ್</div>
-                </div>
-                <div class="glass rounded-full px-3 py-1.5 text-[11px] tracking-widest uppercase flex items-center gap-2 border-emerald-400/30 text-emerald-300">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> BCA Grad
-                </div>
-              </div>
-              
-            </div>
-
-            <!-- Photo Switcher Thumbnails -->
-            <div class="flex items-center justify-between gap-3 mt-4">
-              <span class="text-xs text-white/50 tracking-wider uppercase font-medium">Views:</span>
-              <div class="flex gap-2">
-                <button onclick="switchAboutPhoto('img/portrait.jpg', this)" class="photo-thumb-btn ring-2 ring-gold-400 rounded-lg overflow-hidden w-12 h-12 border border-white/20 transition-all">
-                  <img src="img/portrait.jpg" class="w-full h-full object-cover" alt="Kannadiga Portrait"/>
-                </button>
-                <button onclick="switchAboutPhoto('img/raj_ru.jpeg', this)" class="photo-thumb-btn rounded-lg overflow-hidden w-12 h-12 border border-white/20 transition-all opacity-70 hover:opacity-100">
-                  <img src="img/raj_ru.jpeg" class="w-full h-full object-cover" alt="Developer Headshot"/>
-                </button>
-                <button onclick="switchAboutPhoto('img/photo.jpg', this)" class="photo-thumb-btn rounded-lg overflow-hidden w-12 h-12 border border-white/20 transition-all opacity-70 hover:opacity-100">
-                  <img src="img/photo.jpg" class="w-full h-full object-cover" alt="Classic Portrait"/>
-                </button>
-              </div>
-            </div>
-
-            <!-- Highlight Metrics -->
-            <div class="grid grid-cols-3 gap-3 mt-5 text-center">
-              <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
-                <div class="font-bold text-gold-300 text-base">BCA (8.1)</div>
-                <div class="text-[10px] tracking-widest uppercase text-white/45 mt-0.5">Mangalore Univ</div>
-              </div>
-              <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
-                <div class="font-bold text-gold-300 text-base">Karnataka</div>
-                <div class="text-[10px] tracking-widest uppercase text-white/45 mt-0.5">India</div>
-              </div>
-              <div class="rounded-xl bg-white/[0.04] border border-white/10 py-3">
-                <div class="font-bold text-gold-300 text-base">English & Kannada</div>
-                <div class="text-[10px] tracking-widest uppercase text-white/45 mt-0.5">Languages</div>
-              </div>
+        <div class="about-heritage-panel h-full relative overflow-hidden rounded-3xl p-7 md:p-9 flex flex-col justify-between" data-tilt>
+          <div class="about-heritage-glow" aria-hidden="true"></div>
+          <div class="relative z-10">
+            <span class="text-gold-300/70 text-[10px] tracking-[0.32em] uppercase font-semibold">ROOTED IN KARNATAKA</span>
+            <div class="about-kannada-mark font-kannada" aria-hidden="true">ಕ</div>
+            <h3 class="font-playfair text-2xl md:text-3xl font-bold text-white -mt-1">ಕರ್ನಾಟಕದ ಹೆಮ್ಮೆ</h3>
+            <p class="mt-3 text-white/55 text-sm leading-relaxed max-w-xs">A Kannada heart, a builder's mindset, and a curiosity for solving meaningful problems through technology.</p>
+          </div>
+          <div class="relative z-10 mt-12">
+            <div class="about-panel-rule"></div>
+            <div class="grid grid-cols-2 gap-4 mt-5">
+              <div><p class="text-gold-300 text-2xl font-bold">8.1</p><p class="text-white/45 text-[10px] tracking-[0.2em] uppercase mt-1">BCA CGPA</p></div>
+              <div><p class="text-gold-300 text-2xl font-bold">2026</p><p class="text-white/45 text-[10px] tracking-[0.2em] uppercase mt-1">Graduate</p></div>
+              <div><p class="text-white text-sm font-semibold">Mangalore</p><p class="text-white/45 text-[10px] tracking-[0.2em] uppercase mt-1">Karnataka, India</p></div>
+              <div><p class="text-white text-sm font-semibold">ಕನ್ನಡ • English</p><p class="text-white/45 text-[10px] tracking-[0.2em] uppercase mt-1">Languages</p></div>
             </div>
           </div>
+          <span class="about-panel-watermark font-kannada" aria-hidden="true">ನಮ್ಮ ನಾಡು</span>
         </div>
       </div>
 
