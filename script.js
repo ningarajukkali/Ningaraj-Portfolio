@@ -379,168 +379,317 @@ const projects = [
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({
-      canvas, alpha: true, antialias: window.innerWidth > 700,
-      powerPreference: 'low-power'
+      canvas, alpha: true, antialias: true,
+      powerPreference: 'high-performance', premultipliedAlpha: false
     });
   } catch (error) {
-    console.warn('Hero WebGL scene unavailable; retaining static backdrop.', error);
+    console.warn('Hoysala hero scene unavailable; static hero remains visible.', error);
     return;
   }
   renderer.setClearColor(0x000000, 0);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.65));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  if (THREE.ACESFilmicToneMapping !== undefined) {
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.12;
+  }
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-  camera.position.set(0, 0, 12);
-  scene.add(new THREE.AmbientLight(0xffe8b0, 0.72));
+  scene.fog = new THREE.FogExp2(0x090a0b, 0.035);
+  const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+  camera.position.set(4.2, 2.0, 15.5);
+  const target = new THREE.Vector3(4.2, -0.1, 0);
 
-  const goldLight = new THREE.PointLight(0xf6c85f, 1.7, 24);
-  goldLight.position.set(4, 3, 6);
-  scene.add(goldLight);
-  const rubyLight = new THREE.PointLight(0x9d1727, 1.15, 22);
-  rubyLight.position.set(-5, -2, 3);
-  scene.add(rubyLight);
+  scene.add(new THREE.HemisphereLight(0xe7d6b0, 0x17191a, 1.45));
+  const key = new THREE.DirectionalLight(0xffd27a, 3.0);
+  key.position.set(1.5, 8, 7);
+  key.castShadow = true;
+  key.shadow.mapSize.set(1024, 1024);
+  key.shadow.camera.left = -10;
+  key.shadow.camera.right = 10;
+  key.shadow.camera.top = 10;
+  key.shadow.camera.bottom = -10;
+  scene.add(key);
+  const warmRim = new THREE.PointLight(0xffb84d, 22, 18, 2);
+  warmRim.position.set(8, 3.5, -1.5);
+  scene.add(warmRim);
+  const rubyRim = new THREE.PointLight(0x8f1728, 13, 15, 2);
+  rubyRim.position.set(1, -1.2, 3.5);
+  scene.add(rubyRim);
 
-  const forms = new THREE.Group();
-  scene.add(forms);
-  const goldWire = new THREE.MeshPhongMaterial({
-    color: 0xd8ad4d, emissive: 0x6d4810, transparent: true,
-    opacity: 0.44, wireframe: true, shininess: 90, depthWrite: false
+  const diorama = new THREE.Group();
+  // Keep the architectural diorama behind the right-hand portrait, not under the hero copy.
+  const isMobileLayout = window.matchMedia('(max-width: 767px)').matches;
+  diorama.position.set(isMobileLayout ? 4.15 : 7.15, -0.15, -1.1);
+  diorama.scale.setScalar(isMobileLayout ? 0.78 : 1);
+  scene.add(diorama);
+
+  const stone = new THREE.MeshStandardMaterial({
+    color: 0x777d70, roughness: 0.82, metalness: 0.12,
+    emissive: 0x17180f, emissiveIntensity: 0.22
   });
-  const rubyWire = new THREE.MeshPhongMaterial({
-    color: 0x9f2630, emissive: 0x4b0912, transparent: true,
-    opacity: 0.42, wireframe: true, shininess: 80, depthWrite: false
+  const stoneHighlight = new THREE.MeshStandardMaterial({
+    color: 0xa99b72, roughness: 0.58, metalness: 0.2,
+    emissive: 0x241a08, emissiveIntensity: 0.24
   });
-  const goldSolid = new THREE.MeshPhongMaterial({
-    color: 0x9b702b, emissive: 0x3b2608, transparent: true,
-    opacity: 0.20, shininess: 100, specular: 0xffdf91,
-    flatShading: true, depthWrite: false
+  const gold = new THREE.MeshStandardMaterial({
+    color: 0xc79a3d, roughness: 0.32, metalness: 0.72,
+    emissive: 0x5b3308, emissiveIntensity: 0.42
+  });
+  const ruby = new THREE.MeshStandardMaterial({
+    color: 0x641b27, roughness: 0.36, metalness: 0.48,
+    emissive: 0x310811, emissiveIntensity: 0.45
   });
 
-  const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(1.22, 0.018, 150, 12, 2, 5), goldWire);
-  knot.position.set(-5.1, 1.45, -2.2);
-  knot.rotation.set(0.55, 0.2, -0.35);
-  knot.scale.setScalar(1.12);
-  forms.add(knot);
+  // Hoysala stellate jagati: an actual extruded star-plan stone platform.
+  function starShape(outer, inner, points) {
+    const shape = new THREE.Shape();
+    for (let i = 0; i < points * 2; i++) {
+      const angle = Math.PI * i / points;
+      const radius = i % 2 === 0 ? outer : inner;
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
+      if (i === 0) shape.moveTo(x, y);
+      else shape.lineTo(x, y);
+    }
+    shape.closePath();
+    return shape;
+  }
+  function starTier(outer, inner, height, material, y) {
+    const geometry = new THREE.ExtrudeGeometry(starShape(outer, inner, 12), {
+      depth: height, bevelEnabled: true, bevelSegments: 2,
+      steps: 1, bevelSize: 0.055, bevelThickness: 0.055,
+      curveSegments: 2
+    });
+    geometry.rotateX(-Math.PI / 2);
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.y = y;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    diorama.add(mesh);
+    return mesh;
+  }
+  starTier(3.65, 3.12, 0.42, stone, -2.35);
+  starTier(3.35, 2.86, 0.30, stoneHighlight, -1.99);
+  starTier(2.98, 2.54, 0.22, stone, -1.72);
 
-  const rubyOrbit = new THREE.Mesh(new THREE.TorusGeometry(2.25, 0.012, 8, 120), rubyWire);
-  rubyOrbit.position.set(4.35, -0.15, -2.8);
-  rubyOrbit.rotation.set(1.08, 0.35, -0.45);
-  forms.add(rubyOrbit);
+  // Layered Hoysala-style horizontal friezes and star-edge mouldings.
+  function starOutline(radius, inner, y, material, tube = 0.026) {
+    const pts = [];
+    for (let i = 0; i < 24; i++) {
+      const a = Math.PI * i / 12;
+      const r = i % 2 === 0 ? radius : inner;
+      pts.push(new THREE.Vector3(Math.cos(a) * r, y, Math.sin(a) * r));
+    }
+    const curve = new THREE.CatmullRomCurve3(pts, true, 'centripetal');
+    const mesh = new THREE.Mesh(new THREE.TubeGeometry(curve, 180, tube, 6, true), material);
+    mesh.castShadow = true;
+    diorama.add(mesh);
+  }
+  starOutline(3.60, 3.07, -1.91, gold, 0.025);
+  starOutline(3.29, 2.81, -1.64, gold, 0.018);
+  starOutline(2.92, 2.48, -1.49, ruby, 0.016);
 
-  const crownOrbit = new THREE.Mesh(new THREE.TorusGeometry(1.48, 0.014, 8, 100), goldWire);
-  crownOrbit.position.set(1.0, 3.0, -3.8);
-  crownOrbit.rotation.set(0.9, -0.45, 0.5);
-  forms.add(crownOrbit);
+  // Lathe-turned pillars inspired by Belur's polished, moulded Hoysala columns.
+  const profile = [
+    new THREE.Vector2(0.34,0), new THREE.Vector2(0.42,0.08),
+    new THREE.Vector2(0.42,0.16), new THREE.Vector2(0.29,0.24),
+    new THREE.Vector2(0.23,0.34), new THREE.Vector2(0.20,0.48),
+    new THREE.Vector2(0.26,0.58), new THREE.Vector2(0.19,0.70),
+    new THREE.Vector2(0.18,1.65), new THREE.Vector2(0.24,1.76),
+    new THREE.Vector2(0.31,1.84), new THREE.Vector2(0.22,1.94),
+    new THREE.Vector2(0.38,2.04), new THREE.Vector2(0.43,2.15),
+    new THREE.Vector2(0.30,2.23), new THREE.Vector2(0.30,2.32)
+  ];
+  const pillarGeometry = new THREE.LatheGeometry(profile, 40);
+  const pillarPositions = [
+    [-2.05,-1.55], [2.05,-1.55], [-2.05,1.55], [2.05,1.55]
+  ];
+  const pillars = [];
+  pillarPositions.forEach(([x,z], index) => {
+    const group = new THREE.Group();
+    group.position.set(x, -1.46, z);
+    const shaft = new THREE.Mesh(pillarGeometry, index % 2 ? stoneHighlight : stone);
+    shaft.castShadow = true;
+    shaft.receiveShadow = true;
+    group.add(shaft);
+    // Carved collar rings around the lathe-turned shaft.
+    [0.20,0.55,1.72,2.02,2.20].forEach((y, n) => {
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(n === 2 ? 0.25 : 0.31, 0.035, 8, 40),
+        n % 2 ? gold : stoneHighlight
+      );
+      ring.rotation.x = Math.PI / 2;
+      ring.position.y = y;
+      group.add(ring);
+    });
+    const capital = new THREE.Mesh(new THREE.CylinderGeometry(0.48,0.28,0.18,8), stoneHighlight);
+    capital.position.y = 2.36;
+    capital.castShadow = true;
+    group.add(capital);
+    diorama.add(group);
+    pillars.push(group);
+  });
 
-  const yantra = new THREE.Mesh(new THREE.IcosahedronGeometry(0.78, 1), goldSolid);
-  yantra.position.set(-3.8, -2.2, -1.4);
-  yantra.rotation.set(0.3, 0.5, 0.1);
-  forms.add(yantra);
+  // Sculpted torana-like arch linking the four pillars.
+  const archCurve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-2.05,0.93,-1.55),
+    new THREE.Vector3(-1.7,1.95,-1.55),
+    new THREE.Vector3(-0.9,2.55,-1.55),
+    new THREE.Vector3(0,2.72,-1.55),
+    new THREE.Vector3(0.9,2.55,-1.55),
+    new THREE.Vector3(1.7,1.95,-1.55),
+    new THREE.Vector3(2.05,0.93,-1.55)
+  ]);
+  const arch = new THREE.Mesh(new THREE.TubeGeometry(archCurve, 80, 0.105, 12, false), stoneHighlight);
+  arch.castShadow = true;
+  diorama.add(arch);
+  const archAccent = new THREE.Mesh(new THREE.TubeGeometry(archCurve, 80, 0.025, 8, false), gold);
+  archAccent.position.z = 0.035;
+  diorama.add(archAccent);
 
-  const rubyFacet = new THREE.Mesh(new THREE.OctahedronGeometry(0.52, 0), rubyWire);
-  rubyFacet.position.set(4.8, 2.1, -1.8);
-  forms.add(rubyFacet);
+  // Compact stepped roof and lotus-bud finial, not a generic floating torus.
+  const roof = new THREE.Mesh(new THREE.CylinderGeometry(2.35,2.7,0.34,12,1,false), stone);
+  roof.position.set(0,2.22,0);
+  roof.castShadow = true;
+  roof.receiveShadow = true;
+  diorama.add(roof);
+  const roofBand = new THREE.Mesh(new THREE.CylinderGeometry(2.52,2.52,0.075,12), gold);
+  roofBand.position.set(0,2.43,0);
+  diorama.add(roofBand);
 
+  const finialProfile = [
+    new THREE.Vector2(0.05,0),new THREE.Vector2(0.20,0.12),
+    new THREE.Vector2(0.12,0.25),new THREE.Vector2(0.24,0.42),
+    new THREE.Vector2(0.12,0.58),new THREE.Vector2(0.02,0.82)
+  ];
+  const finial = new THREE.Mesh(new THREE.LatheGeometry(finialProfile,24),gold);
+  finial.position.set(0,2.56,0);
+  finial.castShadow = true;
+  diorama.add(finial);
+
+  // Repeated carved rosette bosses on the front frieze.
+  for (let i = -5; i <= 5; i++) {
+    const x = i * 0.48;
+    const z = -3.12 + Math.abs(i) * 0.045;
+    const rosette = new THREE.Mesh(new THREE.TorusGeometry(0.095,0.022,6,18),gold);
+    rosette.position.set(x,-2.02,z);
+    rosette.rotation.x = Math.PI / 2;
+    diorama.add(rosette);
+    const boss = new THREE.Mesh(new THREE.SphereGeometry(0.055,10,8),stoneHighlight);
+    boss.position.set(x,-2.02,z-0.015);
+    diorama.add(boss);
+  }
+
+  // Mysuru palace-inspired domed silhouettes on the distant horizon.
+  const palaceGroup = new THREE.Group();
+  palaceGroup.position.set(0.15,-1.45,-5.0);
+  diorama.add(palaceGroup);
+  [-2.9,-1.45,0,1.45,2.9].forEach((x,i) => {
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.48,0.60,0.95,12), stone);
+    base.position.set(x,0.25,0);
+    palaceGroup.add(base);
+    const domeProfile = [
+      new THREE.Vector2(0,0),new THREE.Vector2(0.28,0.10),
+      new THREE.Vector2(0.42,0.28),new THREE.Vector2(0.38,0.48),
+      new THREE.Vector2(0.20,0.67),new THREE.Vector2(0.02,0.76)
+    ];
+    const dome = new THREE.Mesh(new THREE.LatheGeometry(domeProfile,24),i===2?gold:stoneHighlight);
+    dome.position.set(x,0.72,0);
+    palaceGroup.add(dome);
+    const finialDot = new THREE.Mesh(new THREE.SphereGeometry(0.055,8,8),gold);
+    finialDot.position.set(x,1.53,0);
+    palaceGroup.add(finialDot);
+  });
+
+  // Glowing dust streams orbit the architecture in depth.
   const mobile = window.matchMedia('(max-width: 767px)').matches;
-  const count = mobile ? 180 : 420;
-  const positions = new Float32Array(count * 3);
-  const colours = new Float32Array(count * 3);
-  const seeds = new Float32Array(count);
-  const gold = new THREE.Color(0xf4cf72);
-  const ruby = new THREE.Color(0x9f2630);
-  for (let i = 0; i < count; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 15;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
-    positions[i * 3 + 2] = -1 - Math.random() * 8;
-    const colour = Math.random() > 0.84 ? ruby : gold;
-    colours[i * 3] = colour.r;
-    colours[i * 3 + 1] = colour.g;
-    colours[i * 3 + 2] = colour.b;
-    seeds[i] = Math.random() * Math.PI * 2;
+  const particleCount = mobile ? 120 : 260;
+  const particlePositions = new Float32Array(particleCount * 3);
+  const particleColors = new Float32Array(particleCount * 3);
+  const particlePhase = new Float32Array(particleCount);
+  for (let i=0;i<particleCount;i++) {
+    const angle = Math.random()*Math.PI*2;
+    const radius = 3.4 + Math.random()*1.7;
+    particlePositions[i*3] = Math.cos(angle)*radius;
+    particlePositions[i*3+1] = (Math.random()-0.5)*4.8;
+    particlePositions[i*3+2] = Math.sin(angle)*radius;
+    const c = Math.random() > 0.82 ? new THREE.Color(0xb42c35) : new THREE.Color(0xf1c86b);
+    particleColors[i*3]=c.r; particleColors[i*3+1]=c.g; particleColors[i*3+2]=c.b;
+    particlePhase[i]=angle;
   }
   const particleGeometry = new THREE.BufferGeometry();
-  particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  particleGeometry.setAttribute('color', new THREE.BufferAttribute(colours, 3));
+  particleGeometry.setAttribute('position',new THREE.BufferAttribute(particlePositions,3));
+  particleGeometry.setAttribute('color',new THREE.BufferAttribute(particleColors,3));
   const particleMaterial = new THREE.PointsMaterial({
-    size: mobile ? 0.055 : 0.07, vertexColors: true,
-    transparent: true, opacity: 0.76, depthWrite: false,
-    blending: THREE.AdditiveBlending, sizeAttenuation: true
+    size:mobile?0.075:0.095,vertexColors:true,transparent:true,opacity:0.9,
+    blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true
   });
-  const dust = new THREE.Points(particleGeometry, particleMaterial);
-  scene.add(dust);
+  const particles = new THREE.Points(particleGeometry,particleMaterial);
+  particles.position.copy(diorama.position);
+  scene.add(particles);
 
-  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
-  const onPointerMove = (event) => {
-    const rect = host.getBoundingClientRect();
-    pointer.tx = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-    pointer.ty = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+  const pointer = {x:0,y:0,tx:0,ty:0};
+  const onMove = (event) => {
+    const rect=host.getBoundingClientRect();
+    pointer.tx=((event.clientX-rect.left)/rect.width-0.5)*2;
+    pointer.ty=((event.clientY-rect.top)/rect.height-0.5)*2;
   };
-  const onPointerLeave = () => { pointer.tx = 0; pointer.ty = 0; };
-  host.addEventListener('pointermove', onPointerMove, { passive: true });
-  host.addEventListener('pointerleave', onPointerLeave, { passive: true });
+  const onLeave = () => {pointer.tx=0;pointer.ty=0;};
+  host.addEventListener('pointermove',onMove,{passive:true});
+  host.addEventListener('pointerleave',onLeave,{passive:true});
 
-  let frame = 0, elapsed = 0, active = true;
-  const clock = new THREE.Clock();
-  const resize = () => {
-    const rect = host.getBoundingClientRect();
-    const width = Math.max(1, rect.width), height = Math.max(1, rect.height);
-    renderer.setSize(width, height, false);
-    camera.aspect = width / height;
+  let frame=0,active=true,elapsed=0;
+  const clock=new THREE.Clock();
+  function resize() {
+    const rect=host.getBoundingClientRect();
+    const width=Math.max(1,rect.width),height=Math.max(1,rect.height);
+    renderer.setSize(width,height,false);
+    camera.aspect=width/height;
     camera.updateProjectionMatrix();
-    camera.position.z = width < 768 ? 15.5 : 12;
-  };
+    camera.position.z=width<768?19.5:15.5;
+    target.x=width<768?2.8:4.2;
+    diorama.position.x=width<768?4.15:7.15;
+    diorama.scale.setScalar(width<768?0.78:1);
+    particles.position.copy(diorama.position);
+    camera.lookAt(target);
+  }
   resize();
-  const observer = window.ResizeObserver ? new ResizeObserver(resize) : null;
-  if (observer) observer.observe(host);
-  else window.addEventListener('resize', resize);
-
-  const visibility = window.IntersectionObserver ? new IntersectionObserver((entries) => {
-    active = entries[0].isIntersecting;
-    if (active && !frame) animate();
-  }, { threshold: 0.01 }) : null;
-  if (visibility) visibility.observe(host);
+  const resizeObserver=window.ResizeObserver?new ResizeObserver(resize):null;
+  if(resizeObserver) resizeObserver.observe(host);
+  else window.addEventListener('resize',resize);
+  const visibilityObserver=window.IntersectionObserver?new IntersectionObserver(entries=>{
+    active=entries[0].isIntersecting;
+    if(active&&!frame) animate();
+  },{threshold:0.01}):null;
+  if(visibilityObserver) visibilityObserver.observe(host);
 
   function animate() {
-    if (!active || document.hidden) { frame = 0; return; }
-    frame = requestAnimationFrame(animate);
-    const delta = Math.min(clock.getDelta(), 0.04);
-    elapsed += delta;
-    pointer.x += (pointer.tx - pointer.x) * 0.035;
-    pointer.y += (pointer.ty - pointer.y) * 0.035;
-
-    knot.rotation.y += delta * 0.12;
-    knot.rotation.z = -0.35 + Math.sin(elapsed * 0.38) * 0.12;
-    rubyOrbit.rotation.z += delta * 0.08;
-    rubyOrbit.rotation.x = 1.08 + Math.sin(elapsed * 0.3) * 0.08;
-    crownOrbit.rotation.y -= delta * 0.1;
-    yantra.rotation.x += delta * 0.12;
-    yantra.rotation.y += delta * 0.16;
-    rubyFacet.rotation.x += delta * 0.18;
-    rubyFacet.rotation.y -= delta * 0.14;
-
-    forms.rotation.y = pointer.x * 0.055;
-    forms.rotation.x = -pointer.y * 0.035;
-    dust.rotation.y = elapsed * 0.018 + pointer.x * 0.025;
-    dust.rotation.x = pointer.y * 0.018;
-    const p = particleGeometry.attributes.position.array;
-    for (let i = 0; i < count; i++) {
-      p[i * 3 + 1] += Math.sin(elapsed * 0.55 + seeds[i]) * 0.0009;
-      p[i * 3] += Math.cos(elapsed * 0.32 + seeds[i]) * 0.0007;
-    }
-    particleGeometry.attributes.position.needsUpdate = true;
-
-    camera.position.x += (pointer.x * 0.28 - camera.position.x) * 0.025;
-    camera.position.y += (-pointer.y * 0.18 - camera.position.y) * 0.025;
-    camera.lookAt(0, 0, -1.4);
-    renderer.render(scene, camera);
+    if(!active||document.hidden){frame=0;return;}
+    frame=requestAnimationFrame(animate);
+    const delta=Math.min(clock.getDelta(),0.04);
+    elapsed+=delta;
+    pointer.x+=(pointer.tx-pointer.x)*0.035;
+    pointer.y+=(pointer.ty-pointer.y)*0.035;
+    // Slow architectural turntable plus a restrained camera parallax gives real depth cues.
+    diorama.rotation.y=Math.sin(elapsed*0.16)*0.10+pointer.x*0.075;
+    diorama.rotation.x=pointer.y*-0.032;
+    diorama.position.y=-0.15+Math.sin(elapsed*0.55)*0.055;
+    pillars.forEach((pillar,i)=>{pillar.rotation.y=Math.sin(elapsed*0.45+i)*0.012;});
+    warmRim.intensity=22+Math.sin(elapsed*1.1)*7;
+    rubyRim.intensity=13+Math.sin(elapsed*0.8+1.4)*4;
+    particles.rotation.y=elapsed*0.16;
+    particles.rotation.x=Math.sin(elapsed*0.2)*0.065;
+    camera.position.x+=(target.x+pointer.x*0.42-camera.position.x)*0.025;
+    camera.position.y+=(2.0-pointer.y*0.24-camera.position.y)*0.025;
+    camera.lookAt(target.x,-0.1,0);
+    renderer.render(scene,camera);
   }
-  const onVisibility = () => {
-    if (!document.hidden && active && !frame) animate();
-  };
-  document.addEventListener('visibilitychange', onVisibility);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&active&&!frame)animate();});
   animate();
 })();
+
 
 /* ==========================================================================
    5. RENDER PROJECTS & 3D TILT CARDS
