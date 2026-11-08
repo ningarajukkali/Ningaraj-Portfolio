@@ -15,7 +15,7 @@ const projects = [
     key: 'craftcycle',
     cat: 'fullstack',
     title: 'CraftCycle — AI Circular Economy Marketplace',
-    badge: 'Featured AI & MERN',
+    badge: 'Featured AI Project',
     img: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=900&auto=format&fit=crop',
     tags: ['Python', 'Flask', 'Supabase', 'Gemini Vision AI', 'JavaScript'],
     desc: 'Full-stack marketplace connecting creators, recyclers, and buyers with Google Gemini Vision AI for waste classification and description generation.',
